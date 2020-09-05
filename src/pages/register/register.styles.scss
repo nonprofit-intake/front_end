@@ -1,5 +1,5 @@
 .form-container{
-    height: 75vh;
+    height: 85vh;
      display: flex;
     justify-content: center;
     align-items: center;
@@ -7,11 +7,9 @@
 
 .text-field-containers{
     display: grid;
-    grid-gap: 4rem;
+    grid-gap: 3rem;
     width: 30%;
 }
-
-
 
 
 #submit-btn{

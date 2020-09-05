@@ -8,21 +8,23 @@ import './register.styles.scss'
 const Register = () => {
     const [errors, setErrors] = useState({
         name: '',
+        username: '',
         email: "",
         password: '',
         confirmPassword: ''
     })
 
     const [formValues, setFormValues] = useState({
-        name: '',
-        email: "",
-        password: '',
-        confirmPassword: ''
+        name: 'Isaiah',
+        username: 'isaiah123',
+        email: "Isaiahjfowler7@gmail.com",
+        password: 'am_i_long_enough',
+        confirmPassword: 'am_i_long_enough?'
     });
-
 
     const formSchema = Yup.object().shape({
         name: Yup.string().required('Please enter your name'),
+        username: Yup.string().required('Please enter your username'),
         email: Yup.string().email('Must be a valid email address.').required('Must include email address.'),
         password: Yup.string().min(6, 'Password must be at least 6 characters long.').required('Password is Required'),
         confirmPassword: Yup.mixed()
@@ -56,14 +58,17 @@ const Register = () => {
 
     const registerUser = (e) => {
         e.preventDefault();
-        formSchema.isValid(formValues).then((valid) => {
-            if (valid) {
-                // dispatch(register(formValues, history))
-            } else if (!valid) {
-                // setting global error
-                // dispatch({ type: 'ERROR', payload: { error: 'Please Fill Out All Fields' } });
-            }
-        });
+        // formSchema.isValid(formValues).then((valid) => {
+        //     if (valid) {
+        //         dispatch(register(formValues, history))
+
+        //     } else if (!valid) {
+        //         dispatch({ type: 'ERROR', payload: { error: 'Please Fill Out All Fields' } });
+        //     }
+        // });
+
+
+        console.log(formValues)
     };
 
     const clearForm = () => {
@@ -81,10 +86,34 @@ const Register = () => {
                     value={formValues.name}
                     onChange={handleChange}
                     type="text"
-                    label="name"
+                    label="Name"
                     name="name"
                     required
                 />
+
+                {
+                    errors.username.length
+                        ?
+                        <TextField
+                            value={formValues.username}
+                            onChange={handleChange}
+                            type="text"
+                            label="Username"
+                            name="username"
+                            required
+                            error
+                            helperText={errors.username}
+                        />
+                        :
+                        <TextField
+                            value={formValues.username}
+                            onChange={handleChange}
+                            type="text"
+                            label="Username"
+                            name="username"
+                            required
+                        />
+                }
 
 
                 {errors.email.length ?
