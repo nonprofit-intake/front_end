@@ -8,10 +8,13 @@ import AdminDashboard from './admin-dashboard/admin-dashboard'
 
 const Dashboards = () => {
 
-    const [role, setRole] = useState('admin')
+    const [role, setRole] = useState(null)
 
     useEffect(() => {
-        // Get users role and set it in state
+        // *** GET /api/users/me ***
+
+        // Set the role into state
+
     }, [])
 
     switch (role) {
@@ -24,9 +27,6 @@ const Dashboards = () => {
         default:
             return <h1>Loading. . .</h1>
     }
-
-
-
 }
 
 export default Dashboards

@@ -24,9 +24,12 @@ const Register = () => {
 
     const formSchema = Yup.object().shape({
         name: Yup.string().required('Please enter your name'),
-        username: Yup.string().required('Please enter your username'),
+        username: Yup.string().required('Please enter your username').min(4, "Must be longer than 4 characters"),
         email: Yup.string().email('Must be a valid email address.').required('Must include email address.'),
-        password: Yup.string().min(6, 'Password must be at least 6 characters long.').required('Password is Required'),
+        password: Yup.string()
+            .required('Required')
+            .min(10, 'Password must be at least 10 characters long.')
+            .max(128, "Password cannot exceed 128 characters"),
         confirmPassword: Yup.mixed()
             .oneOf([formValues.password], 'passwords must match')
             .required('Please confirm your password')
@@ -67,8 +70,14 @@ const Register = () => {
         //     }
         // });
 
+        const newUser = {
+            name: formValues.name,
+            username: formValues.username,
+            password: formValues.password
+        }
 
-        console.log(formValues)
+        console.log(newUser)
+
     };
 
     const clearForm = () => {
@@ -116,7 +125,7 @@ const Register = () => {
                 }
 
 
-                {errors.email.length ?
+                {/* {errors.email.length ?
                     <TextField
                         value={formValues.email}
                         onChange={handleChange}
@@ -135,7 +144,7 @@ const Register = () => {
                         label="Email"
                         name="email"
                         required
-                    />}
+                    />} */}
 
                 {errors.password.length ?
                     <TextField
@@ -183,7 +192,7 @@ const Register = () => {
 
                 }
 
-                {errors.password.length || errors.confirmPassword.length || errors.email.length
+                {errors.password.length || errors.confirmPassword.length || errors.username.length
                     ?
                     <Button disabled type="submit" color="secondary" variant="outlined" id='submit-btn'>
                         Register
