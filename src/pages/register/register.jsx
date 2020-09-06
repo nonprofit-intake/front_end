@@ -1,31 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import formSchema from '../../utils/schema/form-schema'
+
 import { TextField, Button } from '@material-ui/core';
 import './register.styles.scss'
 import * as Yup from 'yup';
 import './register.styles.scss'
+import { register } from '../../redux/actions'
+import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { clearErrors } from '../../redux/actions'
 
 
 const Register = () => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    let apiError = useSelector(state => state.apiError)
+
+
     const [errors, setErrors] = useState({
         name: '',
         username: '',
         email: "",
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        apiError
     })
 
     const [formValues, setFormValues] = useState({
         name: 'Isaiah',
         username: 'isaiah123',
-        email: "Isaiahjfowler7@gmail.com",
         password: 'am_i_long_enough',
-        confirmPassword: 'am_i_long_enough?'
+        confirmPassword: 'am_i_long_enough'
     });
+
 
     const formSchema = Yup.object().shape({
         name: Yup.string().required('Please enter your name'),
         username: Yup.string().required('Please enter your username').min(4, "Must be longer than 4 characters"),
-        email: Yup.string().email('Must be a valid email address.').required('Must include email address.'),
         password: Yup.string()
             .required('Required')
             .min(10, 'Password must be at least 10 characters long.')
@@ -38,6 +51,11 @@ const Register = () => {
 
     const handleChange = (e) => {
         e.persist();
+
+        if (apiError) {
+            dispatch(clearErrors())
+        }
+
         Yup.reach(formSchema, e.target.name)
             .validate(e.target.value)
             .then((valid) => {
@@ -61,22 +79,22 @@ const Register = () => {
 
     const registerUser = (e) => {
         e.preventDefault();
-        // formSchema.isValid(formValues).then((valid) => {
-        //     if (valid) {
-        //         dispatch(register(formValues, history))
 
-        //     } else if (!valid) {
-        //         dispatch({ type: 'ERROR', payload: { error: 'Please Fill Out All Fields' } });
-        //     }
-        // });
-
-        const newUser = {
+        const user = {
             name: formValues.name,
             username: formValues.username,
             password: formValues.password
         }
 
-        console.log(newUser)
+        formSchema.isValid(formValues).then((valid) => {
+            if (valid) {
+                console.log(user)
+                dispatch(register(user, history))
+            } else if (!valid) {
+                console.log("Not valid")
+                dispatch({ type: 'ERROR', payload: { error: 'Please Fill Out All Fields' } });
+            }
+        });
 
     };
 
@@ -86,6 +104,8 @@ const Register = () => {
             password: ''
         });
     };
+
+
     return (
         <form className="form-container" onSubmit={registerUser}>
             <div className="text-field-containers">
@@ -123,28 +143,6 @@ const Register = () => {
                             required
                         />
                 }
-
-
-                {/* {errors.email.length ?
-                    <TextField
-                        value={formValues.email}
-                        onChange={handleChange}
-                        type="text"
-                        label="Email"
-                        name="email"
-                        required
-                        error
-                        helperText={errors.email}
-                    />
-                    :
-                    <TextField
-                        value={formValues.email}
-                        onChange={handleChange}
-                        type="text"
-                        label="Email"
-                        name="email"
-                        required
-                    />} */}
 
                 {errors.password.length ?
                     <TextField
@@ -202,7 +200,9 @@ const Register = () => {
                         Register
 				    </Button>
                 }
-
+                {
+                    apiError && <span>{apiError}</span>
+                }
             </div>
         </form>
     );
