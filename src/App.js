@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Route } from 'react-router-dom'
@@ -11,7 +11,15 @@ import UserForm from './pages/user-form/user-form'
 import NavBar from './components/navbar/navbar'
 import Dashboards from './pages/dashboards/dashboards';
 
+import { checkIfUserIsLoggedIn } from './redux/actions'
+import { useDispatch } from 'react-redux'
+
+
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(checkIfUserIsLoggedIn())
+  },[])
   return (
     <div className="App">
 

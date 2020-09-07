@@ -18,6 +18,11 @@ const Register = () => {
     const history = useHistory()
     let apiError = useSelector(state => state.apiError)
 
+    useEffect(() => {
+        dispatch(clearErrors())
+    }, [])
+
+    
 
     const [errors, setErrors] = useState({
         name: '',
@@ -105,6 +110,7 @@ const Register = () => {
         });
     };
 
+    
 
     return (
         <form className="form-container" onSubmit={registerUser}>

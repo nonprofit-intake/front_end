@@ -3,7 +3,8 @@ const INITIAL_STATE = {
     ,
     isLoggedIn: false,
     isLoading: false,
-    apiError: null
+    apiError: null,
+    currentUser: {}
 }
 
 export const rootReducer = (state = INITIAL_STATE, action) => {
@@ -25,7 +26,13 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                apiError: null
+                apiError: null,
+                currentUser: {}
+            }
+        case `SET_CURRENT_USER`:
+            return {
+                ...state,
+                currentUser: action.payload
             }
         case 'ERROR':
             return {

@@ -37,7 +37,7 @@ const NavBar = () => {
                         ?
                         <div id="nav-links">
                             <Button color="inherit">
-                                <Link className="nav-link" to="/register">
+                                <Link className="nav-link" to="/">
                                     View Profile
                                 </Link>
                             </Button>
@@ -48,15 +48,11 @@ const NavBar = () => {
 
                         :
                         <div id="nav-links">
-                            <Button color="inherit" position="end">
-                                <Link className="nav-link" to="/login">
-                                    Login
-                                </Link>
+                            <Button color="inherit" position="end" onClick={() => history.push('/login')}>
+                                Login
                             </Button>
-                            <Button color="inherit">
-                                <Link className="nav-link" to="/register">
-                                    Register
-                                </Link>
+                            <Button color="inherit" onClick={() => history.push('/register')}>
+                                Register
                             </Button>
                         </div>
                 }

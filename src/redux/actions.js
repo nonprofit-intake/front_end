@@ -4,13 +4,19 @@ import { useHistory } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 
 export const login = (user, history) => async (dispatch) => {
-    console.log('from login')
     try {
         const res = await axiosWithAuth().post('/api/auth/login', user)
-        const token = res.data.token
+
+        const { token } = res.data
+
+        const { user: currentUser } = res.data.payload
+
+        dispatch({ type: "SET_CURRENT_USER", payload: currentUser })
+
         localStorage.setItem('token', token)
+
         dispatch({ type: 'LOGIN' })
-        console.log('Worked')
+
         history.push('/')
     } catch (error) {
         const { message } = error.response.data
@@ -24,6 +30,7 @@ export const register = (user, history) => async (dispatch) => {
     try {
         let res = await axiosWithAuth().post('/api/auth/register', user)
         let token = res.data.token
+
         localStorage.setItem('token', token)
         dispatch({ type: 'REGISTER' })
         history.push('/')
@@ -44,6 +51,10 @@ export const checkIfUserIsLoggedIn = () => dispatch => {
     if (token) {
         dispatch({ type: 'LOGIN' })
     }
+}
+
+export const setCurrentUser = (user) => {
+    return { type: "SET_CURRENT_USER", payload: user }
 }
 
 export const clearErrors = () => {

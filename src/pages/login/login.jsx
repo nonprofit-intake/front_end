@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import './login.styles.scss'
 import { login as loginUser, clearErrors } from '../../redux/actions'
@@ -9,13 +9,18 @@ import { useHistory } from 'react-router-dom'
 const Login = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-
     const apiError = useSelector(state => state.apiError)
+
+
+    useEffect(() => {
+        dispatch(clearErrors())
+    }, [])
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        if(apiError){
+        if (apiError) {
             dispatch(clearErrors())
         }
 
