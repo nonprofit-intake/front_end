@@ -18,3 +18,12 @@
         background-color: #472d5b36;
     }
 }
+
+.submit-btn{
+    display: grid;
+    grid-gap: 0.7rem;
+}
+
+.error-msg{
+    color: purple;
+}

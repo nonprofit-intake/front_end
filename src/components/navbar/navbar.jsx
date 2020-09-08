@@ -25,40 +25,43 @@ const NavBar = () => {
     //checks if the user is logged in
 
     return (
-        <AppBar position="static" id="app-bar" color="secondary">
-            <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu" id="icon">
-                    <Link className="nav-link" to="/">
-                        Family Promise
+        <div className='app-bar-container'>
+            <AppBar position="static" id="app-bar" color="secondary">
+                <Toolbar>
+                    <IconButton edge="start" color="inherit" aria-label="menu" id="icon">
+                        <Link className="nav-link" to="/">
+                            Family Promise
                      </Link>
-                </IconButton>
-                {
-                    isLoggedIn
-                        ?
-                        <div id="nav-links">
-                            <Button color="inherit">
-                                <Link className="nav-link" to="/">
-                                    View Profile
+                    </IconButton>
+                    {
+                        isLoggedIn
+                            ?
+                            <div id="nav-links">
+                                <Button color="inherit">
+                                    <Link className="nav-link" to="/">
+                                        View Profile
                                 </Link>
-                            </Button>
-                            <Button color="inherit" position="end" onClick={handleLogout}>
+                                </Button>
+                                <Button color="inherit" position="end" onClick={handleLogout}>
                                     Logout
                             </Button>
-                        </div>
+                            </div>
 
-                        :
-                        <div id="nav-links">
-                            <Button color="inherit" position="end" onClick={() => history.push('/login')}>
-                                Login
+                            :
+                            <div id="nav-links">
+                                <Button color="inherit" position="end" onClick={() => history.push('/login')}>
+                                    Login
                             </Button>
-                            <Button color="inherit" onClick={() => history.push('/register')}>
-                                Register
+                                <Button color="inherit" onClick={() => history.push('/register')}>
+                                    Register
                             </Button>
-                        </div>
-                }
+                            </div>
+                    }
 
-            </Toolbar>
-        </AppBar>
+                </Toolbar>
+            </AppBar>
+        </div>
+      
     );
 };
 

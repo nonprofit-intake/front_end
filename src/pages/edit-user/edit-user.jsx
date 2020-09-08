@@ -7,10 +7,11 @@ import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import { fetchUserById } from '../../api/fetchUserById'
 import { InputLabel, Select, MenuItem } from '@material-ui/core'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../redux/actions'
 
 const EditUser = () => {
+    const apiError = useSelector(state => state.apiError)
     const history = useHistory()
     const dispatch = useDispatch()
     const params = useParams()
@@ -55,7 +56,7 @@ const EditUser = () => {
                     <MenuItem value="admin">Admin</MenuItem>
                 </TextField>
                 <Button type="submit" color='secondary' variant='outlined' id='submit-btn'>Save</Button>
-
+                {apiError && <span>{apiError}</span>}
             </div>
         </form>
     )

@@ -9,11 +9,12 @@ import './register.styles.scss'
 import { register } from '../../redux/actions'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
+import ProgressBar from '../../components/progress-bar/progress-bar'
 import { clearErrors } from '../../redux/actions'
 
 
 const Register = () => {
+    const isLoading = useSelector(state => state.isLoading)
     const dispatch = useDispatch()
     const history = useHistory()
     let apiError = useSelector(state => state.apiError)
@@ -21,8 +22,6 @@ const Register = () => {
     useEffect(() => {
         dispatch(clearErrors())
     }, [])
-
-    
 
     const [errors, setErrors] = useState({
         name: '',
@@ -110,107 +109,110 @@ const Register = () => {
         });
     };
 
-    
+
 
     return (
-        <form className="form-container" onSubmit={registerUser}>
-            <div className="text-field-containers">
-
-
-                <TextField
-                    value={formValues.name}
-                    onChange={handleChange}
-                    type="text"
-                    label="Name"
-                    name="name"
-                    required
-                />
-
-                {
-                    errors.username.length
-                        ?
-                        <TextField
-                            value={formValues.username}
-                            onChange={handleChange}
-                            type="text"
-                            label="Username"
-                            name="username"
-                            required
-                            error
-                            helperText={errors.username}
-                        />
-                        :
-                        <TextField
-                            value={formValues.username}
-                            onChange={handleChange}
-                            type="text"
-                            label="Username"
-                            name="username"
-                            required
-                        />
-                }
-
-                {errors.password.length ?
+        <div>
+            <form className="form-container" onSubmit={registerUser}>
+                <div className="text-field-containers">
                     <TextField
-                        value={formValues.password}
+                        value={formValues.name}
                         onChange={handleChange}
-                        type="password"
-                        label="Password"
-                        name="password"
-                        required
-                        error
-                        helperText={errors.password}
-                    /> :
-                    <TextField
-                        value={formValues.password}
-                        onChange={handleChange}
-                        type="password"
-                        label="Password"
-                        name="password"
+                        type="text"
+                        label="Name"
+                        name="name"
                         required
                     />
-                }
 
-                {errors.confirmPassword.length ?
-                    <TextField value={formValues.confirmPassword}
-                        onChange={handleChange}
-                        type="password"
-                        label="confirm password"
-                        name="confirmPassword"
-                        required
-                        error
-                        helperText={errors.confirmPassword}
-                    >
+                    {
+                        errors.username.length
+                            ?
+                            <TextField
+                                value={formValues.username}
+                                onChange={handleChange}
+                                type="text"
+                                label="Username"
+                                name="username"
+                                required
+                                error
+                                helperText={errors.username}
+                            />
+                            :
+                            <TextField
+                                value={formValues.username}
+                                onChange={handleChange}
+                                type="text"
+                                label="Username"
+                                name="username"
+                                required
+                            />
+                    }
 
-                    </TextField>
+                    {errors.password.length ?
+                        <TextField
+                            value={formValues.password}
+                            onChange={handleChange}
+                            type="password"
+                            label="Password"
+                            name="password"
+                            required
+                            error
+                            helperText={errors.password}
+                        /> :
+                        <TextField
+                            value={formValues.password}
+                            onChange={handleChange}
+                            type="password"
+                            label="Password"
+                            name="password"
+                            required
+                        />
+                    }
 
-                    :
+                    {errors.confirmPassword.length ?
+                        <TextField value={formValues.confirmPassword}
+                            onChange={handleChange}
+                            type="password"
+                            label="confirm password"
+                            name="confirmPassword"
+                            required
+                            error
+                            helperText={errors.confirmPassword}
+                        >
 
-                    <TextField value={formValues.confirmPassword}
-                        onChange={handleChange}
-                        type="password"
-                        label="confirm password"
-                        name="confirmPassword"
-                        required>
-                    </TextField>
+                        </TextField>
 
-                }
+                        :
 
-                {errors.password.length || errors.confirmPassword.length || errors.username.length
-                    ?
-                    <Button disabled type="submit" color="secondary" variant="outlined" id='submit-btn'>
-                        Register
-                    </Button>
-                    :
-                    <Button type="submit" color="secondary" variant="outlined" id='submit-btn'>
-                        Register
-				    </Button>
-                }
-                {
-                    apiError && <span>{apiError}</span>
-                }
-            </div>
-        </form>
+                        <TextField value={formValues.confirmPassword}
+                            onChange={handleChange}
+                            type="password"
+                            label="confirm password"
+                            name="confirmPassword"
+                            required>
+                        </TextField>
+
+                    }
+
+                    {errors.password.length || errors.confirmPassword.length || errors.username.length
+                        ?
+                        <Button disabled type="submit" color="secondary" variant="outlined" id='submit-btn'>
+                            Register
+                         </Button>
+                        :
+                        <div className='register-btn'>
+                            <Button onClick={() => dispatch(clearErrors())} type="submit" color="secondary" variant="outlined" id='submit-btn'>
+                                Register
+                            </Button>
+                            {
+                                apiError && <span>{apiError}</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </form>
+            {isLoading && <ProgressBar />}
+        </div>
     );
 };
 

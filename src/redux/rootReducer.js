@@ -21,7 +21,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                apiError: null
+                apiError: null,
+                isLoading: false
             }
         case 'LOG_OUT':
             return {
@@ -33,12 +34,14 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case `SET_CURRENT_USER`:
             return {
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload,
+                isLoading: false
             }
         case 'ERROR':
             return {
                 ...state,
-                apiError: action.payload
+                apiError: action.payload,
+                isLoading: false
             }
         case 'CLEAR_ERRORS':
             return {
@@ -48,11 +51,11 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case 'SET_USERS':
             return {
                 ...state,
-                users: action.payload
+                users: action.payload,
+                isLoading: false
             }
         case "DELETE_USER":
             const users = [...state.users]
-
             users.forEach((user, idx) => {
                 if (user.id == action.payload.id) {
                     users.splice(idx, 1)
@@ -60,7 +63,13 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             })
             return {
                 ...state,
-                users: users
+                users,
+                isLoading: false
+            }
+        case "IS_LOADING":
+            return {
+                ...state,
+                isLoading: true
             }
         default:
             return state

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 
 export const login = (user, history) => async (dispatch) => {
+    dispatch({ type: "IS_LOADING" })
     try {
         const res = await axiosWithAuth().post('/api/auth/login', user)
 
@@ -15,13 +16,19 @@ export const login = (user, history) => async (dispatch) => {
 
         history.push('/')
     } catch (error) {
-        const { message } = error.response.data
+        let message
+        if (error.response.status == 429) {
+            message = 'too many login attempts. Please contact a staff member for further assistance'
+        } else {
+            message = error.response.data.message
+        }
 
         dispatch({ type: 'ERROR', payload: message })
     }
 }
 
 export const register = (user, history) => async (dispatch) => {
+    dispatch({ type: "IS_LOADING" })
 
     try {
         let res = await axiosWithAuth().post('/api/auth/register', user)
@@ -58,6 +65,8 @@ export const clearErrors = () => {
 }
 
 export const fetchAllUsers = () => async dispatch => {
+    dispatch({ type: "IS_LOADING" })
+
     try {
         let res = await axiosWithAuth().get('/api/users')
         const { users } = res.data.payload
@@ -69,20 +78,24 @@ export const fetchAllUsers = () => async dispatch => {
 }
 
 export const updateUser = (updatedValues, userId, history) => async dispatch => {
+    dispatch({ type: "IS_LOADING" })
+
     try {
         await axiosWithAuth().patch(`/api/users/${userId}`, updatedValues)
         history.push('/')
     } catch (error) {
-        console.log(error)
+        const { message } = error.response.data
+        dispatch({ type: "ERROR", payload: message })
     }
 }
 
-
 export const deleteUser = (userId) => async dispatch => {
+    dispatch({ type: "IS_LOADING" })
+
     try {
         await axiosWithAuth().delete(`/api/users/${userId}`)
         dispatch({ type: "DELETE_USER", payload: { id: userId } })
     } catch (error) {
-        console.log(error)
+        console.log('error')
     }
 }
