@@ -9,10 +9,6 @@ export const login = (user, history) => async (dispatch) => {
 
         const { token } = res.data
 
-        const { user: currentUser } = res.data.payload
-
-        dispatch({ type: "SET_CURRENT_USER", payload: currentUser })
-
         localStorage.setItem('token', token)
 
         dispatch({ type: 'LOGIN' })
@@ -59,4 +55,34 @@ export const setCurrentUser = (user) => {
 
 export const clearErrors = () => {
     return { type: "CLEAR_ERRORS" }
+}
+
+export const fetchAllUsers = () => async dispatch => {
+    try {
+        let res = await axiosWithAuth().get('/api/users')
+        const { users } = res.data.payload
+        dispatch({ type: "SET_USERS", payload: users })
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+export const updateUser = (updatedValues, userId, history) => async dispatch => {
+    try {
+        await axiosWithAuth().patch(`/api/users/${userId}`, updatedValues)
+        history.push('/')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const deleteUser = (userId) => async dispatch => {
+    try {
+        await axiosWithAuth().delete(`/api/users/${userId}`)
+        dispatch({ type: "DELETE_USER", payload: { id: userId } })
+    } catch (error) {
+        console.log(error)
+    }
 }

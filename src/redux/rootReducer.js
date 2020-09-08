@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     isLoggedIn: false,
     isLoading: false,
     apiError: null,
-    currentUser: {}
+    currentUser: {},
+    users: []
 }
 
 export const rootReducer = (state = INITIAL_STATE, action) => {
@@ -43,6 +44,23 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 apiError: null
+            }
+        case 'SET_USERS':
+            return {
+                ...state,
+                users: action.payload
+            }
+        case "DELETE_USER":
+            const users = [...state.users]
+
+            users.forEach((user, idx) => {
+                if (user.id == action.payload.id) {
+                    users.splice(idx, 1)
+                }
+            })
+            return {
+                ...state,
+                users: users
             }
         default:
             return state
