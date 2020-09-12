@@ -9,12 +9,24 @@ import { InputLabel, Select, MenuItem } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../redux/actions'
+import Loading from '../../components/loading/loading'
+import ProgressBar from '../../components/progress-bar/progress-bar'
+
 
 const EditUser = () => {
     const apiError = useSelector(state => state.apiError)
     const history = useHistory()
     const dispatch = useDispatch()
     const params = useParams()
+    const isLoading = useSelector(state => state.isLoading)
+
+
+    const [copy, setCopy] = useState({
+        name: '',
+        username: '',
+        password: '',
+        role: ''
+    })
 
     const [formValues, setFormValues] = useState({
         name: '',
@@ -32,18 +44,30 @@ const EditUser = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        // if the username hasn't been changed set it to undefined
+        if (formValues.username == copy.username) {
+            formValues.username = undefined
+        }
         dispatch(updateUser(formValues, params.id, history))
     }
 
     useEffect(() => {
+        dispatch({ type: "IS_LOADING" })
         fetchUserById(params.id).then(res => {
             const { user } = res.payload
             setFormValues(user)
+            setCopy(user)
+            dispatch({ type: "IS_NOT_LOADING" })
         }).catch(err => {
             alert("Unable to find user")
             history.push('/')
         })
     }, [])
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <form className='edit-form-container' onSubmit={handleSubmit}>
@@ -58,6 +82,7 @@ const EditUser = () => {
                 <Button type="submit" color='secondary' variant='outlined' id='submit-btn'>Save</Button>
                 {apiError && <span>{apiError}</span>}
             </div>
+            {isLoading && <Loading />}
         </form>
     )
 }

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     isLoading: false,
     apiError: null,
     currentUser: {},
-    users: []
+    users: [],
 }
 
 export const rootReducer = (state = INITIAL_STATE, action) => {
@@ -35,7 +35,9 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 currentUser: action.payload,
-                isLoading: false
+                isLoading: false,
+                apiError: null
+
             }
         case 'ERROR':
             return {
@@ -52,7 +54,9 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 users: action.payload,
-                isLoading: false
+                isLoading: false,
+                apiError: null
+
             }
         case "DELETE_USER":
             const users = [...state.users]
@@ -64,12 +68,19 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 users,
-                isLoading: false
+                isLoading: false,
+                apiError: null
             }
         case "IS_LOADING":
+            console.log("Someone called me")
             return {
                 ...state,
                 isLoading: true
+            }
+        case "IS_NOT_LOADING":
+            return {
+                ...state,
+                isLoading: false
             }
         default:
             return state

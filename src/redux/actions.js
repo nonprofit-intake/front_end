@@ -3,6 +3,7 @@ import { axiosWithAuth } from '../utils/auth/axiosWithAuth'
 import { useHistory } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 
+
 export const login = (user, history) => async (dispatch) => {
     dispatch({ type: "IS_LOADING" })
     try {
@@ -17,6 +18,11 @@ export const login = (user, history) => async (dispatch) => {
         history.push('/')
     } catch (error) {
         let message
+        if (error.message && error.message == 'Network Error') {
+            history.push('/error-page')
+            dispatch({type: "ERROR", payload: error.message})
+            return
+        }
         if (error.response.status == 429) {
             message = 'too many login attempts. Please contact a staff member for further assistance'
         } else {
@@ -38,8 +44,19 @@ export const register = (user, history) => async (dispatch) => {
         dispatch({ type: 'REGISTER' })
         history.push('/')
     } catch (error) {
-        const { message } = error.response.data
-        dispatch({ type: "ERROR", payload: message })
+        let message
+        if (error.message && error.message == 'Network Error') {
+            history.push('/error-page')
+            dispatch({ type: "ERROR", payload: error.message })
+            return
+        }
+        if (error.response.status == 429) {
+            message = 'too many login attempts. Please contact a staff member for further assistance'
+        } else {
+            message = error.response.data.message
+        }
+
+        dispatch({ type: 'ERROR', payload: message })
     }
 }
 
@@ -74,6 +91,10 @@ export const fetchAllUsers = () => async dispatch => {
     } catch (error) {
         console.log(error)
     }
+
+}
+
+export const fetchUserById = () => dispatch => {
 
 }
 

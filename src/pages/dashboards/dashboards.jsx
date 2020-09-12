@@ -7,9 +7,8 @@ import { fetchCurrentUser } from '../../api/fetchCurrentUser'
 import { setCurrentUser } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-
-
-
+import Spinner from '../../components/spinner/spinner'
+import ProgressBar from '../../components/progress-bar/progress-bar'
 
 const Dashboards = () => {
 
@@ -30,14 +29,19 @@ const Dashboards = () => {
     }, [])
 
     switch (currentUser.role) {
-        case 'user':
+        case 'guest':
             return <UserDashboard />
         case 'staff':
             return <StaffDashboard />
         case 'admin':
             return <AdminDashboard />
         default:
-            return <h1>Loading. . .</h1>
+            return (
+                <div>
+                    <Spinner />
+                    <ProgressBar />
+                </div>
+            )
     }
 }
 

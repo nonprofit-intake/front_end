@@ -14,6 +14,8 @@ import Dashboards from './pages/dashboards/dashboards';
 import { checkIfUserIsLoggedIn } from './redux/actions'
 import { useDispatch } from 'react-redux'
 
+import ErrorPage from './pages/error-page/error-page'
+
 import EditUser from './pages/edit-user/edit-user'
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
 
       <Route path='/login' component={Login}></Route>
       <Route path='/register' component={Register}></Route>
+      <Route path='/error-page' component={ErrorPage}></Route>
+
     </div>
   );
 }

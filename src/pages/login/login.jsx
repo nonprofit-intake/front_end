@@ -30,16 +30,17 @@ const Login = () => {
         })
     }
     const [formValues, setFormValues] = useState({
-        username: 'test',
-        password: 'testpassword'
+        email: 'dev@gmail.com',
+        password: 'password'
     })
 
     const login = (e) => {
         e.preventDefault()
         const user = {
-            username: formValues.username,
+            email: formValues.email,
             password: formValues.password
         }
+        console.log(user)
         dispatch(loginUser(user, history))
     }
 
@@ -53,7 +54,7 @@ const Login = () => {
         <div>
             <form className='form-login-container' onSubmit={login}>
                 <div className='text-field-containers'>
-                    <TextField value={formValues.username} onChange={handleChange} color='primary' type='text' label='Username' name='username' required></TextField>
+                    <TextField value={formValues.email} onChange={handleChange} color='primary' type='email' label='Email' name='email' required></TextField>
                     <TextField value={formValues.password} onChange={handleChange} color='primary' type='password' label='Password' name='password' required></TextField>
                     <div className='submit-btn'>
                         <Button type="submit" color='secondary' variant='outlined' id='submit-btn' onClick={() => dispatch(clearErrors())}>Login</Button>
