@@ -8,7 +8,7 @@ import { fetchUserById } from '../../api/fetchUserById'
 import { InputLabel, Select, MenuItem } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUser } from '../../redux/actions'
+import { updateUser } from '../../redux/actions/actions'
 import Loading from '../../components/loading/loading'
 import ProgressBar from '../../components/progress-bar/progress-bar'
 

@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core'
 import './user.scss'
 import { useHistory } from 'react-router-dom'
-import { deleteUser } from '../../redux/actions'
+import { deleteUser } from '../../redux/actions/actions'
 import { useDispatch } from 'react-redux'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';

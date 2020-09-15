@@ -9,7 +9,7 @@ import {
 import "./navbar.scss";
 import { Link } from "react-router-dom";
 
-import { logOut } from '../../redux/actions'
+import { logOut } from '../../redux/actions/actions'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 
 import './user-dashboard.scss'
@@ -22,7 +22,9 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import jwt_decode from 'jwt-decode'
-
+import ProgressBar from '../../../components/progress-bar/progress-bar'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { useHistory } from 'react-router-dom';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -45,9 +47,9 @@ const tableIcons = {
 };
 
 
-
-
 export default function MaterialTableDemo() {
+    const [loading, setLoading] = useState(true)
+    const history = useHistory()
     const [state, setState] = React.useState({
         columns: [
             { title: 'First Name', field: 'first_name', type: "hidden" },
@@ -62,21 +64,31 @@ export default function MaterialTableDemo() {
 
     useEffect(() => {
         const { user_id: id } = jwt_decode(localStorage.getItem('token'))
-
+        setLoading(true)
         axiosWithAuth().get(`/api/users/${id}/family/members`).then(res => {
             const { members } = res.data.payload
             setState({
                 ...state,
                 data: members
             })
-
+            setLoading(false)
 
         }).catch(err => {
-            console.log(err)
+            setLoading(false)
+            history.push('/error-page')
         })
     }, [])
 
-
+    if (loading) {
+        return (
+            <div>
+                <div className="container-skeleton">
+                    <Skeleton height={400} />
+                </div>
+                <ProgressBar />
+            </div>
+        )
+    }
 
     return (
         <div className='container'>
@@ -123,7 +135,7 @@ export default function MaterialTableDemo() {
                     //     }),
                 }}
             />
-
+            {loading && <ProgressBar />}
         </div>
 
     );

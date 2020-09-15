@@ -1,8 +1,8 @@
 import React from 'react'
-import { axiosWithAuth } from '../utils/auth/axiosWithAuth'
+import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import { useHistory } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
-
+import generatePassword from '../../utils/helpers/generatePassword'
 
 export const login = (user, history) => async (dispatch) => {
     dispatch({ type: "IS_LOADING" })
@@ -20,7 +20,7 @@ export const login = (user, history) => async (dispatch) => {
         let message
         if (error.message && error.message == 'Network Error') {
             history.push('/error-page')
-            dispatch({type: "ERROR", payload: error.message})
+            dispatch({ type: "ERROR", payload: error.message })
             return
         }
         if (error.response.status == 429) {
@@ -59,6 +59,7 @@ export const register = (user, history) => async (dispatch) => {
         dispatch({ type: 'ERROR', payload: message })
     }
 }
+
 
 export const logOut = (history) => (dispatch) => {
     localStorage.removeItem('token')

@@ -6,11 +6,11 @@ import { TextField, Button } from '@material-ui/core';
 import './register.styles.scss'
 import * as Yup from 'yup';
 import './register.styles.scss'
-import { register } from '../../redux/actions'
+import { register } from '../../redux/actions/actions'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ProgressBar from '../../components/progress-bar/progress-bar'
-import { clearErrors } from '../../redux/actions'
+import { clearErrors } from '../../redux/actions/actions'
 
 
 const Register = () => {

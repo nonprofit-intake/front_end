@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchAllUsers } from '../../../redux/actions'
+import { fetchAllUsers } from '../../../redux/actions/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import UserList from '../../../components/user-list/user-list'
 import ProgressBar from '../../../components/progress-bar/progress-bar'

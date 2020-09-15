@@ -65,6 +65,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
                     users.splice(idx, 1)
                 }
             })
+        case "REGISTER_USER":
+            return state
             return {
                 ...state,
                 users,
@@ -72,7 +74,6 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
                 apiError: null
             }
         case "IS_LOADING":
-            console.log("Someone called me")
             return {
                 ...state,
                 isLoading: true

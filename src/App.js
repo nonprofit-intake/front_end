@@ -11,12 +11,14 @@ import UserForm from './pages/user-form/user-form'
 import NavBar from './components/navbar/navbar'
 import Dashboards from './pages/dashboards/dashboards';
 
-import { checkIfUserIsLoggedIn } from './redux/actions'
+import { checkIfUserIsLoggedIn } from './redux/actions/actions'
 import { useDispatch } from 'react-redux'
 
 import ErrorPage from './pages/error-page/error-page'
 
 import EditUser from './pages/edit-user/edit-user'
+import RegisterUser from './pages/register-user/register-user';
+import AddMember from './pages/add-member/add-member';
 
 function App() {
   const dispatch = useDispatch()
@@ -29,7 +31,8 @@ function App() {
       <PrivateRoute exact path='/' component={Dashboards}></PrivateRoute>
       <PrivateRoute path="/user-form" component={UserForm}></PrivateRoute>
       <PrivateRoute path="/edit-user/:id" component={EditUser}></PrivateRoute>
-
+      <PrivateRoute path="/register-family" component={RegisterUser}></PrivateRoute>
+      <PrivateRoute path="/add-members/:id" component={AddMember}></PrivateRoute>
 
       <Route path='/login' component={Login}></Route>
       <Route path='/register' component={Register}></Route>
