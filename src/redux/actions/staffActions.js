@@ -33,3 +33,9 @@ export const registerUser = (user, history) => async dispatch => {
         dispatch({ type: 'ERROR', payload: message })
     }
 }
+
+export const addGuest = (guest, history) => async dispatch => {
+    console.log(guest)
+    console.log('Add member called')
+}
+
