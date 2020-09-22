@@ -44,12 +44,6 @@ const Login = () => {
         dispatch(loginUser(user, history))
     }
 
-    const clearForm = () => {
-        setFormValues({
-            username: '',
-            password: ''
-        })
-    }
     return (
         <div>
             <form className='form-login-container' onSubmit={login}>

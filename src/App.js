@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Route, useHistory } from 'react-router-dom'
 
@@ -7,7 +6,6 @@ import Login from './pages/login/login'
 import Register from './pages/register/register'
 import PrivateRoute from './utils/auth/private-route'
 
-import UserForm from './pages/user-form/user-form'
 import Dashboards from './pages/dashboards/dashboards';
 
 import { checkIfUserIsLoggedIn } from './redux/actions/actions'
@@ -15,7 +13,6 @@ import { useDispatch } from 'react-redux'
 
 import ErrorPage from './pages/error-page/error-page'
 
-import EditUser from './pages/edit-user/edit-user'
 import RegisterUser from './pages/register-user/register-user';
 import FamilyMembers from './pages/family-members/family-members';
 import Drawer from './components/drawer/drawer'

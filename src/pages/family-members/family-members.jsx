@@ -7,16 +7,11 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { addMember } from '../../api/addMember'
 
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
-import jwt_decode from 'jwt-decode'
-import { useHistory, useParams } from 'react-router-dom';
-
-import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom';
 
 export default function MaterialTableDemo() {
-    const dispatch = useDispatch()
     const params = useParams()
     const [loading, setLoading] = useState(true)
-    const history = useHistory()
     const [state, setState] = React.useState({
         columns: [
             { title: 'Relationship', field: 'relationship_to_HoH' },
@@ -29,10 +24,8 @@ export default function MaterialTableDemo() {
         data: [],
     });
 
-    const [error, setError] = React.useState(null)
 
     useEffect(() => {
-        const { id } = params
         setLoading(true)
         axiosWithAuth().get(`/api/guests/family/${params.fam_id}`).then(res => {
             const { members } = res.data.payload
@@ -62,7 +55,6 @@ export default function MaterialTableDemo() {
 
     return (
         <div className='container'>
-            {error && <h1>{error}</h1>}
             <MaterialTable
                 icons={tableIcons}
                 title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
@@ -72,7 +64,7 @@ export default function MaterialTableDemo() {
                     {
                         icon: 'test',
                         tooltip: 'Family',
-                        onClick: (data,member) => {
+                        onClick: (data, member) => {
                             new Promise((resolve) => {
                                 // resolve()
                                 console.log(member)

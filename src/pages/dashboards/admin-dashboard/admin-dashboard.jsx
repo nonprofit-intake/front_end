@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { fetchAllUsers } from '../../../redux/actions/actions'
-import { useDispatch, useSelector } from 'react-redux'
-import UserList from '../../../components/user-list/user-list'
-import ProgressBar from '../../../components/progress-bar/progress-bar'
+import React from 'react'
+
 import './admin-dashboard.scss'
 import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
-
 const AdminDashboard = () => {
     const history = useHistory()
-    const dispatch = useDispatch()
-    const users = useSelector(state => state.users)
-    const isLoading = useSelector(state => state.isLoading)
 
     const handleClick = () => {
         history.push('/register-family')

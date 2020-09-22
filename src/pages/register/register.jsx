@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import formSchema from '../../utils/schema/form-schema'
-
 import { TextField, Button } from '@material-ui/core';
 import './register.styles.scss'
 import * as Yup from 'yup';
@@ -101,14 +99,6 @@ const Register = () => {
         });
 
     };
-
-    const clearForm = () => {
-        setFormValues({
-            username: '',
-            password: ''
-        });
-    };
-
 
 
     return (

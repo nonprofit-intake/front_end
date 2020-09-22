@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import './register-user.scss'
-import { login as loginUser, clearErrors } from '../../redux/actions/actions'
+import {clearErrors } from '../../redux/actions/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import ProgressBar from '../../components/progress-bar/progress-bar'
@@ -50,12 +50,6 @@ const RegisterUser = () => {
         dispatch(registerUser(user, history))
     }
 
-    const clearForm = () => {
-        setFormValues({
-            username: '',
-            password: ''
-        })
-    }
     return (
         <div>
             <form className='form-login-container' onSubmit={handleSubmit}>

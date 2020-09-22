@@ -8,7 +8,7 @@ const ErrorPage = () => {
             <h1>{error || "Looks like the application crashed"}</h1>
             <h1>Please contact a staff member for further assistance</h1>
 
-            <img src='https://static.thenounproject.com/png/98571-200.png' style={{ width: '15rem' }}></img>
+            <img alt='' src='https://static.thenounproject.com/png/98571-200.png' style={{ width: '15rem' }}></img>
         </div>
     )
 }

@@ -19,6 +19,7 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
                 apiError: null
 
             }
+            break
         case 'LOGIN':
             return {
                 ...state,
@@ -68,10 +69,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
                 }
             })
         case "REGISTER_USER":
-            return state
             return {
                 ...state,
-                users,
                 isLoading: false,
                 apiError: null
             }

@@ -1,8 +1,4 @@
-import React from 'react'
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
-import { useHistory } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
-import generatePassword from '../../utils/helpers/generatePassword'
 import { fetchCurrentUser } from '../../api/fetchCurrentUser'
 
 export const login = (user, history) => async (dispatch) => {

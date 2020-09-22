@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 
-import { forwardRef } from 'react';
-
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
-import jwt_decode from 'jwt-decode'
 import ProgressBar from '../../components/progress-bar/progress-bar'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useHistory } from 'react-router-dom';
@@ -27,7 +24,6 @@ export default function MaterialTableDemo() {
     });
 
     useEffect(() => {
-        const { user_id: id } = jwt_decode(localStorage.getItem('token'))
         setLoading(true)
         axiosWithAuth().get(`/api/guests`).then(res => {
             const { guests } = res.data.payload

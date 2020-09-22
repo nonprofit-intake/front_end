@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import UserDashboard from './user-dashboard/user-dashboard'
 import StaffDashboard from './staff-dashboard/staff-dashboard'
 import AdminDashboard from './admin-dashboard/admin-dashboard'
-import { fetchCurrentUser } from '../../api/fetchCurrentUser'
-import { setCurrentUser } from '../../redux/actions/actions'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Spinner from '../../components/spinner/spinner'
 import ProgressBar from '../../components/progress-bar/progress-bar'
 
 const Dashboards = () => {
 
-    const history = useHistory()
-
-    const dispatch = useDispatch()
     const currentUser = useSelector(state => state.currentUser)
 
     if(!currentUser.isAuthorized){

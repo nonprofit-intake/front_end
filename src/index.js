@@ -12,11 +12,13 @@ import logger from 'redux-logger'
 
 import { createStore, applyMiddleware } from 'redux'
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger))
+const store = createStore(rootReducer, applyMiddleware(thunk))
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </Router>
   </Provider>,
   document.getElementById('root')
