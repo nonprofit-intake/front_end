@@ -30,7 +30,7 @@ import AppsIcon from '@material-ui/icons/Apps';
 import HouseIcon from '@material-ui/icons/House';
 
 import './drawer.scss'
-import { Button } from '@material-ui/core';
+import { Badge, Button } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -112,11 +112,13 @@ export default function MiniDrawer() {
     const currentUser = useSelector(state => state.currentUser)
     const isLoggedIn = useSelector(state => state.isLoggedIn)
 
-
-
     const handleLogout = () => {
         dispatch(logOut(history))
         setOpen(false)
+    }
+
+    const redirectToPending = () => {
+        history.push('/pending')
     }
 
     const redirectToRegister = () => {
@@ -240,27 +242,40 @@ export default function MiniDrawer() {
                         <Divider />
 
                         {
-                            ['staff', 'admin'].includes(currentUser.role) &&
-                            <List>
-                                <ListItem button>
-                                    <ListItemIcon onClick={redirectToGuests}>
-                                        <PeopleIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'Guests'} />
-                                </ListItem>
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <HouseIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'Families'} />
-                                </ListItem>
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <RecordVoiceOverIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'Announcements'} />
-                                </ListItem>
-                            </List>
+                            ['staff', 'admin'].includes(currentUser.role) && currentUser.isAuthorized ?
+                                <List>
+                                    <ListItem button onClick={redirectToGuests}>
+                                        <ListItemIcon >
+                                            <PeopleIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={'Guests'} />
+                                    </ListItem>
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <HouseIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={'Families'} />
+                                    </ListItem>
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <RecordVoiceOverIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={'Announcements'} />
+                                    </ListItem>
+                                </List>
+                                :
+                                ''
+                        }
+                        {
+                            ['admin'].includes(currentUser.role) &&
+                            <ListItem button onClick={redirectToPending}>
+                                <ListItemIcon>
+                                    <Badge badgeContent={4} color="secondary">
+                                        <MailIcon color='primary'></MailIcon>
+                                    </Badge>
+                                </ListItemIcon>
+                                <ListItemText primary={'Pending'} />
+                            </ListItem>
                         }
                     </Drawer>
 

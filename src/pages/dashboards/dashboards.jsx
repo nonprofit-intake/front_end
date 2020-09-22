@@ -17,6 +17,15 @@ const Dashboards = () => {
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.currentUser)
 
+    if(!currentUser.isAuthorized){
+        return (
+            <div className='container'>
+                <h1>Please contact an admin to become authorized</h1>
+
+            </div>
+        )
+    }
+
     switch (currentUser.role) {
         case 'guest':
             return <UserDashboard />
