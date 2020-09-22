@@ -4,7 +4,9 @@ const INITIAL_STATE = {
     isLoggedIn: false,
     isLoading: false,
     apiError: null,
-    currentUser: {},
+    currentUser: {
+        role: ''
+    },
     users: [],
 }
 

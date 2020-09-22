@@ -11,13 +11,12 @@ export const registerUser = (user, history) => async dispatch => {
     try {
         let res = await axiosWithAuth().post('/api/auth/staff/register', user)
         let token = res.data.token
-        let { user_id } = res.data.payload.user
+        let { unique_id: fam_id } = res.data.payload.user
 
         dispatch({ type: 'REGISTER_USER' })
-        history.push(`/add-members/${user_id}`)
+        history.push(`/guests/family/${fam_id}`)
         dispatch({ type: "IS_NOT_LOADING" })
     } catch (error) {
-        console.log(error)
         let message
         if (error.message && error.message == 'Network Error') {
             history.push('/error-page')
@@ -34,7 +33,7 @@ export const registerUser = (user, history) => async dispatch => {
     }
 }
 
-export const addGuest = (guest, history) => async dispatch => {
+export const addMembers = (guest, history) => async dispatch => {
     console.log(guest)
     console.log('Add member called')
 }

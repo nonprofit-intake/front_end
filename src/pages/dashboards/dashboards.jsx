@@ -17,17 +17,6 @@ const Dashboards = () => {
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.currentUser)
 
-    const [role, setRole] = useState(null)
-
-    useEffect(() => {
-        fetchCurrentUser().then(res => {
-            const { user } = res.payload
-            dispatch(setCurrentUser(user))
-        }).catch(err => {
-
-        })
-    }, [])
-
     switch (currentUser.role) {
         case 'guest':
             return <UserDashboard />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Route } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
 
 import Login from './pages/login/login'
 import Register from './pages/register/register'
@@ -18,21 +18,34 @@ import ErrorPage from './pages/error-page/error-page'
 
 import EditUser from './pages/edit-user/edit-user'
 import RegisterUser from './pages/register-user/register-user';
-import AddMember from './pages/add-member/add-member';
+import FamilyMembers from './pages/family-members/family-members';
+import Drawer from './components/drawer/drawer'
+import Guests from './pages/guests/guests'
+
 
 function App() {
   const dispatch = useDispatch()
+  const history = useHistory()
   useEffect(() => {
-    dispatch(checkIfUserIsLoggedIn())
+
+      dispatch(checkIfUserIsLoggedIn(history))
+    
   }, [])
+
+  // useEffect(() => {
+  //   dispatch(checkIfUserIsLoggedIn())
+  // }, [])
+
   return (
     <div className="App">
-      <Route path='/' component={NavBar}></Route>
+      <Route path='/' component={Drawer}></Route>
       <PrivateRoute exact path='/' component={Dashboards}></PrivateRoute>
+      <PrivateRoute exact path="/guests" component={Guests}></PrivateRoute>
+      <PrivateRoute exact path="/guests/family/:fam_id" component={FamilyMembers}></PrivateRoute>
       <PrivateRoute path="/user-form" component={UserForm}></PrivateRoute>
       <PrivateRoute path="/edit-user/:id" component={EditUser}></PrivateRoute>
       <PrivateRoute path="/register-family" component={RegisterUser}></PrivateRoute>
-      <PrivateRoute path="/add-members/:id" component={AddMember}></PrivateRoute>
+
 
       <Route path='/login' component={Login}></Route>
       <Route path='/register' component={Register}></Route>

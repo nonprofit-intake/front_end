@@ -1,5 +1,5 @@
 .form-login-container{
-    height: 80vh;
+    height: 100vh;
      display: flex;
     justify-content: center;
     align-items: center;
@@ -7,12 +7,12 @@
 
 .text-field-containers{
     display: grid;
-    grid-gap: 2rem;
-    width: 30%;
+    grid-gap: 4rem;
+    width: 70%;
 }
 
 #submit-btn{
-    border: 1px solid #472D5B;
+    border: 1px solid #000000;
     color: #472D5B;
     &:hover{
         background-color: #472d5b36;

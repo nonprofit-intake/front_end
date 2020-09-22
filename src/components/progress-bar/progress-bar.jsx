@@ -11,6 +11,8 @@ const BorderLinearProgress = withStyles((theme) => ({
     },
 
     bar: {
+        zIndex: theme.zIndex.drawer + 2,
+
         borderRadius: 5,
         backgroundColor: '#472d5b',
     },
@@ -44,6 +46,24 @@ const useStyles = makeStyles({
 
 export default function CustomizedProgressBars() {
     const classes = useStyles();
+    const [progress, setProgress] = React.useState(0);
+
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setProgress((oldProgress) => {
+                if (oldProgress === 100) {
+                    return 0;
+                }
+                const diff = Math.random() * 50;
+                return Math.min(oldProgress + diff, 100);
+            });
+        }, 500);
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
 
     return (
         <div className={classes.root} id='progress-bar'>

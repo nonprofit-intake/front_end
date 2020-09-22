@@ -10,28 +10,29 @@ import jwt_decode from 'jwt-decode'
 import ProgressBar from '../../../components/progress-bar/progress-bar'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useHistory } from 'react-router-dom';
-
+import { useSelector } from 'react-redux'
 import { tableIcons } from '../../../utils/material-table-icons'
 
 export default function MaterialTableDemo() {
+    const currentUser = useSelector(state => state.currentUser)
     const [loading, setLoading] = useState(true)
     const history = useHistory()
     const [state, setState] = React.useState({
         columns: [
             { title: 'First Name', field: 'first_name', type: "hidden" },
             { title: 'Last Name', field: 'last_name' },
-
             { title: 'Birth Date', field: 'dob', type: 'date' },
-            { title: 'Email', field: '' },
-
+            { title: 'Email', field: 'email' },
+            { title: 'SSN', field: 'ssn' },
         ],
         data: [],
     });
 
     useEffect(() => {
+        console.log(currentUser)
         const { user_id: id } = jwt_decode(localStorage.getItem('token'))
         setLoading(true)
-        axiosWithAuth().get(`/api/users/${id}/family/members`).then(res => {
+        axiosWithAuth().get(`/api/guests/family/${currentUser.unique_id}`).then(res => {
             const { members } = res.data.payload
             setState({
                 ...state,
