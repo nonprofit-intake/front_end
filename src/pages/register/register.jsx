@@ -23,7 +23,7 @@ const Register = () => {
 
     const [errors, setErrors] = useState({
         name: '',
-        username: '',
+        email: '',
         email: "",
         password: '',
         confirmPassword: '',
@@ -31,16 +31,19 @@ const Register = () => {
     })
 
     const [formValues, setFormValues] = useState({
-        name: 'Isaiah',
-        username: 'isaiah123',
+        first_name: 'Isaiah',
+        last_name: "Fowler",
+        email: 'isaiah123@gmail.com',
+        pin: '1189',
         password: 'am_i_long_enough',
         confirmPassword: 'am_i_long_enough'
     });
 
-
     const formSchema = Yup.object().shape({
-        name: Yup.string().required('Please enter your name'),
-        username: Yup.string().required('Please enter your username').min(4, "Must be longer than 4 characters"),
+        first_name: Yup.string().required('Please enter your name'),
+        last_name: Yup.string().required('Please enter your name'),
+        pin: Yup.string().required('Please enter your pin'),
+        email: Yup.string().required('Please enter your email').min(4, "Must be longer than 4 characters"),
         password: Yup.string()
             .required('Required')
             .min(10, 'Password must be at least 10 characters long.')
@@ -83,9 +86,11 @@ const Register = () => {
         e.preventDefault();
 
         const user = {
-            name: formValues.name,
-            username: formValues.username,
-            password: formValues.password
+            first_name: formValues.first_name,
+            last_name: formValues.last_name,
+            email: formValues.email,
+            password: formValues.password,
+            pin: formValues.pin
         }
 
         formSchema.isValid(formValues).then((valid) => {
@@ -105,35 +110,44 @@ const Register = () => {
         <div>
             <form className="form-container" onSubmit={registerUser}>
                 <div className="text-field-containers">
-                    <TextField
-                        value={formValues.name}
-                        onChange={handleChange}
-                        type="text"
-                        label="Name"
-                        name="name"
-                        required
-                    />
-
+                    <div className='name-container'>
+                        <TextField
+                            value={formValues.first_name}
+                            onChange={handleChange}
+                            type="text"
+                            label="First Name"
+                            name="first_name"
+                            required
+                        />
+                        <TextField
+                            value={formValues.last_name}
+                            onChange={handleChange}
+                            type="text"
+                            label="Last Name"
+                            name="last_name"
+                            required
+                        />
+                    </div>
                     {
-                        errors.username.length
+                        errors.email.length
                             ?
                             <TextField
-                                value={formValues.username}
+                                value={formValues.email}
                                 onChange={handleChange}
-                                type="text"
-                                label="Username"
-                                name="username"
+                                type="email"
+                                label="email"
+                                name="email"
                                 required
                                 error
-                                helperText={errors.username}
+                                helperText={errors.email}
                             />
                             :
                             <TextField
-                                value={formValues.username}
+                                value={formValues.email}
                                 onChange={handleChange}
-                                type="text"
-                                label="Username"
-                                name="username"
+                                type="email"
+                                label="email"
+                                name="email"
                                 required
                             />
                     }
@@ -183,8 +197,16 @@ const Register = () => {
                         </TextField>
 
                     }
+                    <TextField
+                        value={formValues.pin}
+                        onChange={handleChange}
+                        type="text"
+                        label="PIN"
+                        name="pin"
+                        required
+                    />
 
-                    {errors.password.length || errors.confirmPassword.length || errors.username.length
+                    {errors.password.length || errors.confirmPassword.length || errors.email.length
                         ?
                         <Button disabled type="submit" color="secondary" variant="outlined" id='submit-btn'>
                             Register
