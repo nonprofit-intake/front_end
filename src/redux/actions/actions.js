@@ -66,9 +66,9 @@ export const logOut = (history) => (dispatch) => {
 }
 
 export const checkIfUserIsLoggedIn = (history) => async dispatch => {
-    dispatch({type: 'IS_LOADING'})
     const token = localStorage.getItem('token')
     if (token) {
+        dispatch({type: 'IS_LOADING'})
         try {
             let res = await fetchCurrentUser()
             const { user } = res.payload
