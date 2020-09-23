@@ -28,6 +28,7 @@ import HouseIcon from '@material-ui/icons/House';
 
 import './drawer.scss'
 import { Badge, Button } from '@material-ui/core';
+import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 
 const drawerWidth = 240;
 
@@ -109,6 +110,8 @@ export default function MiniDrawer() {
     const currentUser = useSelector(state => state.currentUser)
     const isLoggedIn = useSelector(state => state.isLoggedIn)
 
+    const unAuthorizedUsers = useSelector(state => state.unAuthorizedUsers)
+
     const handleLogout = () => {
         dispatch(logOut(history))
         setOpen(false)
@@ -142,6 +145,7 @@ export default function MiniDrawer() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
 
     return (
         <div className={classes.root}>
@@ -267,9 +271,15 @@ export default function MiniDrawer() {
                             ['admin'].includes(currentUser.role) &&
                             <ListItem button onClick={redirectToPending}>
                                 <ListItemIcon>
-                                    <Badge badgeContent={4} color="secondary">
-                                        <MailIcon color='primary'></MailIcon>
-                                    </Badge>
+                                    {
+                                        unAuthorizedUsers.length > 0
+                                            ?
+                                            <Badge badgeContent={unAuthorizedUsers.length} color="secondary">
+                                                <MailIcon color='primary'></MailIcon>
+                                            </Badge>
+                                            :
+                                            <MailIcon color={unAuthorizedUsers.length > 0 ? 'primary' : ''}></MailIcon>
+                                    }
                                 </ListItemIcon>
                                 <ListItemText primary={'Pending'} />
                             </ListItem>

@@ -1,3 +1,5 @@
+import { updateUser } from "./actions/actions"
+
 const INITIAL_STATE = {
     ailments: []
     ,
@@ -7,17 +9,52 @@ const INITIAL_STATE = {
     currentUser: {
         role: ''
     },
+    unAuthorizedUsers: [],
     users: [],
 }
 
 export const rootReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case 'DECLINE_USER':
+
+            const updatedUsers = [...state.unAuthorizedUsers]
+
+            updatedUsers.map((user, idx) => {
+                if (user.user_id === action.payload.id) {
+                    updatedUsers.splice(idx, 1)
+                }
+            })
+
+            return {
+                ...state,
+                unAuthorizedUsers: updatedUsers
+            }
+        case 'ACCEPT_USER':
+            console.log('from reducer!')
+
+            const updatedUsersAccept = [...state.unAuthorizedUsers]
+
+            updatedUsersAccept.map((user, idx) => {
+                if (user.user_id === action.payload.id) {
+                    updatedUsersAccept.splice(idx, 1)
+                }
+            })
+
+            return {
+                ...state,
+                unAuthorizedUsers: updatedUsersAccept
+            }
+        case "SET_UNAUTHORIZED_USERS":
+            return {
+                ...state,
+                unAuthorizedUsers: action.payload
+            }
         case 'REGISTER':
             return {
                 ...state,
                 isLoggedIn: true,
-                apiError: null
-
+                apiError: null,
+                isLoading: false
             }
             break
         case 'LOGIN':
@@ -68,6 +105,7 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
                     users.splice(idx, 1)
                 }
             })
+
         case "REGISTER_USER":
             return {
                 ...state,

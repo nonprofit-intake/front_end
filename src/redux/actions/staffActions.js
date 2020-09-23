@@ -36,6 +36,75 @@ export const registerUser = (user, history) => async dispatch => {
     }
 }
 
+
+export const setUnauthorizedUsers = (history) => async dispatch => {
+    try {
+        let res = await axiosWithAuth().get('/api/users', { params: { isAuthorized: false, role: 'staff' } }).then(res => res.data)
+        const { users } = res.payload
+        dispatch({ type: "SET_UNAUTHORIZED_USERS", payload: users })
+
+    } catch (error) {
+        let message
+        if (error.message && error.message == 'Network Error') {
+            history.push('/error-page')
+            dispatch({ type: "ERROR", payload: error.message })
+            return
+        }
+        if (error.response?.status == 429) {
+            message = 'too many login attempts. Please contact a staff member for further assistance'
+        } else {
+            message = error.response?.data?.message
+        }
+
+        dispatch({ type: 'ERROR', payload: message })
+    }
+}
+
+export const declineUser = (id, history) => async dispatch => {
+    try {
+        console.log('declined from action')
+        await axiosWithAuth().delete(`/api/users/${id}`)
+        dispatch({ type: "DECLINE_USER", payload: { id } })
+
+    } catch (error) {
+        let message
+        if (error.message && error.message == 'Network Error') {
+            history.push('/error-page')
+            dispatch({ type: "ERROR", payload: error.message })
+            return
+        }
+        if (error.response?.status == 429) {
+            message = 'too many login attempts. Please contact a staff member for further assistance'
+        } else {
+            message = error.response?.data?.message
+        }
+
+        dispatch({ type: 'ERROR', payload: message })
+    }
+}
+
+export const acceptUser = (id, history) => async dispatch => {
+    try {
+        await axiosWithAuth().patch(`/api/users/${id}`, { isAuthorized: true })
+        dispatch({ type: "ACCEPT_USER", payload: { id } })
+
+    } catch (error) {
+        let message
+        if (error.message && error.message == 'Network Error') {
+            history.push('/error-page')
+            dispatch({ type: "ERROR", payload: error.message })
+            return
+        }
+        if (error.response?.status == 429) {
+            message = 'too many login attempts. Please contact a staff member for further assistance'
+        } else {
+            message = error.response?.data?.message
+        }
+
+        dispatch({ type: 'ERROR', payload: message })
+    }
+}
+
 export const addMembers = (guest, history) => async dispatch => {
     console.log(guest)
     console.log('Add member called')

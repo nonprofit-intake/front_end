@@ -9,13 +9,15 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
-
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
+import { declineUser, acceptUser } from '../../redux/actions/staffActions'
+
 import './pending.scss'
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,62 +33,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+// updatedUsers.map((user, idx) => {
+//     if (user.user_id === id) {
+//         updatedUsers.splice(idx, 1)
+//     }
+// })
 
 const Pending = () => {
+    const history = useHistory()
+    const unAuthorizedUsers = useSelector(state => state.unAuthorizedUsers)
     const classes = useStyles()
     const [users, setUsers] = useState([])
+    const dispatch = useDispatch()
 
-    const verifyStaffMember = (id) => {
-        axiosWithAuth().patch(`/api/users/${id}`, {isAuthorized: true}).then(res => {
-            alert('User has been verified')
-            const updatedUsers = [...users]
-
-            updatedUsers.map((user, idx) => {
-                if (user.user_id === id) {
-                    updatedUsers.splice(idx, 1)
-                }
-            })
-            setUsers(updatedUsers)
-        }).catch(err => {
-            alert('Could not authorize member')
-        })
+    const verifyStaffMember = (id, history) => {
+        dispatch(acceptUser(id, history))
     }
 
-    const declineStaffMember = (id) => {
-
-        axiosWithAuth().delete(`/api/users/${id}`).then(() => {
-            const updatedUsers = [...users]
-
-            updatedUsers.map((user, idx) => {
-                if (user.user_id === id) {
-                    updatedUsers.splice(idx, 1)
-                }
-            })
-            setUsers(updatedUsers)
-        }).catch((err) => {
-            alert("Unable to delete user")
-        })
+    const declineStaffMember = (id, history) => {
+        dispatch(declineUser(id, history))
     }
-    useEffect(() => {
-        axiosWithAuth().get('/api/users/', {
-            params: { isAuthorized: false, role: 'staff' }
-        }).then((res) => {
-            const { users: usersData } = res.data.payload
-            console.log(usersData)
-            setUsers(usersData)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }, [])
+
+    if(unAuthorizedUsers.length === 0){
+        return (
+            <div className='container'>
+                <h1>You do not have any pending staff members</h1>
+            </div>
+        )
+    }
 
     return (
         <div className='list-container'>
             <div className={classes.demo}>
                 <List >
                     {
-                        users.map((user) => {
+                        unAuthorizedUsers.map((user) => {
                             return (
-                                <ListItem>
+                                <ListItem key={user.user_id}>
                                     <ListItemAvatar>
                                         <Avatar>
                                             <PersonIcon />
@@ -96,10 +79,10 @@ const Pending = () => {
                                         primary={`${user.first_name} ${user.last_name}  (${user.email})`}
                                     />
                                     <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete" onClick={() => verifyStaffMember(user.user_id)}>
+                                        <IconButton edge="end" aria-label="delete" onClick={() => verifyStaffMember(user.user_id, history)}>
                                             <CheckCircleIcon />
                                         </IconButton>
-                                        <IconButton edge="end" aria-label="Yup" onClick={() => declineStaffMember(user.user_id)}>
+                                        <IconButton edge="end" aria-label="Yup" onClick={() => declineStaffMember(user.user_id, history)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </ListItemSecondaryAction>
