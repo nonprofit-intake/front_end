@@ -31,12 +31,12 @@ const Register = () => {
     })
 
     const [formValues, setFormValues] = useState({
-        first_name: 'Isaiah',
-        last_name: "Fowler",
-        email: 'isaiah123@gmail.com',
-        pin: '1189',
-        password: 'am_i_long_enough',
-        confirmPassword: 'am_i_long_enough'
+        first_name: '',
+        last_name: "",
+        email: '',
+        pin: '',
+        password: '',
+        confirmPassword: ''
     });
 
     const formSchema = Yup.object().shape({

@@ -30,8 +30,8 @@ const Login = () => {
         })
     }
     const [formValues, setFormValues] = useState({
-        email: 'dev@gmail.com',
-        password: 'password'
+        email: '',
+        password: ''
     })
 
     const login = (e) => {

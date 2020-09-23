@@ -49,7 +49,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case "SET_UNAUTHORIZED_USERS":
             return {
                 ...state,
-                unAuthorizedUsers: action.payload
+                unAuthorizedUsers: action.payload,
+                isLoading: false
             }
         case 'REGISTER':
             return {
@@ -69,6 +70,7 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case 'LOG_OUT':
             return {
                 ...state,
+                isLoading: false,
                 isLoggedIn: false,
                 apiError: null,
                 currentUser: {}
@@ -90,7 +92,9 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case 'CLEAR_ERRORS':
             return {
                 ...state,
-                apiError: null
+                apiError: null,
+                isLoading: false,
+
             }
         case 'SET_USERS':
             return {

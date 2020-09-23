@@ -31,11 +31,11 @@ const RegisterUser = () => {
         })
     }
     const [formValues, setFormValues] = useState({
-        first_name: 'Isaiah',
-        last_name: 'Fowler',
-        email: 'dev@gmail.com',
-        password: 'password',
-        pin: '2345'
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        pin: ''
     })
 
     const handleSubmit = (e) => {
