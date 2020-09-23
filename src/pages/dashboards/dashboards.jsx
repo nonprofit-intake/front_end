@@ -10,8 +10,18 @@ import ProgressBar from '../../components/progress-bar/progress-bar'
 const Dashboards = () => {
 
     const currentUser = useSelector(state => state.currentUser)
+    const isLoading = useSelector(state => state.isLoading)
 
-    if(!currentUser.isAuthorized){
+    if (isLoading) {
+        return (
+            <div>
+                <Spinner />
+                <ProgressBar />
+            </div>
+        )
+    }
+
+    if (!currentUser.isAuthorized) {
         return (
             <div className='container'>
                 <h1>Please contact an admin to become authorized</h1>

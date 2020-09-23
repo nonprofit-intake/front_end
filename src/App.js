@@ -24,9 +24,7 @@ function App() {
   const dispatch = useDispatch()
   const history = useHistory()
   useEffect(() => {
-
     dispatch(checkIfUserIsLoggedIn(history))
-
   }, [])
 
   return (

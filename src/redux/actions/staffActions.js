@@ -61,6 +61,8 @@ export const setUnauthorizedUsers = (history) => async dispatch => {
 }
 
 export const declineUser = (id, history) => async dispatch => {
+    dispatch({ type: "IS_LOADING" })
+
     try {
         console.log('declined from action')
         await axiosWithAuth().delete(`/api/users/${id}`)
@@ -84,6 +86,7 @@ export const declineUser = (id, history) => async dispatch => {
 }
 
 export const acceptUser = (id, history) => async dispatch => {
+    dispatch({type: "IS_LOADING"})
     try {
         await axiosWithAuth().patch(`/api/users/${id}`, { isAuthorized: true })
         dispatch({ type: "ACCEPT_USER", payload: { id } })

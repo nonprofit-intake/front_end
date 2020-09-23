@@ -61,30 +61,30 @@ export default function MaterialTableDemo() {
                 columns={state.columns}
                 data={state.data}
                 actions={[
-                    {
-                        icon: 'test',
-                        tooltip: 'Family',
-                        onClick: (data, member) => {
-                            new Promise((resolve) => {
-                                // resolve()
-                                console.log(member)
-                                addMember(params.fam_id, member).then(res => {
-                                    resolve()
+                    // {
+                    //     icon: 'test',
+                    //     tooltip: 'Family',
+                    //     onClick: (data, member) => {
+                    //         new Promise((resolve) => {
+                    //             // resolve()
+                    //             console.log(member)
+                    //             addMember(params.fam_id, member).then(res => {
+                    //                 resolve()
 
-                                    setState((prevState) => {
-                                        const data = [...prevState.data];
-                                        member.personal_id = res.payload.member.personal_id
-                                        console.log(member)
-                                        data.push(member);
-                                        return { ...prevState, data };
-                                    });
-                                }).catch(err => {
-                                    alert('Unable to add user')
-                                    resolve()
-                                })
-                            })
-                        }
-                    },
+                    //                 setState((prevState) => {
+                    //                     const data = [...prevState.data];
+                    //                     member.personal_id = res.payload.member.personal_id
+                    //                     console.log(member)
+                    //                     data.push(member);
+                    //                     return { ...prevState, data };
+                    //                 });
+                    //             }).catch(err => {
+                    //                 alert('Unable to add user')
+                    //                 resolve()
+                    //             })
+                    //         })
+                    //     }
+                    // },
                 ]}
                 editable={{
                     onRowAdd: (member) =>

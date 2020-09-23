@@ -66,6 +66,7 @@ export const logOut = (history) => (dispatch) => {
 }
 
 export const checkIfUserIsLoggedIn = (history) => async dispatch => {
+    dispatch({type: 'IS_LOADING'})
     const token = localStorage.getItem('token')
     if (token) {
         try {
@@ -75,6 +76,7 @@ export const checkIfUserIsLoggedIn = (history) => async dispatch => {
             dispatch({ type: "LOGIN" })
             history.push('/')
         } catch (error) {
+            dispatch({type: "IS_NOT_LOADING"})
             history.push('/login')
         }
     }

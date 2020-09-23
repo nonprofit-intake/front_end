@@ -14,7 +14,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import { declineUser, acceptUser } from '../../redux/actions/staffActions'
-
+import ProgressBar from '../../components/progress-bar/progress-bar'
 import './pending.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -42,9 +42,11 @@ const useStyles = makeStyles((theme) => ({
 const Pending = () => {
     const history = useHistory()
     const unAuthorizedUsers = useSelector(state => state.unAuthorizedUsers)
+    const isLoading = useSelector(state => state.isLoading)
     const classes = useStyles()
     const [users, setUsers] = useState([])
     const dispatch = useDispatch()
+
 
     const verifyStaffMember = (id, history) => {
         dispatch(acceptUser(id, history))
@@ -54,7 +56,7 @@ const Pending = () => {
         dispatch(declineUser(id, history))
     }
 
-    if(unAuthorizedUsers.length === 0){
+    if (unAuthorizedUsers.length === 0) {
         return (
             <div className='container'>
                 <h1>You do not have any pending staff members</h1>
@@ -62,35 +64,39 @@ const Pending = () => {
         )
     }
 
+
     return (
-        <div className='list-container'>
-            <div className={classes.demo}>
-                <List >
-                    {
-                        unAuthorizedUsers.map((user) => {
-                            return (
-                                <ListItem key={user.user_id}>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <PersonIcon />
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary={`${user.first_name} ${user.last_name}  (${user.email})`}
-                                    />
-                                    <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete" onClick={() => verifyStaffMember(user.user_id, history)}>
-                                            <CheckCircleIcon />
-                                        </IconButton>
-                                        <IconButton edge="end" aria-label="Yup" onClick={() => declineStaffMember(user.user_id, history)}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            )
-                        })
-                    }
-                </List>
+        <div>
+            {isLoading && <ProgressBar />}
+            <div className='list-container'>
+                <div className={classes.demo}>
+                    <List >
+                        {
+                            unAuthorizedUsers.map((user) => {
+                                return (
+                                    <ListItem key={user.user_id}>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <PersonIcon />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary={`${user.first_name} ${user.last_name}  (${user.email})`}
+                                        />
+                                        <ListItemSecondaryAction>
+                                            <IconButton edge="end" aria-label="delete" onClick={() => verifyStaffMember(user.user_id, history)}>
+                                                <CheckCircleIcon />
+                                            </IconButton>
+                                            <IconButton edge="end" aria-label="Yup" onClick={() => declineStaffMember(user.user_id, history)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                )
+                            })
+                        }
+                    </List>
+                </div>
             </div>
         </div>
     )

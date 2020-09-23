@@ -27,7 +27,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
 
             return {
                 ...state,
-                unAuthorizedUsers: updatedUsers
+                unAuthorizedUsers: updatedUsers,
+                isLoading: false
             }
         case 'ACCEPT_USER':
             console.log('from reducer!')
@@ -42,7 +43,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
 
             return {
                 ...state,
-                unAuthorizedUsers: updatedUsersAccept
+                unAuthorizedUsers: updatedUsersAccept,
+                isLoading: false
             }
         case "SET_UNAUTHORIZED_USERS":
             return {
