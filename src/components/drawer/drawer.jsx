@@ -25,7 +25,7 @@ import { logOut } from '../../redux/actions/actions'
 import PeopleIcon from '@material-ui/icons/People';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import HouseIcon from '@material-ui/icons/House';
-
+import Tooltip from '@material-ui/core/Tooltip'
 import './drawer.scss'
 import { Badge, Button } from '@material-ui/core';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
@@ -223,66 +223,72 @@ export default function MiniDrawer() {
                         </div>
                         <Divider />
                         <List>
-                            {/* {['View Profile', 'Logout'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                    <ListItemText primary={text} />
+                            <Tooltip title='View Profile' placement='right-start'>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                            <AccountCircleIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'View Profile'} />
                                 </ListItem>
-                            ))} */}
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <AccountCircleIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={'View Profile'} />
-                            </ListItem>
-                            <ListItem button onClick={handleLogout}>
-                                <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                                <ListItemText primary={'Logout'} />
-                            </ListItem>
+                            </Tooltip>
+                            <Tooltip title='Logout' placement='right-start'>
+                                <ListItem button onClick={handleLogout}>
+                                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                                    <ListItemText primary={'Logout'} />
+                                </ListItem>
+                            </Tooltip>
                         </List>
                         <Divider />
 
                         {
                             ['staff', 'admin'].includes(currentUser.role) && currentUser.isAuthorized ?
                                 <List>
-                                    <ListItem button onClick={redirectToGuests}>
-                                        <ListItemIcon >
-                                            <PeopleIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={'Guests'} />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <HouseIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={'Families'} />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <RecordVoiceOverIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={'Announcements'} />
-                                    </ListItem>
+                                    <Tooltip title='Guests' placement='right-start'>
+                                        <ListItem button onClick={redirectToGuests}>
+                                            <ListItemIcon >
+                                                <PeopleIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={'Guests'} />
+                                        </ListItem>
+                                    </Tooltip>
+                                    <Tooltip title='Family Accounts' placement='right-start'>
+                                        <ListItem button>
+                                            <ListItemIcon>
+                                                <HouseIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={'Families'} />
+                                        </ListItem>
+                                    </Tooltip>
+                                    <Tooltip title='Announcements' placement='right-start'>
+                                        <ListItem button>
+                                            <ListItemIcon>
+                                                <RecordVoiceOverIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={'Announcements'} />
+                                        </ListItem>
+                                    </Tooltip>
                                 </List>
                                 :
                                 ''
                         }
                         {
                             ['admin'].includes(currentUser.role) &&
-                            <ListItem button onClick={redirectToPending}>
-                                <ListItemIcon>
-                                    {
-                                        unAuthorizedUsers.length > 0
-                                            ?
-                                            <Badge badgeContent={unAuthorizedUsers.length} color="secondary">
-                                                <MailIcon color='primary'></MailIcon>
-                                            </Badge>
-                                            :
-                                            <MailIcon color={unAuthorizedUsers.length > 0 ? 'primary' : ''}></MailIcon>
-                                    }
-                                </ListItemIcon>
-                                <ListItemText primary={'Pending'} />
-                            </ListItem>
+                            <Tooltip title='Pending' placement='right-start'>
+                                <ListItem button onClick={redirectToPending}>
+                                    <ListItemIcon>
+                                        {
+                                            unAuthorizedUsers.length > 0
+                                                ?
+                                                <Badge badgeContent={unAuthorizedUsers.length} color="secondary">
+                                                    <MailIcon color='primary'></MailIcon>
+                                                </Badge>
+                                                :
+                                                <MailIcon color={unAuthorizedUsers.length > 0 ? 'primary' : ''}></MailIcon>
+                                        }
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Pending'} />
+                                </ListItem>
+                            </Tooltip>
                         }
                     </Drawer>
 
