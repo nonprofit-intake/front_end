@@ -14,11 +14,26 @@ export default function MaterialTableDemo() {
     const history = useHistory()
     const [state, setState] = React.useState({
         columns: [
+            { title: 'First Name', field: 'relationship_to_HoH', type: "hidden" },
             { title: 'First Name', field: 'first_name', type: "hidden" },
             { title: 'Last Name', field: 'last_name' },
             { title: 'Birth Date', field: 'dob', type: 'date' },
+            { title: 'Gender', field: 'gender' },
             { title: 'Email', field: 'email' },
-            { title: 'SSN', field: 'ssn' },
+            { title: 'Race', field: 'race' },
+            { title: 'Ethnicity', field: 'ethnicity' },
+            { title: 'Income at entry', field: 'income_at_entry', type: "currency" },
+            { title: 'Income at exit', field: 'income_at_exit', type: "currency" },
+            { title: 'Exit Destination', field: 'exit_destination' },
+            { title: 'Project Name', field: 'project_name' },
+            { title: 'Enroll Date', field: 'enroll_date', type: "date" },
+            { title: 'Exit Date', field: 'exit_date', type: 'date' },
+            { title: 'Pregnancy Due Date', field: 'pregnancy_due_date', type: 'date' },
+            { title: 'When DV Occured', field: 'when_dv_occured', type: 'date' },
+            { title: 'Domestic Violence', field: 'domestic_violence', type: "boolean" },
+            { title: 'Currently Fleeing', field: 'currently_fleeing', type: "boolean" },
+            { title: 'in school', field: 'is_school', type: "boolean" },
+            { title: 'Connected to MVento', field: 'connected_to_MVento', type: "boolean" },
         ],
         data: [],
     });
@@ -76,7 +91,7 @@ export default function MaterialTableDemo() {
                     }
                 ]}
                 editable={{
-        
+
                     // onRowRedirect: (newData) =>
                     //     new Promise((resolve) => {
                     //         setTimeout(() => {

@@ -20,6 +20,8 @@ import Guests from './pages/guests/guests'
 
 import Pending from './pages/pending/pending'
 
+import addMemberForm from './pages/add-member-form/add-member-form'
+
 function App() {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -33,6 +35,7 @@ function App() {
       <PrivateRoute exact path='/' component={Dashboards}></PrivateRoute>
       <PrivateRoute exact path="/pending" component={Pending}></PrivateRoute>
       <PrivateRoute exact path="/guests" component={Guests}></PrivateRoute>
+      <PrivateRoute exact path="/guests/family/add/:fam_id" component={addMemberForm}></PrivateRoute>
       <PrivateRoute exact path="/guests/family/:fam_id" component={FamilyMembers}></PrivateRoute>
       <PrivateRoute path="/register-family" component={RegisterUser}></PrivateRoute>
 

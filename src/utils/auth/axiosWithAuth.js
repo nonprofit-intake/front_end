@@ -7,6 +7,6 @@ export const axiosWithAuth = () => {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-        baseURL: 'https://user-intake-backend.herokuapp.com/'
+        baseURL: 'http://localhost:1337'
     });
 };
