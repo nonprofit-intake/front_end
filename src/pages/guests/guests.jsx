@@ -12,6 +12,7 @@ import { tableIcons } from '../../utils/material-table-icons'
 export default function MaterialTableDemo() {
     const [loading, setLoading] = useState(true)
     const history = useHistory()
+
     const [state, setState] = React.useState({
         columns: [
             { title: 'First Name', field: 'relationship_to_HoH', type: "hidden" },
@@ -75,8 +76,16 @@ export default function MaterialTableDemo() {
                 data={state.data}
                 actions={[
                     {
-                        icon: PeopleIcon,
+                        icon: 'more',
                         tooltip: 'Family',
+                        onClick: (event, rowData) => {
+                            // Do save operation
+                            history.push(`/guests/${rowData.personal_id}`)
+                        }
+                    },
+                    {
+                        icon: PeopleIcon,
+                        tooltip: 'More Info',
                         onClick: (event, rowData) => {
                             // Do save operation
                             history.push(`/guests/family/${rowData.fam_id}`)

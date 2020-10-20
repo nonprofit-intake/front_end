@@ -11,6 +11,7 @@ import green from '@material-ui/core/colors/green';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        textAlign: 'center'
     },
     color: {
 
@@ -27,10 +28,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function getSteps() {
-    return ['Describe your ailment', 'Pick your flavors', 'Describe your ailment', 'Pick your flavors', 'Describe your ailment', 'Pick your flavors', 'Describe your ailment', 'Pick your flavors'];
-}
-
 function getStepContent(step) {
     switch (step) {
         case 0:
@@ -46,13 +43,12 @@ function getStepContent(step) {
     }
 }
 
-export default function FormStepper({ activeStep, setActiveStep, handleSubmit }) {
+export default function FormStepper({steps , activeStep, setActiveStep, handleSubmit }) {
     const classes = useStyles();
-    const [skipped, setSkipped] = React.useState(new Set());
-    const steps = getSteps();
 
+    const [skipped, setSkipped] = React.useState(new Set());
     const isStepOptional = (step) => {
-        return step === 0;
+        return
     };
 
     const isStepSkipped = (step) => {
@@ -105,9 +101,10 @@ export default function FormStepper({ activeStep, setActiveStep, handleSubmit })
                     if (isStepSkipped(index)) {
                         stepProps.completed = false;
                     }
+                  
                     return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
+                        <Step style={{cursor: 'pointer'}} key={label} {...stepProps} onClick={() => setActiveStep(index)}>
+                            <StepLabel style={{ cursor: 'pointer' }} {...labelProps}>{label}</StepLabel>
                         </Step>
                     );
                 })}
@@ -128,7 +125,7 @@ export default function FormStepper({ activeStep, setActiveStep, handleSubmit })
                             <div>
                                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                     Back
-              </Button>
+                                </Button>
                                 {isStepOptional(activeStep) && (
                                     <Button
                                         variant="contained"

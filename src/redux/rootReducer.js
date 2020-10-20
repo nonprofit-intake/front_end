@@ -1,6 +1,7 @@
 import { updateUser } from "./actions/actions"
 
 const INITIAL_STATE = {
+    fam_id: '',
     ailments: []
     ,
     isLoggedIn: false,
@@ -127,6 +128,13 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isLoading: false
+            }
+        case 'REGISTER_USER_AS_GUEST':
+            return {
+                ...state,
+                fam_id: action.payload,
+                isLoading: false,
+                apiError: null
             }
         default:
             return state
