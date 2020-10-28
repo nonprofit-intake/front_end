@@ -9,6 +9,8 @@ import ProgressBar from '../../components/progress-bar/progress-bar'
 const INITIAL_VALUES = {
     first_name: 'Isaiah',
     last_name: 'Fowler',
+    middle_name: '',
+    current_age: 18,
     email: 'ijfowler7@gmail.com',
     dob: new Date,
     income_at_entry: 500,
@@ -33,9 +35,7 @@ const INITIAL_VALUES = {
     school_name: 'some name',
     school_type: 'private',
     last_grade_completed: 12,
-    attendance_status: 'irregular',
-    middle_name: '',
-    current_age: 18
+    attendance_status: 'irregular'
 }
 
 const steps = ['Basic Information', 'Conditions/Health', 'School info', 'Submit']

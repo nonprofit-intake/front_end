@@ -7,6 +7,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { useHistory } from 'react-router-dom';
 import NoteIcon from '@material-ui/icons/Note';
 import PeopleIcon from '@material-ui/icons/People';
+import InfoIcon from '@material-ui/icons/Info';
 import { tableIcons } from '../../utils/material-table-icons'
 
 export default function MaterialTableDemo() {
@@ -76,8 +77,8 @@ export default function MaterialTableDemo() {
                 data={state.data}
                 actions={[
                     {
-                        icon: 'more',
-                        tooltip: 'Family',
+                        icon: InfoIcon,
+                        tooltip: 'More Info',
                         onClick: (event, rowData) => {
                             // Do save operation
                             history.push(`/guests/${rowData.personal_id}`)
@@ -85,7 +86,7 @@ export default function MaterialTableDemo() {
                     },
                     {
                         icon: PeopleIcon,
-                        tooltip: 'More Info',
+                        tooltip: 'Family Members',
                         onClick: (event, rowData) => {
                             // Do save operation
                             history.push(`/guests/family/${rowData.fam_id}`)

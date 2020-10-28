@@ -8,10 +8,11 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import { useHistory, useParams } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip'
+import InfoIcon from '@material-ui/icons/Info';
+
 import './family-members.scss'
 
 export default function MaterialTableDemo() {
-
     const history = useHistory()
     const params = useParams()
     const [loading, setLoading] = useState(true)
@@ -81,6 +82,16 @@ export default function MaterialTableDemo() {
                 title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
                 columns={state.columns}
                 data={state.data}
+                actions={[
+                    {
+                        icon: InfoIcon,
+                        tooltip: 'More Info',
+                        onClick: (event, rowData) => {
+                            // Do save operation
+                            history.push(`/guests/${rowData.personal_id}`)
+                        }
+                    },
+                ]}
                 components={
                     {
                         Toolbar: props => (
@@ -93,11 +104,11 @@ export default function MaterialTableDemo() {
                         )
                     }
                 }
+
                 editable={{
             
                     onRowUpdate: (newMemberData, oldData) =>
                         new Promise((resolve) => {
-                            console.log(newMemberData)
                             axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.personal_id}`, newMemberData).then(res => {
                                 resolve()
                                 setState((prevState) => {

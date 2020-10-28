@@ -49,7 +49,7 @@ const INITIAL_VALUES = {
     times_homeless_last_3years: 20,
     homeless_start_date: new Date,
     total_months_homeless: 2,
-    prior_address: 'test addy',
+    prior_address: 'test address',
     covered_by_health_insurance: 'yes',
     date_of_first_stay: new Date,
     medicaid: true,
@@ -78,7 +78,7 @@ const INITIAL_VALUES = {
     ssn: '114 554 889'
 }
 
-const steps = ['Create Family Account', 'Basic Information', 'Previous Locations/Healthcare', 'Disabilities/Mental Illness', 'Domestic Violence', 'Sign and Submit']
+const steps = ['Create Family Account', 'identification' ,'Basic Information', 'Previous Locations/Healthcare', 'Disabilities/Mental Illness', 'Domestic Violence', 'Sign and Submit']
 
 const RegisterUser = () => {
     const dispatch = useDispatch()

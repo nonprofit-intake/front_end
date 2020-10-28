@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Loading from '../../components/loading/loading'
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import './GuestInfoPage.scss'
 
 const GuestInfoPage = () => {
+    const history = useHistory()
     const [loading, setLoading] = useState(true)
     const [guest, setGuest] = useState(null)
     const params = useParams()
@@ -14,8 +15,10 @@ const GuestInfoPage = () => {
             .then((res) => {
                 console.log(res.data)
                 setGuest(res.data.payload.guest)
-            }).catch(() => {
+            }).catch((err) => {
+                console.log(err)
                 alert('fail')
+                history.push('/guests')
             }).finally(() => {
                 setLoading(false)
             })
