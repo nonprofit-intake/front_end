@@ -10,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
 import './forms.scss';
-const Fourth = ({ setFormValues, formValues, handleChange }) => {
+const DisabilitiesForm = ({ setFormValues, formValues, handleChange }) => {
 	const [ selectedDate, setSelectedDate ] = React.useState(new Date());
 
 	const handleDateChange = (date) => {
@@ -109,4 +109,4 @@ const Fourth = ({ setFormValues, formValues, handleChange }) => {
 	);
 };
 
-export default Fourth;
+export default DisabilitiesForm;

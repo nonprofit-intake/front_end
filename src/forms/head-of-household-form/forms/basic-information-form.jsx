@@ -10,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
 import './forms.scss';
-const Second = ({ setFormValues, formValues, handleChange }) => {
+const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 	const [ selectedDate, setSelectedDate ] = React.useState(new Date());
 
 	const handleDateChange = (date) => {
@@ -58,7 +58,14 @@ const Second = ({ setFormValues, formValues, handleChange }) => {
 					name="age"
 					required
 				/>
-				<TextField value={formValues.ssn} onChange={handleChange} type="text" label="SSN" name="ssn" required />
+				<TextField
+					value={formValues.last_4_digits_of_ssn}
+					onChange={handleChange}
+					type="text"
+					label="SSN"
+					name="last_4_digits_of_ssn"
+					required
+				/>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<KeyboardDatePicker
 						name="dob"
@@ -133,4 +140,4 @@ const Second = ({ setFormValues, formValues, handleChange }) => {
 	);
 };
 
-export default Second;
+export default BasicInformationForm;
