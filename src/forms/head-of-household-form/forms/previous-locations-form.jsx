@@ -15,6 +15,36 @@ import Checkbox from '@material-ui/core/Checkbox';
 import './forms.scss';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
+let previousLivingSituationOptions = [
+	'Emergency shelter, including hotel or motel paid for with emergency shelter voucher, or RHY-funded Host Home shelter',
+	'Safe Haven',
+	'Foster care home or foster care group home',
+	'Hospital or other residential non-psychiatric medical facility',
+	'Jail, prison or juvenile detention facility',
+	'Long-term care facility or nursing home',
+	'Psychiatric hospital or other psychiatric facility',
+	'Substance abuse treatment facility or detox center',
+	'Residential project or halfway house with no homeless criteria',
+	'Hotel or motel paid for without emergency shelter voucher',
+	'Rental by client, with VASH housing subsidy',
+	'Transitional housing for homeless persons (including homeless youth)',
+	'Host Home (non-crisis)',
+	"Staying or living in a friend's room, apartment or house",
+	"Staying or living in a family member's room, apartment or house",
+	'Rental by client, with GPD TIP housing subsidy',
+	'Permanent housing (other than RRH) for formerly homeless persons',
+	'Rental by client, with RRH or equivalent subsidy',
+	'Rental by client, with HCV voucher (tenant or project based)',
+	'Rental by client in a public housing unit',
+	'Rental by client, no ongoing housing subsidy',
+	'Rental by client, with other ongoing housing subsidy',
+	'Owned by client, with ongoing housing subsidy',
+	'Owned by client, no ongoing housing subsidy',
+	"Client doesn't know",
+	'Client refused',
+	'Data not collected'
+];
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
@@ -48,17 +78,49 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 		setFormValues({ ...formValues, [e.target.name]: e.target.checked });
 		console.log(formValues);
 	};
-
+	// Find the right column for "where did you stay last night"
 	return (
 		<form className="multi-form-container">
 			<div className="text-fields-container-multiform">
-				<div id="address-info">
+				<div style={{ display: 'flex', flexDirection: 'column' }}>
+					<FormLabel>
+						What was your prior living situation like? (Choose whichever best fits the description)
+					</FormLabel>
 					<TextField
-						value={formValues.last_perm_address}
+						value={formValues.living_situation}
+						onChange={handleChange}
+						name="living_situation"
+						label="Living Situation"
+						select
+					>
+						{previousLivingSituationOptions.map((opt) => {
+							return <MenuItem value={opt}>{opt}</MenuItem>;
+						})}
+					</TextField>
+				</div>
+				<TextField
+					value={formValues.last_perm_address}
+					onChange={handleChange}
+					type="text"
+					label="Last Permanent Address"
+					name="last_perm_address"
+					required
+				/>
+				<div style={{ display: 'flex', gridGap: '1rem' }}>
+					<TextField
+						value={formValues.state}
 						onChange={handleChange}
 						type="text"
-						label="Last Permanent Address"
-						name="last_perm_address"
+						label="State"
+						name="zip"
+						required
+					/>
+					<TextField
+						value={formValues.city}
+						onChange={handleChange}
+						type="text"
+						label="City"
+						name="zip"
 						required
 					/>
 					<TextField
@@ -72,12 +134,13 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 				</div>
 				<div className="third-form-questions">
 					<FormLabel component="legend">Where did you stay last night?</FormLabel>
+
 					<TextField
-						value={formValues.zip}
+						value={formValues.prior_address}
 						onChange={handleChange}
 						type="text"
 						label="Address"
-						name="zip"
+						name="prior_address"
 						required
 					/>
 				</div>
@@ -227,11 +290,21 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 									name="state_funded"
 								/>
 							}
-							label="State"
+							label="State Funded"
 						/>
 						<FormControlLabel
 							control={<Checkbox checked={formValues.private} onChange={handleCheckbox} name="private" />}
 							label="Private"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={formValues.private_individual}
+									onChange={handleCheckbox}
+									name="private_individual"
+								/>
+							}
+							label="Private Individual"
 						/>
 					</FormGroup>
 					<FormGroup>
@@ -242,6 +315,10 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 							label="Medicaid"
 						/>
 						<FormControlLabel
+							control={<Checkbox checked={formValues.VAMS} onChange={handleCheckbox} name="VAMS" />}
+							label="Veteran Medical Services"
+						/>
+						<FormControlLabel
 							control={
 								<Checkbox checked={formValues.medicare} onChange={handleCheckbox} name="medicare" />
 							}
@@ -250,6 +327,26 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 						<FormControlLabel
 							control={<Checkbox checked={formValues.other} onChange={handleCheckbox} name="other" />}
 							label="other"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={formValues.other_public}
+									onChange={handleCheckbox}
+									name="other_public"
+								/>
+							}
+							label="Other Public"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={formValues.indian_health_services}
+									onChange={handleCheckbox}
+									name="indian_health_services"
+								/>
+							}
+							label="Indian Health Services"
 						/>
 					</FormGroup>
 					<FormHelperText>Be careful</FormHelperText>

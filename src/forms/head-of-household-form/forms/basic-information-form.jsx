@@ -50,6 +50,28 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 						required
 					/>
 				</div>
+				<div>
+					<FormLabel component="legend">Are you a veteran?</FormLabel>
+					<RadioGroup
+						aria-label="gender"
+						name="vet_status"
+						value={formValues.vet_status}
+						onChange={handleChange}
+					>
+						<FormControlLabel value="yes" control={<Radio />} label="Yes" />
+						<FormControlLabel value="no" control={<Radio />} label="No" />
+						<FormControlLabel value="client Refused" control={<Radio />} label="Client Refused" />
+					</RadioGroup>
+				</div>
+				<TextField
+					value={formValues.preferred_language}
+					onChange={handleChange}
+					type="text"
+					label="Preferred Language"
+					name="preferred_language"
+					required
+				/>
+
 				<TextField
 					value={formValues.current_age}
 					onChange={handleChange}
@@ -58,14 +80,7 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 					name="age"
 					required
 				/>
-				<TextField
-					value={formValues.last_4_digits_of_ssn}
-					onChange={handleChange}
-					type="text"
-					label="SSN"
-					name="last_4_digits_of_ssn"
-					required
-				/>
+				<TextField value={formValues.ssn} onChange={handleChange} type="text" label="SSN" name="ssn" required />
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<KeyboardDatePicker
 						name="dob"
@@ -110,6 +125,24 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 					<MenuItem value="Female">Female</MenuItem>
 					<MenuItem value="Other">Other</MenuItem>
 					<MenuItem value="rather_not_say">Rather Not Say</MenuItem>
+				</TextField>
+				<TextField
+					value={formValues.sexual_orientation}
+					onChange={handleChange}
+					name="sexual_orientation"
+					id="select"
+					label="Sexual Orientation (optional)"
+					select
+					optional
+				>
+					<MenuItem value="Heterosexual">Heterosexual</MenuItem>
+					<MenuItem value="Gay">Gay</MenuItem>
+					<MenuItem value="Lesbian">Lesbian</MenuItem>
+					<MenuItem value="Bisexual">Bisexual</MenuItem>
+					<MenuItem value="Questioning / Unsure">Questioning / Unsure</MenuItem>
+					<MenuItem value="Other">Other</MenuItem>
+					<MenuItem value="Client doesn't know">Unsure</MenuItem>
+					<MenuItem value="Client Refused">Client Refused</MenuItem>
 				</TextField>
 				<div className="name-container">
 					<TextField

@@ -39,6 +39,42 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 			<div className="text-fields-container-multiform">
 				<div>
 					<FormLabel component="legend">
+						Are you <strong>Pregnant</strong>?
+					</FormLabel>
+					<RadioGroup
+						aria-label="gender"
+						name="pregnancy_status"
+						value={formValues.pregnancy_status}
+						onChange={handleChange}
+					>
+						<FormControlLabel value="yes" control={<Radio />} label="Yes" />
+						<FormControlLabel value="no" control={<Radio />} label="No" />
+						<FormControlLabel value="unsure" control={<Radio />} label="Unsure" />
+						<FormControlLabel value="client Refused" control={<Radio />} label="Client Refused" />
+					</RadioGroup>
+				</div>
+				{formValues.pregnancy_status == 'yes' && (
+					<div className="third-form-question">
+						<FormLabel component="legend">Pregnancy Due Date</FormLabel>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								name="pregnancy_due_date"
+								format="MM/dd/yyyy"
+								margin="normal"
+								id="time-picker"
+								label="mm/dd/yyyy"
+								value={formValues.pregnancy_due_date}
+								onChange={handleDateChange}
+								KeyboardButtonProps={{
+									'aria-label': 'change time'
+								}}
+							/>
+						</MuiPickersUtilsProvider>
+					</div>
+				)}
+				<hr />
+				<div>
+					<FormLabel component="legend">
 						Are you <strong>Currently</strong> fleeing a DV situation?
 					</FormLabel>
 					<RadioGroup

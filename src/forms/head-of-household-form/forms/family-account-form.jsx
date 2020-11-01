@@ -13,6 +13,8 @@ import { axiosWithAuth } from '../../../utils/auth/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
+import MenuItem from '@material-ui/core/MenuItem';
+
 const FamilyAccountForm = ({ incrementStep, setFormValues, formValues, handleChange }) => {
 	const [ selectedDate, setSelectedDate ] = React.useState(new Date());
 
@@ -47,6 +49,21 @@ const FamilyAccountForm = ({ incrementStep, setFormValues, formValues, handleCha
 		<div>
 			<form onSubmit={handleSubmit}>
 				<div className="text-fields-container-multiform">
+					<TextField
+						value={formValues.project_name}
+						onChange={handleChange}
+						name="project_name"
+						id="select"
+						label="Project Name"
+						select
+					>
+						<MenuItem value={'FPS--ES--Bridges Family Shelter'}>FPS--ES--Bridges Family Shelter</MenuItem>
+						<MenuItem value={'FPS--ES--Open Doors'}>FPS--ES--Open Doors</MenuItem>
+						<MenuItem value={'FPS--HP--Neighbors'}>FPS--HP--Neighbors</MenuItem>
+						<MenuItem value={'FPS--SSO--Open Doors'}>FPS--SSO--Open Doors</MenuItem>
+						<MenuItem value={'FPS--SSO--Village'}>FPS--SSO--Village</MenuItem>
+					</TextField>
+
 					<TextField
 						value={formValues.first_name}
 						onChange={handleChange}
