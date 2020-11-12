@@ -10,25 +10,16 @@ import SubmitForm from './submit-form';
 export default function({ incrementStep, setFormValues, activeStep, handleSubmit, handleChange, formValues }) {
 	switch (activeStep) {
 		case 0:
-			return (
-				<FamilyAccountForm
-					incrementStep={incrementStep}
-					setFormValues={setFormValues}
-					formValues={formValues}
-					handleChange={handleChange}
-				/>
-			);
-		case 1:
 			return <IdentificationForm setFormValues={setFormValues} formValues={formValues} handleChange={handleChange}/>;
-		case 2:
+		case 1:
 			return <BasicInformationForm setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />;
-		case 3:
+		case 2:
 			return <PreviousLocationsForm setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />;
-		case 4:
+		case 3:
 			return <DisabilitiesForm setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />;
-		case 5:
+		case 4:
 			return <DomesticViolenceForm setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />;
-		case 6:
+		case 5:
 			return <SubmitForm setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />;
 	}
 }

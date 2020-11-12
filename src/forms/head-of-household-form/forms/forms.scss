@@ -19,8 +19,15 @@
 }
 
 .alternative-id-field {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
 	grid-gap: 2rem;
-    width: 100%;
+	width: 100%;
+}
+
+.name-container {
+	grid-gap: 0.5rem;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }

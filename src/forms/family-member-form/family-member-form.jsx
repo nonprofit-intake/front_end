@@ -5,13 +5,14 @@ import MultStepForm from './forms/index';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 import { useHistory, useParams } from 'react-router-dom';
 import ProgressBar from '../../components/progress-bar/progress-bar';
+import faker from 'faker';
 
 const INITIAL_VALUES = {
-	first_name: 'Isaiah',
-	last_name: 'Fowler',
+	first_name: faker.name.firstName(),
+	last_name: faker.name.lastName(),
 	middle_name: '',
 	current_age: 18,
-	email: 'ijfowler7@gmail.com',
+	email: faker.internet.email(),
 	dob: new Date(),
 	income_at_entry: 500,
 	income_at_exit: 300,
@@ -45,9 +46,10 @@ const FamilyMemberForm = () => {
 	const history = useHistory();
 	const [ loading, setLoading ] = useState(false);
 	const [ formValues, setFormValues ] = useState(INITIAL_VALUES);
-	const [ activeStep, setActiveStep ] = useState(2);
+	const [ activeStep, setActiveStep ] = useState(0);
 
 	const handleSubmit = () => {
+		console.log(formValues);
 		axiosWithAuth()
 			.post(`/api/guests/family/${params.fam_id}`, formValues)
 			.then((res) => {

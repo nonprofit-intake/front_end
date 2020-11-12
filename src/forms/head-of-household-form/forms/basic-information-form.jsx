@@ -39,7 +39,6 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 						type="text"
 						label="Middle Name"
 						name="middle_name"
-						required
 					/>
 					<TextField
 						value={formValues.last_name}
@@ -71,7 +70,6 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 					name="preferred_language"
 					required
 				/>
-
 				<TextField
 					value={formValues.current_age}
 					onChange={handleChange}
@@ -80,7 +78,6 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 					name="age"
 					required
 				/>
-				<TextField value={formValues.ssn} onChange={handleChange} type="text" label="SSN" name="ssn" required />
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<KeyboardDatePicker
 						name="dob"

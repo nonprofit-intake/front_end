@@ -9,9 +9,10 @@ import { registerUser } from '../../redux/actions/staffActions';
 import MultiStepForm from './forms/index';
 import Stepper from '../family-member-form/stepper/stepper';
 import Loading from '../../components/loading/loading';
-
+import faker from 'faker';
 import './register-user.scss';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
+import FamilyAccountForm from './forms/family-account-form';
 
 const INITIAL_VALUES = {
 	state: 'New York',
@@ -19,11 +20,11 @@ const INITIAL_VALUES = {
 	city: 'Gotham',
 	enroll_date: new Date(),
 	gender: 'male',
-	first_name: 'Bruce',
-	middle_name: 'Thomas',
-	last_name: 'Wayne',
-	email: 'bruce@gmail.com',
-	dob: new Date(),
+	first_name: faker.name.firstName(),
+	middle_name: '',
+	last_name: faker.name.lastName(),
+	email: faker.internet.email(),
+	dob: faker.date.past(),
 	income_at_entry: 500,
 	income_at_exit: 500,
 	ethnicity: 'White',
@@ -102,7 +103,6 @@ const INITIAL_VALUES = {
 };
 
 const steps = [
-	'Create Family Account',
 	'identification/contact',
 	'Basic Information',
 	'Previous Locations/Healthcare',
@@ -113,18 +113,19 @@ const steps = [
 
 const HeadOfHouseholdForm = () => {
 	const dispatch = useDispatch();
+	const [ famId, setFamId ] = useState(null);
 	const history = useHistory();
 	const apiError = useSelector((state) => state.apiError);
 	const isLoading = useSelector((state) => state.isLoading);
-	const fam_id = useSelector((state) => state.fam_id);
+
+	const [ formValues, setFormValues ] = useState(INITIAL_VALUES);
+	const [ activeStep, setActiveStep ] = useState(0);
+	const [ loading, setLoading ] = useState(false);
+	let [ registeredAccount, setRegisteredAccount ] = useState(false);
 
 	useEffect(() => {
 		dispatch(clearErrors());
 	}, []);
-
-	const [ formValues, setFormValues ] = useState(INITIAL_VALUES);
-	const [ activeStep, setActiveStep ] = useState(3);
-	const [ loading, setLoading ] = useState(false);
 
 	const incrementStep = () => {
 		setActiveStep(activeStep + 1);
@@ -144,14 +145,12 @@ const HeadOfHouseholdForm = () => {
 			}
 		}
 
-		console.log(member);
-
 		setLoading(true);
 
 		axiosWithAuth()
-			.post(`/api/guests/family/${fam_id}`, member)
+			.post(`/api/guests/family/${famId}`, member)
 			.then((res) => {
-				history.push(`/guests/family/${fam_id}`);
+				history.push(`/guests/family/${famId}`);
 			})
 			.catch((e) => {
 				alert(e.message);
@@ -162,12 +161,30 @@ const HeadOfHouseholdForm = () => {
 	};
 
 	const handleChange = (e) => {
-		console.log(formValues.pregnancy_status);
+		console.log(famId);
 		setFormValues({
 			...formValues,
 			[e.target.name]: e.target.value
 		});
 	};
+
+	if (!registeredAccount) {
+		return (
+			<div className="add-member-container">
+				<div className="forms-container">
+					<FamilyAccountForm
+						setFamId={setFamId}
+						incrementStep={incrementStep}
+						setFormValues={setFormValues}
+						formValues={formValues}
+						handleChange={handleChange}
+						activeStep={activeStep}
+						setRegisteredAccount={setRegisteredAccount}
+					/>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div>

@@ -54,10 +54,6 @@ const GuestInfoPage = () => {
 					<h1>Middle Name:</h1>
 					<h2>{guest.middle_name || 'Not Provided'}</h2>
 				</div>
-				<div className="client-info-field">
-					<h1>SSN:</h1>
-					<h2>{guest.ssn || 'Not Provided'}</h2>
-				</div>
 			</div>
 
 			<hr />
@@ -146,15 +142,15 @@ const GuestInfoPage = () => {
 			<hr />
 
 			<div className="client-info-container">
-				<div className="client-info-field">
+				{/* <div className="client-info-field">
 					<h1>Assessment Date</h1>
 					<h2>{guest.project_name || 'Data not collected'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>SOAR ID</h1>
 					<h2>{guest.project_name || 'Data not collected'}</h2>
-				</div>
-				<div className="client-info-field">
+				</div> */}
+				{/* <div className="client-info-field">
 					<h1>Age At Enrollment</h1>
 					<h2>{guest.age_at_enrollment}</h2>
 				</div>
@@ -185,7 +181,7 @@ const GuestInfoPage = () => {
 				<div className="client-info-field">
 					<h1>Prior Living Situtation</h1>
 					<h2>{guest.living_situation || 'Data not collected'}</h2>
-				</div>
+				</div> */}
 				<div className="client-info-field">
 					<h1>Length of stay in prior living situation</h1>
 					<h2>{guest.length_of_stay || 'Data not collected'}</h2>
@@ -321,14 +317,28 @@ const GuestInfoPage = () => {
 				</div>
 			</div>
 			<hr />
-			<h1>Current Living Situation</h1>
+			<h1>Child Education Assessment</h1>
 			<hr />
 			<div className="client-info-container">
+				<div className="client-info-field">
+					<h1>Highest Grade Completed</h1>
+					<h2>{guest.last_grade_completed}</h2>
+				</div>
+				<div className="client-info-field">
+					<h1>Current Enrollment Status</h1>
+					<h2>{guest.current_status}</h2>
+				</div>
+				<div className="client-info-field">
+					<h1>Attendance Status</h1>
+					<h2>{guest.attendance_status}</h2>
+				</div>
+			</div>
+			{/* <div className="client-info-container">
 				<div className="client-info-field">
 					<h1>Current Living Situation</h1>
 					<h2>{guest.living_situation}</h2>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };

@@ -14,6 +14,7 @@ import { checkIfUserIsLoggedIn } from './redux/actions/actions'
 
 // Forms
 
+import RegisterGuestAccount from './forms/register-guest-account/register-guest-account'
 import Login from './forms/login/login'
 import Register from './forms/register/register'
 import HeadOfHouseholdForm from './forms/head-of-household-form/head-of-household-form';
@@ -29,27 +30,26 @@ import Guests from './pages/guests/guests' // Renders a table showing every gues
 import Pending from './pages/pending/pending' // Renders a list of pending staff members waiting for verification from an admin
 import GuestInfoPage from './pages/guest-info-page/GuestInfoPage' // Unfinished -> all of the data should be organized the same as the CMIS
 
-
 function App() {
   const dispatch = useDispatch()
   const history = useHistory()
   useEffect(() => {
     dispatch(checkIfUserIsLoggedIn(history))
+    console.log(process.env)
   }, [])
 
   return (
     <div className="App">
       <Route path='/' component={Drawer}></Route>
       <PrivateRoute exact path='/' component={Dashboards}></PrivateRoute>
+
       <PrivateRoute exact path="/pending" component={Pending}></PrivateRoute>
       <PrivateRoute exact path="/guests" component={Guests}></PrivateRoute>
       <PrivateRoute exact path="/guests/:id" component={GuestInfoPage}></PrivateRoute>
       <PrivateRoute exact path="/guests/family/add/:fam_id" component={FamilyMemberForm}></PrivateRoute>
       <PrivateRoute exact path="/guests/family/:fam_id" component={FamilyMembers}></PrivateRoute>
-      {/* <PrivateRoute path="/register-family" component={RegisterUser}></PrivateRoute> */}
-
       <PrivateRoute path="/register-family" component={HeadOfHouseholdForm}></PrivateRoute>
-
+      <Route path='/register-guest-account' component={RegisterGuestAccount}></Route>
       <Route path='/login' component={Login}></Route>
       <Route path='/register' component={Register}></Route>
       <Route path='/error-page' component={ErrorPage}></Route>

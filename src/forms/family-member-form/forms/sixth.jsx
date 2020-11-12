@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
+import FormLabel from '@material-ui/core/FormLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
-const Sixth = ({formValues, handleChange}) => {
-    return (
-        <h1>Sixth form</h1>
-    )
-}
+const Sixth = ({ formValues, handleChange }) => {
+	return (
+		<div>
+			<h1>Terms and Conditions</h1>
+			<hr />
+			<FormLabel>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates iure quasi vitae labore inventore?
+				Iste quod corporis, dolorem quia sit pariatur ullam quam sint nisi hic iure incidunt neque ad. Lorem
+				ipsum dolor sit amet consectetur adipisicing elit. Voluptates iure quasi vitae labore inventore? Iste
+				quod corporis, dolorem quia sit pariatur ullam quam sint nisi hic iure incidunt neque ad.
+			</FormLabel>
+			<Checkbox />
+		</div>
+	);
+};
 
-export default Sixth
+export default Sixth;
