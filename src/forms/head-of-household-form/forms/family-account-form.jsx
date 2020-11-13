@@ -72,6 +72,7 @@ const FamilyAccountForm = ({
 		axiosWithAuth()
 			.post('/api/auth/staff/register', user)
 			.then((res) => {
+				console.log(res.data.payload.user);
 				setFamId(res.data.payload.user.unique_id);
 				setRegisteredAccount(true);
 			})

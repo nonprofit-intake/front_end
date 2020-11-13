@@ -43,8 +43,8 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 					</FormLabel>
 					<RadioGroup
 						aria-label="gender"
-						name="pregnancy_status"
-						value={formValues.pregnancy_status}
+						name="is_pregnant"
+						value={formValues.is_pregnant}
 						onChange={handleChange}
 					>
 						<FormControlLabel value="yes" control={<Radio />} label="Yes" />

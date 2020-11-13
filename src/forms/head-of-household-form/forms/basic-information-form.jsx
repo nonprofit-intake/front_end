@@ -75,7 +75,7 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 					onChange={handleChange}
 					type="text"
 					label="Age"
-					name="age"
+					name="current_age"
 					required
 				/>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
