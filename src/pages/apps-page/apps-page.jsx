@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppCard from './card/Card';
 
 import './apps-page.scss';
@@ -6,7 +6,19 @@ import { useHistory } from 'react-router-dom';
 import dashboardImg from '../../assets/svg/analyse.png';
 import registerFamilyImg from '../../assets/svg/support.png';
 import placeHolder from '../../assets/svg/Astronaut.png';
+import { setDashboardData } from '../../redux/actions/actions';
+import { useSelector, useDispatch } from 'react-redux';
+
 const AppsPage = () => {
+	const currentUser = useSelector((state) => state.currentUser);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (currentUser.role == 'admin') {
+			dispatch(setDashboardData());
+		}
+	}, []);
+
 	const history = useHistory();
 	return (
 		<div className="apps-container">

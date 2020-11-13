@@ -19,6 +19,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { tableIcons } from '../../utils/material-table-icons';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Circle from 'react-circle';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
 	root: {
@@ -57,6 +58,8 @@ const rows = [
 ];
 
 const Dashboard = () => {
+	const dashboardData = useSelector((state) => state.dashboardData);
+	const carryingCapacity = dashboardData.total_staying_the_night
 	const [ staffMembers, setStaffMembers ] = useState([]);
 	const classes = useStyles();
 	const history = useHistory();
@@ -83,7 +86,7 @@ const Dashboard = () => {
 								Clocked in
 							</Typography>
 							<Typography className={classes.body} color="textPrimary" gutterBottom>
-								Clocked in
+								{dashboardData.total_clocked_in}
 							</Typography>
 						</CardContent>
 					</Card>
@@ -92,12 +95,18 @@ const Dashboard = () => {
 							<Typography className={classes.title} color="textPrimary" gutterBottom>
 								Staying the night
 							</Typography>
+							<Typography className={classes.body} color="textPrimary" gutterBottom>
+								{dashboardData.total_staying_the_night}
+							</Typography>
 						</CardContent>
 					</Card>
 					<Card className={classes.root} variant="outlined">
 						<CardContent>
 							<Typography className={classes.title} color="textPrimary" gutterBottom>
-								Total
+								Total # of Guests
+							</Typography>
+							<Typography className={classes.body} color="textPrimary" gutterBottom>
+								{dashboardData.total_guests}
 							</Typography>
 						</CardContent>
 					</Card>
@@ -132,7 +141,7 @@ const Dashboard = () => {
 							animate={true} // Boolean: Animated/Static progress
 							animationDuration="4s" //String: Length of animation
 							// responsive={true} // Boolean: Make SVG adapt to parent size
-							size={480} // Number: Defines the size of the circle.
+							size={440} // Number: Defines the size of the circle.
 							lineWidth={10} // Number: Defines the thickness of the circle's stroke.
 							progress={69} // Number: Update to change the progress and percentage.
 							progressColor="cornflowerblue" // String: Color of "progress" portion of circle.

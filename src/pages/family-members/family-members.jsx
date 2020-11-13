@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, suspens } from 'react';
 import { tableIcons } from '../../utils/material-table-icons'
 import ProgressBar from '../../components/progress-bar/progress-bar'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { addMember } from '../../api/addMember'
 import MaterialTable, { MTableToolbar } from 'material-table';
-
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import { useHistory, useParams } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip'
 import InfoIcon from '@material-ui/icons/Info';
-
 import './family-members.scss'
 
 export default function MaterialTableDemo() {

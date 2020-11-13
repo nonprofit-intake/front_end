@@ -12,6 +12,12 @@ const INITIAL_STATE = {
     },
     unAuthorizedUsers: [],
     users: [],
+    dashboardData: {
+        total_guests: 0,
+        total_clocked_in: 0,
+        total_staying_the_night: 0,
+        staff: []
+    }
 }
 
 export const rootReducer = (state = INITIAL_STATE, action) => {
@@ -135,6 +141,16 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
                 fam_id: action.payload,
                 isLoading: false,
                 apiError: null
+            }
+        case 'SET_DASHBOARD_DATA':
+            return {
+                ...state,
+                dashboardData: {
+                    total_guests: action.payload.total_guests,
+                    total_clocked_in: action.payload.total_clocked_in,
+                    total_staying_the_night: action.payload.total_staying_the_night,
+                    staff: action.payload.staff
+                }
             }
         default:
             return state
