@@ -198,10 +198,6 @@ const GuestInfoPage = () => {
 					<h1>Total number of months homeless in the past three years</h1>
 					<h2>{guest.total_months_homeless || 'Data not collected'}</h2>
 				</div>
-				<div className="client-info-field">
-					<h1>Address Prior To Entry Quality</h1>
-					<h2>{guest.prior_address ? 'Full Address Reported' : 'Data Not Collected'}</h2>
-				</div>
 				<hr />
 				<div className="client-info-field">
 					<h1>Medicaid</h1>

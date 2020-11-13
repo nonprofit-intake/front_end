@@ -132,18 +132,7 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 						required
 					/>
 				</div>
-				<div className="third-form-questions">
-					<FormLabel component="legend">Where did you stay last night?</FormLabel>
-
-					<TextField
-						value={formValues.prior_address}
-						onChange={handleChange}
-						type="text"
-						label="Address"
-						name="prior_address"
-						required
-					/>
-				</div>
+	
 				<div className="third-form-questions">
 					<FormLabel component="legend">How long did you stay at this location?</FormLabel>
 					<TextField

@@ -14,7 +14,7 @@ export const login = (user, history) => async (dispatch) => {
         dispatch({ type: "SET_CURRENT_USER", payload: currentUser })
 
         dispatch({ type: 'LOGIN' })
-        history.push('/')
+        history.push('/apps')
     } catch (error) {
         let message
         if (error.message && error.message == 'Network Error') {
@@ -41,7 +41,7 @@ export const register = (user, history) => async (dispatch) => {
 
         localStorage.setItem('token', token)
         dispatch({ type: 'REGISTER' })
-        history.push('/')
+        history.push('/apps')
     } catch (error) {
         let message
         if (error.message && error.message == 'Network Error') {
@@ -76,7 +76,7 @@ export const checkIfUserIsLoggedIn = (history) => async dispatch => {
             dispatch({ type: "IS_NOT_LOADING" })
             dispatch({ type: 'SET_CURRENT_USER', payload: user })
             dispatch({ type: "LOGIN" })
-            // history.push('/')
+            history.push('/apps')
         } catch (error) {
             dispatch({type: "IS_NOT_LOADING"})
             history.push('/login')
@@ -102,7 +102,6 @@ export const fetchAllUsers = () => async dispatch => {
     } catch (error) {
         console.log(error)
     }
-
 }
 
 export const fetchUserById = () => dispatch => {
@@ -114,7 +113,7 @@ export const updateUser = (updatedValues, userId, history) => async dispatch => 
 
     try {
         await axiosWithAuth().patch(`/api/users/${userId}`, updatedValues)
-        history.push('/')
+        history.push('/apps')
     } catch (error) {
         const { message } = error.response.data
         dispatch({ type: "ERROR", payload: message })

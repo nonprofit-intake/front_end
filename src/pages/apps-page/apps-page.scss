@@ -1,10 +1,11 @@
-.container {
+.apps-container {
 	display: flex;
 	justify-content: center;
-	align-items: center;
+    align-items: center;
+    margin-top: 10rem;
 }
 
-.apps-container {
+.apps {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 2rem;

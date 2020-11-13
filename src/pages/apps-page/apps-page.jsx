@@ -9,8 +9,8 @@ import placeHolder from '../../assets/svg/Astronaut.png';
 const AppsPage = () => {
 	const history = useHistory();
 	return (
-		<div className="container">
-			<div className="apps-container">
+		<div className="apps-container">
+			<div className="apps">
 				<div onClick={() => history.push('/register-family')}>
 					<AppCard title={'Register Family'} img={registerFamilyImg}>
 						place

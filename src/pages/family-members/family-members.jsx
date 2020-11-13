@@ -88,7 +88,7 @@ export default function MaterialTableDemo() {
                         tooltip: 'More Info',
                         onClick: (event, rowData) => {
                             // Do save operation
-                            history.push(`/guests/${rowData.personal_id}`)
+                            history.push(`/guests/${rowData.guest_id}`)
                         }
                     },
                 ]}
@@ -109,7 +109,7 @@ export default function MaterialTableDemo() {
             
                     onRowUpdate: (newMemberData, oldData) =>
                         new Promise((resolve) => {
-                            axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.personal_id}`, newMemberData).then(res => {
+                            axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.guest_id}`, newMemberData).then(res => {
                                 resolve()
                                 setState((prevState) => {
                                     const data = [...prevState.data];
@@ -123,8 +123,7 @@ export default function MaterialTableDemo() {
                         }),
                     onRowDelete: (member) =>
                         new Promise((resolve) => {
-                            console.log(member.personal_id)
-                            axiosWithAuth().delete(`/api/guests/family/${member.fam_id}/${member.personal_id}`).then(res => {
+                            axiosWithAuth().delete(`/api/guests/family/${member.fam_id}/${member.guest_id}`).then(res => {
                                 resolve()
                                 setState((prevState) => {
                                     const data = [...prevState.data];
