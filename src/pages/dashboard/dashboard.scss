@@ -15,7 +15,17 @@
 .second {
 	display: grid;
 	padding-top: 2rem;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 2fr 1fr;
+	grid-gap: 3rem;
+}
+
+.carrying-capacity {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h3{
+        padding-left: 1rem;
+    }
 }
 
 .cards {

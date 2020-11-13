@@ -18,6 +18,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import InfoIcon from '@material-ui/icons/Info';
 import { tableIcons } from '../../utils/material-table-icons';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import Circle from 'react-circle';
 
 const useStyles = makeStyles({
 	root: {
@@ -41,7 +42,7 @@ const columns = [
 	{ title: 'name', field: 'first_name' },
 	{ title: 'surname', field: 'last_name' },
 	{ title: 'email', field: 'email' },
-	{ title: '', field: 'isClockedIn', type: 'boolean' }
+	{ title: '', field: 'clocked_in', type: 'boolean' }
 ];
 const rows = [
 	{ name: 'Snow', surname: 'Jon', age: 35 },
@@ -96,7 +97,7 @@ const Dashboard = () => {
 					<Card className={classes.root} variant="outlined">
 						<CardContent>
 							<Typography className={classes.title} color="textPrimary" gutterBottom>
-								Guest total
+								Total
 							</Typography>
 						</CardContent>
 					</Card>
@@ -125,7 +126,27 @@ const Dashboard = () => {
 							}}
 						/>
 					</div>
-					<div />
+					<div className="carrying-capacity">
+						<h2>Carrying Capacity</h2>
+						<Circle
+							animate={true} // Boolean: Animated/Static progress
+							animationDuration="4s" //String: Length of animation
+							// responsive={true} // Boolean: Make SVG adapt to parent size
+							size={480} // Number: Defines the size of the circle.
+							lineWidth={10} // Number: Defines the thickness of the circle's stroke.
+							progress={69} // Number: Update to change the progress and percentage.
+							progressColor="cornflowerblue" // String: Color of "progress" portion of circle.
+							bgColor="whitesmoke" // String: Color of "empty" portion of circle.
+							textColor="hotpink" // String: Color of percentage text color.
+							textStyle={{
+								font: 'bold 5rem Helvetica, Arial, sans-serif' // CSSProperties: Custom styling for percentage.
+							}}
+							percentSpacing={10} // Number: Adjust spacing of "%" symbol and number.
+							roundedStroke={true} // Boolean: Rounded/Flat line ends
+							showPercentage={true} // Boolean: Show/hide percentage.
+							showPercentageSymbol={true} // Boolean: Show/hide only the "%" symbol.
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

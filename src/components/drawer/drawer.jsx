@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -29,7 +29,8 @@ import AppsIcon from '@material-ui/icons/Apps';
 import './drawer.scss';
 import { Badge, Button } from '@material-ui/core';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -108,8 +109,32 @@ export default function MiniDrawer() {
 	const [ open, setOpen ] = React.useState(false);
 	const currentUser = useSelector((state) => state.currentUser);
 	const isLoggedIn = useSelector((state) => state.isLoggedIn);
+	const [ checked, setChecked ] = useState(false);
+	const handleChange = () => {
+		setChecked(!checked);
+	};
 
 	const unAuthorizedUsers = useSelector((state) => state.unAuthorizedUsers);
+
+	useEffect(
+		() => {
+			console.log(currentUser);
+		},
+		[ checked ]
+	);
+
+	const clockIn = () => {
+		let toggleChecked = !checked;
+		setChecked(!checked);
+		axiosWithAuth()
+			.patch(`/api/users/${currentUser.id}`, { clocked_in: toggleChecked })
+			.then((res) => {
+				console.log('worked');
+			})
+			.catch((err) => {
+				alert('unable to clock out');
+			});
+	};
 
 	const handleLogout = () => {
 		dispatch(logOut(history));
@@ -177,9 +202,10 @@ export default function MiniDrawer() {
 
 					{isLoggedIn ? (
 						<div className="guest-actions">
-							<Button className={classes.btn} onClick={handleLogout}>
-								Logout
-							</Button>
+							<div onClick={clockIn}>
+								<Button className={classes.btn}>Clock {checked ? 'out' : 'in'}</Button>
+								<Switch checked={checked} onChange={handleChange} name="checked" color="secondary" />
+							</div>
 						</div>
 					) : (
 						<div className="guest-actions">
