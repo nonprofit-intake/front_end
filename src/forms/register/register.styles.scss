@@ -1,0 +1,26 @@
+.form-container {
+    margin-top: 5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.text-field-containers {
+	display: grid;
+	grid-gap: 3rem;
+	width: 30%;
+}
+
+#submit-btn {
+	border: 1px solid #472d5b;
+	color: #472d5b;
+	&:hover {
+		background-color: #472d5b36;
+	}
+}
+
+.register-btn {
+	display: grid;
+	grid-gap: 0.7rem;
+	color: purple;
+}

@@ -1,7 +1,7 @@
 import generatePassword from '../../utils/helpers/generatePassword'
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 
-export const registerUser = (user, history) => async dispatch => {
+export const registerUser = (user, history, incrementStep) => async dispatch => {
     console.log(user)
     dispatch({ type: "IS_LOADING" })
     user.role = 'guest'
@@ -11,14 +11,14 @@ export const registerUser = (user, history) => async dispatch => {
 
     try {
         let res = await axiosWithAuth().post('/api/auth/staff/register', user)
-        console.log(res)
+       
         let token = res.data.token
         console.log(token)
         let { unique_id: fam_id } = res.data.payload.user
-        console.log(fam_id)
-        dispatch({ type: 'REGISTER_USER' })
-        history.push(`/guests/family/${fam_id}`)
+        
+        dispatch({ type: 'REGISTER_USER_AS_GUEST', payload: fam_id })
         dispatch({ type: "IS_NOT_LOADING" })
+        incrementStep()
     } catch (error) {
         let message
         if (error.message && error.message == 'Network Error') {
@@ -35,7 +35,6 @@ export const registerUser = (user, history) => async dispatch => {
         dispatch({ type: 'ERROR', payload: message })
     }
 }
-
 
 export const setUnauthorizedUsers = (history) => async dispatch => {
     try {
@@ -86,7 +85,7 @@ export const declineUser = (id, history) => async dispatch => {
 }
 
 export const acceptUser = (id, history) => async dispatch => {
-    dispatch({type: "IS_LOADING"})
+    dispatch({ type: "IS_LOADING" })
     try {
         await axiosWithAuth().patch(`/api/users/${id}`, { isAuthorized: true })
         dispatch({ type: "ACCEPT_USER", payload: { id } })

@@ -1,6 +1,7 @@
 import { updateUser } from "./actions/actions"
 
 const INITIAL_STATE = {
+    fam_id: '',
     ailments: []
     ,
     isLoggedIn: false,
@@ -49,7 +50,8 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case "SET_UNAUTHORIZED_USERS":
             return {
                 ...state,
-                unAuthorizedUsers: action.payload
+                unAuthorizedUsers: action.payload,
+                isLoading: false
             }
         case 'REGISTER':
             return {
@@ -69,6 +71,7 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case 'LOG_OUT':
             return {
                 ...state,
+                isLoading: false,
                 isLoggedIn: false,
                 apiError: null,
                 currentUser: {}
@@ -90,7 +93,9 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
         case 'CLEAR_ERRORS':
             return {
                 ...state,
-                apiError: null
+                apiError: null,
+                isLoading: false,
+
             }
         case 'SET_USERS':
             return {
@@ -123,6 +128,13 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isLoading: false
+            }
+        case 'REGISTER_USER_AS_GUEST':
+            return {
+                ...state,
+                fam_id: action.payload,
+                isLoading: false,
+                apiError: null
             }
         default:
             return state

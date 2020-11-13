@@ -66,15 +66,17 @@ export const logOut = (history) => (dispatch) => {
 }
 
 export const checkIfUserIsLoggedIn = (history) => async dispatch => {
+
     const token = localStorage.getItem('token')
     if (token) {
-        dispatch({type: 'IS_LOADING'})
+        dispatch({ type: "IS_LOADING" })
         try {
             let res = await fetchCurrentUser()
             const { user } = res.payload
+            dispatch({ type: "IS_NOT_LOADING" })
             dispatch({ type: 'SET_CURRENT_USER', payload: user })
             dispatch({ type: "LOGIN" })
-            history.push('/')
+            // history.push('/')
         } catch (error) {
             dispatch({type: "IS_NOT_LOADING"})
             history.push('/login')

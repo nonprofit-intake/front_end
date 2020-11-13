@@ -1,0 +1,25 @@
+.guest-container {
+	text-align: center;
+}
+
+.client-info-field-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.client-info-field {
+	width: 45%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	grid-gap: 2rem;
+}
+
+.client-info-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	align-items: center;
+}

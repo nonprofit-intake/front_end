@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import MaterialTable from 'material-table';
 import { tableIcons } from '../../utils/material-table-icons'
 import ProgressBar from '../../components/progress-bar/progress-bar'
 import Skeleton from '@material-ui/lab/Skeleton'
-
 import { addMember } from '../../api/addMember'
+import MaterialTable, { MTableToolbar } from 'material-table';
 
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import Chip from '@material-ui/core/Chip'
+import InfoIcon from '@material-ui/icons/Info';
+
+import './family-members.scss'
 
 export default function MaterialTableDemo() {
+    const history = useHistory()
     const params = useParams()
     const [loading, setLoading] = useState(true)
     const [state, setState] = React.useState({
@@ -20,10 +24,28 @@ export default function MaterialTableDemo() {
             { title: 'Birth Date', field: 'dob', type: 'date' },
             { title: 'Email', field: 'email' },
             { title: 'SSN', field: 'ssn' },
+            { title: 'Exit Destination', field: 'exit_destination' },
+            { title: 'Race', field: 'race' },
+            { title: 'Ethnicity', field: 'ethnicity' },
+            { title: 'Gender', field: 'gender' },
+            { title: 'Project Name', field: 'project_name' },
+            { title: 'Enroll Date', field: 'enroll_date', type: "date" },
+            { title: 'Exit Date', field: 'exit_date', type: 'date' },
+            { title: 'Pregnancy Due Date', field: 'pregnancy_due_date', type: 'date' },
+            { title: 'When DV Occured', field: 'when_dv_occured', type: 'date' },
+            { title: 'Income at entry', field: 'income_at_entry', type: "currency" },
+            { title: 'Income at exit', field: 'income_at_exit', type: "currency" },
+            { title: 'Domestic Violence', field: 'domestic_violence', type: "boolean" },
+            { title: 'Currently Fleeing', field: 'currently_fleeing', type: "boolean" },
+            { title: 'in school', field: 'is_school', type: "boolean" },
+            { title: 'Connected to MVento', field: 'connected_to_MVento', type: "boolean" }
         ],
         data: [],
     });
 
+    const handleRedirect = () => {
+        history.push(`/guests/family/add/${params.fam_id}`)
+    }
 
     useEffect(() => {
         setLoading(true)
@@ -61,54 +83,32 @@ export default function MaterialTableDemo() {
                 columns={state.columns}
                 data={state.data}
                 actions={[
-                    // {
-                    //     icon: 'test',
-                    //     tooltip: 'Family',
-                    //     onClick: (data, member) => {
-                    //         new Promise((resolve) => {
-                    //             // resolve()
-                    //             console.log(member)
-                    //             addMember(params.fam_id, member).then(res => {
-                    //                 resolve()
-
-                    //                 setState((prevState) => {
-                    //                     const data = [...prevState.data];
-                    //                     member.personal_id = res.payload.member.personal_id
-                    //                     console.log(member)
-                    //                     data.push(member);
-                    //                     return { ...prevState, data };
-                    //                 });
-                    //             }).catch(err => {
-                    //                 alert('Unable to add user')
-                    //                 resolve()
-                    //             })
-                    //         })
-                    //     }
-                    // },
+                    {
+                        icon: InfoIcon,
+                        tooltip: 'More Info',
+                        onClick: (event, rowData) => {
+                            // Do save operation
+                            history.push(`/guests/${rowData.personal_id}`)
+                        }
+                    },
                 ]}
-                editable={{
-                    onRowAdd: (member) =>
-                        new Promise((resolve) => {
-                            // resolve()
-                            console.log(member)
-                            addMember(params.fam_id, member).then(res => {
-                                resolve()
+                components={
+                    {
+                        Toolbar: props => (
+                            <div>
+                                <MTableToolbar {...props} />
+                                <div style={{ padding: '0px 10px' }} className='chip'>
+                                    <Chip onClick={handleRedirect} label="Add New Member" color="primary" style={{ marginRight: 5 , cursor: 'pointer'}} />
+                                </div>
+                            </div>
+                        )
+                    }
+                }
 
-                                setState((prevState) => {
-                                    const data = [...prevState.data];
-                                    member.personal_id = res.payload.member.personal_id
-                                    console.log(member)
-                                    data.push(member);
-                                    return { ...prevState, data };
-                                });
-                            }).catch(err => {
-                                alert('Unable to add user')
-                                resolve()
-                            })
-                        }),
+                editable={{
+            
                     onRowUpdate: (newMemberData, oldData) =>
                         new Promise((resolve) => {
-                            console.log(newMemberData)
                             axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.personal_id}`, newMemberData).then(res => {
                                 resolve()
                                 setState((prevState) => {
@@ -137,6 +137,7 @@ export default function MaterialTableDemo() {
                                 alert("Unable to delete user, please try again")
                             })
                         }),
+
                 }}
             />
             {loading && <ProgressBar />}
