@@ -16,19 +16,29 @@ import { checkIfUserIsLoggedIn } from './redux/actions/actions'
 
 import Login from './forms/login/login'
 import Register from './forms/register/register'
-import HeadOfHouseholdForm from './forms/head-of-household-form/head-of-household-form';
-import FamilyMemberForm from './forms/family-member-form/family-member-form'
 
 // Pages
 
 import Dashboards from './pages/dashboards/dashboards' // Renders a different dashboard based on users role -> [guest, staff, admin]
-import Dashboard from './pages/dashboard/dashboard'
 import ErrorPage from './pages/error-page/error-page' // Needs work giving more helpful error messages
-import FamilyMembers from './pages/family-members/family-members'; // Shows table of all family members for a given guest
-import Guests from './pages/guests/guests' // Renders a table showing every guest
+// import FamilyMembers from './pages/family-members/family-members'; // Shows table of all family members for a given guest
 import Pending from './pages/pending/pending' // Renders a list of pending staff members waiting for verification from an admin
 import GuestInfoPage from './pages/guest-info-page/GuestInfoPage' // Unfinished -> all of the data should be organized the same as the CMIS
 import AppsPage from './pages/apps-page/apps-page'
+
+const HeadOfHouseholdForm = React.lazy(() => import('./forms/head-of-household-form/head-of-household-form'))
+// import HeadOfHouseholdForm from './forms/head-of-household-form/head-of-household-form';
+
+const FamilyMemberForm = React.lazy(() => import('./forms/family-member-form/family-member-form'))
+const Dashboard = React.lazy(() => import('./pages/dashboard/dashboard'))
+
+const FamilyMembers = React.lazy(() => import('./pages/family-members/family-members'))
+
+const Guests = React.lazy(() => import('./pages/guests/guests'))
+
+// import Dashboard from './pages/dashboard/dashboard'
+
+
 
 
 function App() {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -14,13 +14,15 @@ import { createStore, applyMiddleware } from 'redux'
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger))
 ReactDOM.render(
+<Suspense fallback={<div>loading</div>}>
   <Provider store={store}>
     <Router>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </Router>
-  </Provider>,
+  </Provider>
+</Suspense>,
   document.getElementById('root')
 );
 
