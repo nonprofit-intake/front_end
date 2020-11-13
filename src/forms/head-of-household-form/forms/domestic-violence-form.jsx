@@ -53,7 +53,7 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 						<FormControlLabel value="client Refused" control={<Radio />} label="Client Refused" />
 					</RadioGroup>
 				</div>
-				{formValues.pregnancy_status == 'yes' && (
+				{formValues.is_pregnant == 'yes' && (
 					<div className="third-form-question">
 						<FormLabel component="legend">Pregnancy Due Date</FormLabel>
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -104,7 +104,7 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 						{formValues.contacted_ywca == 'no' && (
 							<h3>At this time, please give the client a YWCA phone number to call</h3>
 						)}
-						<div>
+						{/* <div>
 							<FormLabel component="legend">Do you wish to be entered into HMIS anonymously?</FormLabel>
 							<RadioGroup
 								aria-label="gender"
@@ -115,7 +115,7 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 								<FormControlLabel value="yes" control={<Radio />} label="Yes" />
 								<FormControlLabel value="no" control={<Radio />} label="No" />
 							</RadioGroup>
-						</div>
+						</div> */}
 						<div className="third-form-question">
 							<FormLabel component="legend">Date of most recent DV incident</FormLabel>
 							<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -133,7 +133,7 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 								/>
 							</MuiPickersUtilsProvider>
 						</div>
-						<div>
+						{/* <div>
 							<FormLabel component="legend">
 								Is there a No Contact or any other Court Order in place?
 							</FormLabel>
@@ -146,7 +146,7 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 								<FormControlLabel value="yes" control={<Radio />} label="Yes" />
 								<FormControlLabel value="no" control={<Radio />} label="No" />
 							</RadioGroup>
-						</div>
+						</div> */}
 					</div>
 				)}
 			</div>

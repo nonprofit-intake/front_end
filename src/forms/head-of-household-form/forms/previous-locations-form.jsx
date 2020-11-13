@@ -112,7 +112,7 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 						onChange={handleChange}
 						type="text"
 						label="State"
-						name="zip"
+						name="state"
 						required
 					/>
 					<TextField
@@ -120,7 +120,7 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 						onChange={handleChange}
 						type="text"
 						label="City"
-						name="zip"
+						name="city"
 						required
 					/>
 					<TextField
@@ -338,7 +338,6 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 							label="Indian Health Services"
 						/>
 					</FormGroup>
-					<FormHelperText>Be careful</FormHelperText>
 				</FormControl>
 				<hr />
 			</div>

@@ -15,96 +15,7 @@ import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 import FamilyAccountForm from './forms/family-account-form';
 
 const INITIAL_VALUES = {
-	project_name: 'FPS--ES--Open Doors',
-	email: faker.internet.email(),
-	exit_destination: 'test',
-	entire_episode_bednights: 3,
-	first_name: faker.name.firstName(),
-	last_name: faker.name.lastName(),
-	middle_name: 'dev',
-	relationship_to_HoH: 'Self',
-	dob: '2020-11-13T05:00:00.000Z',
-	pregnancy_due_date: '2020-11-13T05:00:00.000Z',
-	is_pregnant: true,
-	vet_status: true,
-	age_at_enrollment: 34,
-	current_age: 36,
-	ethnicity: 'test',
-	race: 'test',
-	gender: 'test',
-	preferred_language: 'test',
-	sexual_orientation: 'test',
-	home_phone: 'test',
-	work_phone: 'test',
-	personal_phone_number: 'test',
-	alternative_phone_number: 'test',
-	emergency_contact_name: 'test',
-	emergency_contact_number: 'test',
-	identification_type: 'test',
-	identification_value: 'test',
-	last_4_digits_of_ssn: '1234',
-	covered_by_state: true,
-	foodstamps: true,
-	cps_or_fps: true,
-	rrh: true,
-	housing_voucher: true,
-	veteran_services: true,
-	snap_assistance: true,
-	program_type: 'FPS--ES--Open Doors',
-	employer: 'test',
-	income_source: 'test',
-	income_at_entry: 2000,
-	income_at_update: 2500,
-	income_at_exit: 4000,
-	last_perm_address: 'test',
-	city: faker.address.city(),
-	state: faker.address.state(),
-	zip: faker.address.zipCode(),
-	homeless_start_date: '2020-11-13T05:00:00.000Z',
-	housing_status: 'test',
-	living_situation: 'test',
-	length_of_stay: 'test',
-	times_homeless_last_3years: 'test',
-	total_months_homeless: 'test',
-	employment: true,
-	covered_by_health_insurance: true,
-	other_public: true,
-	state_funded: true,
-	indian_health_services: true,
-	other: true,
-	combined_childrens_health_insurance: true,
-	medicaid: true,
-	medicare: true,
-	CHIP: true,
-	VAMS: true,
-	COBRA: true,
-	Private_employer: true,
-	private: true,
-	private_individual: true,
-	chronic_health_condition: true,
-	alcohol_abuse: true,
-	developmental_disability: true,
-	substance_abuse: true,
-	HIV_AIDS: true,
-	mental_health_problem: true,
-	physical_disability: null,
-	documented_disabilites: 'test',
-	indefinite_conditions: 'test',
-	domestic_violence: true,
-	currently_fleeing: true,
-	when_dv_occured: '6 months to a year ago',
-	in_school: null,
-	connected_to_MVento: null,
-	last_grade_completed: '12th grade',
-	school_status: 'Enrolled',
-	school_type: 'Public',
-	school_name: 'Lincoln',
-	reason_for_not_being_enrolled: 'test',
-	vehicle_make: 'test',
-	model: 'test',
-	year: 'test',
-	color: 'test',
-	liscense: 'test'
+	project_name: 'FPS--ES--Open Doors'
 };
 
 const steps = [
@@ -125,7 +36,7 @@ const HeadOfHouseholdForm = () => {
 	const [ formValues, setFormValues ] = useState(INITIAL_VALUES);
 	const [ activeStep, setActiveStep ] = useState(0);
 	const [ loading, setLoading ] = useState(false);
-	let [ registeredAccount, setRegisteredAccount ] = useState(true);
+	let [ registeredAccount, setRegisteredAccount ] = useState(false);
 
 	useEffect(() => {
 		dispatch(clearErrors());
@@ -136,9 +47,18 @@ const HeadOfHouseholdForm = () => {
 	};
 
 	const handleSubmit = () => {
-		// refactor
-
 		const member = { ...formValues };
+		member.has_id = undefined;
+		member.contacted_ywca = undefined;
+		console.log(formValues)
+		member.relationship_to_HoH = 'self'
+		//  Changes yes/no values to booleans
+
+		for (let key in member) {
+			if (member[key] === 'yes') member[key] = true;
+
+			if (member[key] === 'no') member[key] = false;
+		}
 
 		setLoading(true);
 

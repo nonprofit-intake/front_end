@@ -3,3 +3,8 @@ body {
 	padding: 0rem;
 	font-family: sans-serif;
 }
+
+a{
+	list-style: none;
+	text-decoration: none;
+}

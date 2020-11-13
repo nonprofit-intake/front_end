@@ -77,7 +77,8 @@ const FamilyAccountForm = ({
 				setRegisteredAccount(true);
 			})
 			.catch((err) => {
-				setErrors(err.message);
+				console.log(err);
+				setErrors(err.response.data.message);
 			})
 			.finally(() => {
 				setLoading(false);

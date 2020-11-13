@@ -22,9 +22,11 @@ const AppsPage = () => {
 					</AppCard>
 				</div>
 				<div>
-					<AppCard title={'placeholder'} img={placeHolder}>
-						place
-					</AppCard>
+					<a href="https://forms.gle/w8sbSp5eHeH3cFF4A" target="_blank">
+						<AppCard title={'Bug Report'} img={placeHolder}>
+							place
+						</AppCard>
+					</a>
 				</div>
 			</div>
 		</div>

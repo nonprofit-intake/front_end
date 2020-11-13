@@ -22,7 +22,7 @@ import FamilyMemberForm from './forms/family-member-form/family-member-form'
 // Pages
 
 import Dashboards from './pages/dashboards/dashboards' // Renders a different dashboard based on users role -> [guest, staff, admin]
-
+import Dashboard from './pages/dashboard/dashboard'
 import ErrorPage from './pages/error-page/error-page' // Needs work giving more helpful error messages
 import FamilyMembers from './pages/family-members/family-members'; // Shows table of all family members for a given guest
 import Guests from './pages/guests/guests' // Renders a table showing every guest
@@ -48,6 +48,7 @@ function App() {
       <PrivateRoute exact path="/guests" component={Guests}></PrivateRoute>
       <PrivateRoute exact path="/guests/:id" component={GuestInfoPage}></PrivateRoute>
       <PrivateRoute path="/apps" component={AppsPage}></PrivateRoute>
+      <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
       <PrivateRoute exact path="/guests/family/add/:fam_id" component={FamilyMemberForm}></PrivateRoute>
       <PrivateRoute exact path="/guests/family/:fam_id" component={FamilyMembers}></PrivateRoute>
       <PrivateRoute path="/register-family" component={HeadOfHouseholdForm}></PrivateRoute>

@@ -41,34 +41,31 @@ const IdentificationForm = ({ setFormValues, formValues, handleChange }) => {
 					<FormControlLabel value={'no'} control={<Radio />} label="No" />
 				</RadioGroup>
 
-				{
-					formValues.has_id == 'yes' &&
+				{formValues.has_id == 'yes' && (
 					<div className="alternative-id-field">
-							<TextField
-								value={formValues.id_options}
-								onChange={handleChange}
-								name="id_options"
-								id="select"
-								label="id options"
-								select
-							>
-								<MenuItem value={'passport'}>passport</MenuItem>
-								<MenuItem value={'drivers liscense'}>drivers liscense</MenuItem>
-								<MenuItem value={'military card'}>Military Card</MenuItem>
-								<MenuItem value={'state issued id'}>State Issued ID</MenuItem>
+						<TextField
+							value={formValues.identification_type}
+							onChange={handleChange}
+							name="identification_type"
+							id="select"
+							label="id options"
+							select
+						>
+							<MenuItem value={'passport'}>passport</MenuItem>
+							<MenuItem value={'drivers liscense'}>drivers liscense</MenuItem>
+							<MenuItem value={'military card'}>Military Card</MenuItem>
+							<MenuItem value={'state issued id'}>State Issued ID</MenuItem>
+						</TextField>
 
-							</TextField>
+						<TextField
+							onChange={handleChange}
+							name={'identification_value'}
+							value={formValues.identification_value}
+							label="value"
+						/>
+					</div>
+				)}
 
-							<TextField
-								onChange={handleChange}
-								name={'alternative_id'}
-								value={formValues.altenative_id}
-								label="value"
-							/>
-						</div>
-				}
-
-				
 				{formValues.has_id == 'no' && (
 					<div className="text-fields-container-multiform">
 						<FormLabel component="legend">
@@ -82,14 +79,12 @@ const IdentificationForm = ({ setFormValues, formValues, handleChange }) => {
 							rows={4}
 							onChange={handleChange}
 						/>
-						<FormLabel component="legend">
-							Please choose an Alternative form of ID
-						</FormLabel>
+						<FormLabel component="legend">Please choose an Alternative form of ID</FormLabel>
 						<div className="alternative-id-field">
 							<TextField
-								value={formValues.gender}
+								value={formValues.identification_type}
 								onChange={handleChange}
-								name="gender"
+								name="identification_type"
 								id="select"
 								label="Alternative ID options"
 								select
@@ -101,8 +96,8 @@ const IdentificationForm = ({ setFormValues, formValues, handleChange }) => {
 
 							<TextField
 								onChange={handleChange}
-								name={'alternative_id'}
-								value={formValues.altenative_id}
+								name={'identification_value'}
+								value={formValues.identification_value}
 								label="value"
 							/>
 						</div>
