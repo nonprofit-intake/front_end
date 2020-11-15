@@ -4,6 +4,15 @@
     margin: 0 7%;
 }
 
+.circle-container{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .container-skeleton{
     padding: 0;
     width: 60%;

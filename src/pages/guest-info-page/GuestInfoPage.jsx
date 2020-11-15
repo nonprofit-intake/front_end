@@ -93,7 +93,7 @@ const GuestInfoPage = () => {
 
 				<div className="client-info-field">
 					<h1>Pregnancy Status:</h1>
-					<h2>{guest.pregnancy_status || 'Data not collected'}</h2>
+					<h2>{guest.is_pregnant ? 'Yes' : 'No'}</h2>
 				</div>
 
 				<div className="client-info-field">
@@ -103,7 +103,7 @@ const GuestInfoPage = () => {
 
 				<div className="client-info-field">
 					<h1>Veteran Status:</h1>
-					<h2>{guest.vet_status || 'Data not collected'}</h2>
+					<h2>{guest.vet_status ? 'Yes' : 'No'}</h2>
 				</div>
 
 				<div className="client-info-field">
@@ -201,57 +201,57 @@ const GuestInfoPage = () => {
 				<hr />
 				<div className="client-info-field">
 					<h1>Medicaid</h1>
-					<h2>{guest.medicaid}</h2>
+					<h2>{guest.medicaid ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Medicare</h1>
-					<h2>{guest.medicare}</h2>
+					<h2>{guest.medicare ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>CHIP</h1>
-					<h2>{guest.CHIP}</h2>
+					<h2>{guest.CHIP ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>VA Medical Services</h1>
-					<h2>{guest.VAMS}</h2>
+					<h2>{guest.VAMS ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Employer Provided Health Insurance</h1>
-					<h2>{guest.Private_employer}</h2>
+					<h2>{guest.Private_employer ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Private - Individual</h1>
-					<h2>{guest.private_individual}</h2>
+					<h2>{guest.private_individual ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Health Insurance Obtained Through COBRA</h1>
-					<h2>{guest.COBRA}</h2>
+					<h2>{guest.COBRA ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Private Pay Health Insurance</h1>
-					<h2>{guest.private}</h2>
+					<h2>{guest.private ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>State Health Insurance for Adults</h1>
-					<h2>{guest.state_funded}</h2>
+					<h2>{guest.state_funded ? 'Yes' : 'No'}</h2>
 				</div>
 
 				<div className="client-info-field">
 					<h1>Indian Health Services Program (IHS)</h1>
-					<h2>{guest.indian_health_services}</h2>
+					<h2>{guest.indian_health_services ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Other</h1>
-					<h2>{guest.other}</h2>
+					<h2>{guest.other ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Other Public</h1>
-					<h2>{guest.other_public}</h2>
+					<h2>{guest.other_public ? 'Yes' : 'No'}</h2>
 				</div>
 
 				<div className="client-info-field">
 					<h1>Combined Children's Health Insurance / Medicaid Program</h1>
-					<h2>{guest.combined_childrens_health_insurance}</h2>
+					<h2>{guest.combined_childrens_health_insurance ? 'Yes' : 'No'}</h2>
 				</div>
 			</div>
 
@@ -262,31 +262,31 @@ const GuestInfoPage = () => {
 			<div className="client-info-container">
 				<div className="client-info-field">
 					<h1>Alcohol Abuse</h1>
-					<h2>{guest.alcohol_abuse}</h2>
+					<h2>{guest.alcohol_abuse ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Developmental Disability</h1>
-					<h2>{guest.developmental_disability}</h2>
+					<h2>{guest.developmental_disability ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Chronic Health</h1>
-					<h2>{guest.chronic_health_condition}</h2>
+					<h2>{guest.chronic_health_condition ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Drug Abuse</h1>
-					<h2>{guest.substance_abuse}</h2>
+					<h2>{guest.substance_abuse ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>HIV/AIDS</h1>
-					<h2>{guest.HIV_AIDS}</h2>
+					<h2>{guest.HIV_AIDS ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Mental Illness</h1>
-					<h2>{guest.mental_health_problem}</h2>
+					<h2>{guest.mental_health_problem ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Physical Disability</h1>
-					<h2>{guest.physical_disability}</h2>
+					<h2>{guest.physical_disability ? 'Yes' : 'No'}</h2>
 				</div>
 			</div>
 
@@ -297,7 +297,7 @@ const GuestInfoPage = () => {
 			<div className="client-info-container">
 				<div className="client-info-field">
 					<h1>DV Experience</h1>
-					<h2>{guest.domestic_violence}</h2>
+					<h2>{guest.domestic_violence ? 'Yes' : 'No'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Date when DV occured</h1>
@@ -305,11 +305,7 @@ const GuestInfoPage = () => {
 				</div>
 				<div className="client-info-field">
 					<h1>currently_fleeing</h1>
-					<h2>{guest.currently_fleeing}</h2>
-				</div>
-				<div className="client-info-field">
-					<h1>DV Experience</h1>
-					<h2>{guest.domestic_violence}</h2>
+					<h2>{guest.currently_fleeing ? 'Yes' : 'No'}</h2>
 				</div>
 			</div>
 			<hr />
@@ -318,15 +314,15 @@ const GuestInfoPage = () => {
 			<div className="client-info-container">
 				<div className="client-info-field">
 					<h1>Highest Grade Completed</h1>
-					<h2>{guest.last_grade_completed}</h2>
+					<h2>{guest.last_grade_completed || 'Data not collected'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Current Enrollment Status</h1>
-					<h2>{guest.current_status}</h2>
+					<h2>{guest.school_status || 'Data not collected'}</h2>
 				</div>
 				<div className="client-info-field">
 					<h1>Attendance Status</h1>
-					<h2>{guest.attendance_status}</h2>
+					<h2>{guest.school_status || 'Data not collected'}</h2>
 				</div>
 			</div>
 			{/* <div className="client-info-container">

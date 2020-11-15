@@ -202,10 +202,12 @@ export default function MiniDrawer() {
 
 					{isLoggedIn ? (
 						<div className="guest-actions">
+						{currentUser.isAuthorized &&
 							<div onClick={clockIn}>
 								<Button className={classes.btn}>Clock {checked ? 'out' : 'in'}</Button>
 								<Switch checked={checked} onChange={handleChange} name="checked" color="secondary" />
 							</div>
+						}
 						</div>
 					) : (
 						<div className="guest-actions">

@@ -43,7 +43,7 @@ const columns = [
 	{ title: 'name', field: 'first_name' },
 	{ title: 'surname', field: 'last_name' },
 	{ title: 'email', field: 'email' },
-	{ title: '', field: 'clocked_in', type: 'boolean' }
+	{ title: '', field: 'clocked_in', type: 'boolean', defaultSort: 'desc' }
 ];
 const rows = [
 	{ name: 'Snow', surname: 'Jon', age: 35 },
@@ -59,13 +59,13 @@ const rows = [
 
 const Dashboard = () => {
 	const dashboardData = useSelector((state) => state.dashboardData);
-	const carryingCapacity = dashboardData.total_staying_the_night
+	const carryingCapacity = dashboardData.total_staying_the_night;
 	const [ staffMembers, setStaffMembers ] = useState([]);
 	const classes = useStyles();
 	const history = useHistory();
 	useEffect(() => {
 		axiosWithAuth()
-			.get('/api/users')
+			.get('/api/users', {params: {role: ['staff', 'admin']}})
 			.then((res) => {
 				setStaffMembers(res.data.payload.users);
 			})
@@ -77,7 +77,6 @@ const Dashboard = () => {
 
 	return (
 		<div className="dashboard-container">
-			<FiberManualRecordIcon style={{ color: 'red' }} />
 			<div className="cards-container">
 				<div className="cards">
 					<Card className={classes.root} variant="outlined">
@@ -143,10 +142,10 @@ const Dashboard = () => {
 							// responsive={true} // Boolean: Make SVG adapt to parent size
 							size={440} // Number: Defines the size of the circle.
 							lineWidth={10} // Number: Defines the thickness of the circle's stroke.
-							progress={69} // Number: Update to change the progress and percentage.
-							progressColor="cornflowerblue" // String: Color of "progress" portion of circle.
+							progress={dashboardData.total_staying_the_night * 1.6} // Number: Update to change the progress and percentage.
+							progressColor="pink" // String: Color of "progress" portion of circle.
 							bgColor="whitesmoke" // String: Color of "empty" portion of circle.
-							textColor="hotpink" // String: Color of percentage text color.
+							textColor="pink" // String: Color of percentage text color.
 							textStyle={{
 								font: 'bold 5rem Helvetica, Arial, sans-serif' // CSSProperties: Custom styling for percentage.
 							}}

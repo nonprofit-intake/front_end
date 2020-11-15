@@ -7,37 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import ProgressBar from '../../components/progress-bar/progress-bar';
 import faker from 'faker';
 
-const INITIAL_VALUES = {
-	first_name: faker.name.firstName(),
-	last_name: faker.name.lastName(),
-	middle_name: '',
-	current_age: 18,
-	email: faker.internet.email(),
-	dob: new Date(),
-	income_at_entry: 500,
-	income_at_exit: 300,
-	ethnicity: 'white',
-	relationship_to_HoH: 'son',
-	income_source: 'job',
-	employer: 'someone',
-	race: 'race',
-	alcohol_abuse: 'no',
-	developmental_disability: 'no',
-	chronic_health_condition: 'no',
-	substance_abuse: 'no',
-	HIV_AIDS: 'no',
-	mental_health_problem: 'no',
-	physical_disability: 'no',
-	last_grade_completed: '',
-	in_school: 'yes',
-	current_status: 'no',
-	connected_to_MVento: 'no',
-	home_phone: '814-119-0987',
-	school_name: 'some name',
-	school_type: 'private',
-	last_grade_completed: 12,
-	attendance_status: 'irregular'
-};
+const INITIAL_VALUES = {};
 
 const steps = [ 'Basic Information', 'Conditions/Health', 'School info', 'Submit' ];
 

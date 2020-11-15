@@ -24,10 +24,12 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'DECLINE_USER':
 
+            alert('from reducer')
+
             const updatedUsers = [...state.unAuthorizedUsers]
 
             updatedUsers.map((user, idx) => {
-                if (user.user_id === action.payload.id) {
+                if (user.id === action.payload.id) {
                     updatedUsers.splice(idx, 1)
                 }
             })
@@ -43,7 +45,7 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
             const updatedUsersAccept = [...state.unAuthorizedUsers]
 
             updatedUsersAccept.map((user, idx) => {
-                if (user.user_id === action.payload.id) {
+                if (user.id === action.payload.id) {
                     updatedUsersAccept.splice(idx, 1)
                 }
             })

@@ -13,13 +13,17 @@ export const setDashboardData = () => async (dispatch) => {
         }).then(res => {
             staff = res.data.payload.users
             
-        return axiosWithAuth().get('/api/users', {params: {role: ['staff', 'admin'], clocked_in: true}})
+            return axiosWithAuth().get('/api/users', {params: {role: ['staff', 'admin'], clocked_in: true}})
 
         }).then(res => {
             total_clocked_in = res.data.results
+
+            return axiosWithAuth().get('/api/users', {params: {role: 'guest', clocked_in:true}})
+        }).then(res => {
+            total_staying_the_night = res.data.results
             dispatch({type: 'SET_DASHBOARD_DATA', payload: {total_guests,total_clocked_in,staff,total_staying_the_night}})
         }).catch(err => {
-            alert('shit')
+            alert('unable to retrieve data for the dashboard')
         })
 }
 
@@ -37,7 +41,7 @@ export const login = (user, history) => async (dispatch) => {
         dispatch({ type: "SET_CURRENT_USER", payload: currentUser })
 
         dispatch({ type: 'LOGIN' })
-        history.push('/apps')
+        history.push('/')
     } catch (error) {
         let message
         if (error.message && error.message == 'Network Error') {
@@ -64,7 +68,7 @@ export const register = (user, history) => async (dispatch) => {
 
         localStorage.setItem('token', token)
         dispatch({ type: 'REGISTER' })
-        history.push('/apps')
+        history.push('/')
     } catch (error) {
         let message
         if (error.message && error.message == 'Network Error') {
@@ -99,7 +103,7 @@ export const checkIfUserIsLoggedIn = (history) => async dispatch => {
             dispatch({ type: "IS_NOT_LOADING" })
             dispatch({ type: 'SET_CURRENT_USER', payload: user })
             dispatch({ type: "LOGIN" })
-            history.push('/apps')
+            history.push('/')
         } catch (error) {
             dispatch({type: "IS_NOT_LOADING"})
             history.push('/login')
@@ -136,7 +140,7 @@ export const updateUser = (updatedValues, userId, history) => async dispatch => 
 
     try {
         await axiosWithAuth().patch(`/api/users/${userId}`, updatedValues)
-        history.push('/apps')
+        history.push('/')
     } catch (error) {
         const { message } = error.response.data
         dispatch({ type: "ERROR", payload: message })

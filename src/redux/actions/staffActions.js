@@ -61,13 +61,14 @@ export const setUnauthorizedUsers = (history) => async dispatch => {
 
 export const declineUser = (id, history) => async dispatch => {
     dispatch({ type: "IS_LOADING" })
-
+    alert('from action id')
     try {
         console.log('declined from action')
         await axiosWithAuth().delete(`/api/users/${id}`)
         dispatch({ type: "DECLINE_USER", payload: { id } })
 
     } catch (error) {
+        alert('from action failure')
         let message
         if (error.message && error.message == 'Network Error') {
             history.push('/error-page')
@@ -85,12 +86,14 @@ export const declineUser = (id, history) => async dispatch => {
 }
 
 export const acceptUser = (id, history) => async dispatch => {
+
+
     dispatch({ type: "IS_LOADING" })
     try {
         await axiosWithAuth().patch(`/api/users/${id}`, { isAuthorized: true })
         dispatch({ type: "ACCEPT_USER", payload: { id } })
-
     } catch (error) {
+        alert('error accepting user')
         let message
         if (error.message && error.message == 'Network Error') {
             history.push('/error-page')

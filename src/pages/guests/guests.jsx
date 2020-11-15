@@ -114,9 +114,8 @@ export default function MaterialTableDemo() {
 					//     }),
 					onRowUpdate: (newMemberData, oldData) =>
 						new Promise((resolve) => {
-							console.log(newMemberData);
 							axiosWithAuth()
-								.patch(`/api/guests/family/${oldData.fam_id}/${oldData.personal_id}`, newMemberData)
+								.patch(`/api/guests/family/${oldData.fam_id}/${oldData.guest_id}`, newMemberData)
 								.then((res) => {
 									resolve();
 									setState((prevState) => {
@@ -132,9 +131,8 @@ export default function MaterialTableDemo() {
 						}),
 					onRowDelete: (member) =>
 						new Promise((resolve) => {
-							console.log(member.personal_id);
 							axiosWithAuth()
-								.delete(`/api/guests/family/${member.fam_id}/${member.personal_id}`)
+								.delete(`/api/guests/family/${member.fam_id}/${member.guest_id}`)
 								.then((res) => {
 									resolve();
 									setState((prevState) => {

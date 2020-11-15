@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { Route, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-
 // Navigation
 
 import Drawer from './components/drawer/drawer'
@@ -29,6 +28,8 @@ import AppsPage from './pages/apps-page/apps-page'
 const HeadOfHouseholdForm = React.lazy(() => import('./forms/head-of-household-form/head-of-household-form'))
 // import HeadOfHouseholdForm from './forms/head-of-household-form/head-of-household-form';
 
+
+
 const FamilyMemberForm = React.lazy(() => import('./forms/family-member-form/family-member-form'))
 const Dashboard = React.lazy(() => import('./pages/dashboard/dashboard'))
 
@@ -37,9 +38,6 @@ const FamilyMembers = React.lazy(() => import('./pages/family-members/family-mem
 const Guests = React.lazy(() => import('./pages/guests/guests'))
 
 // import Dashboard from './pages/dashboard/dashboard'
-
-
-
 
 function App() {
   const dispatch = useDispatch()

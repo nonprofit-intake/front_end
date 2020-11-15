@@ -15,7 +15,8 @@ import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 import FamilyAccountForm from './forms/family-account-form';
 
 const INITIAL_VALUES = {
-	project_name: 'FPS--ES--Open Doors'
+	project_name: 'FPS--ES--Open Doors',
+	relationship_to_HoH: 'self'
 };
 
 const steps = [
@@ -50,8 +51,8 @@ const HeadOfHouseholdForm = () => {
 		const member = { ...formValues };
 		member.has_id = undefined;
 		member.contacted_ywca = undefined;
-		console.log(formValues)
-		member.relationship_to_HoH = 'self'
+		console.log(formValues);
+		member.relationship_to_HoH = 'self';
 		//  Changes yes/no values to booleans
 
 		for (let key in member) {

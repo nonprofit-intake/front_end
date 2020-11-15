@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import { registerUser } from '../../../redux/actions/staffActions';
 
 import ProgressBar from '../../../components/progress-bar/progress-bar';
-
 import { clearErrors } from '../../../redux/actions/actions';
 import Loading from '../../../components/loading/loading';
 import './forms.scss';

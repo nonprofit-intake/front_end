@@ -14,15 +14,15 @@ import { createStore, applyMiddleware } from 'redux'
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger))
 ReactDOM.render(
-<Suspense fallback={<div>loading</div>}>
   <Provider store={store}>
+<Suspense fallback={<div>loading</div>}>
     <Router>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </Router>
-  </Provider>
-</Suspense>,
+  </Suspense>,
+  </Provider>,
   document.getElementById('root')
 );
 

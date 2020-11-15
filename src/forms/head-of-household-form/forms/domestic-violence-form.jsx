@@ -21,6 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handleChange }) => {
 	const [ selectedDate, setSelectedDate ] = React.useState(new Date());
+	const [ pregnancyDate, setPregnancyDate ] = React.useState(new Date());
 
 	const dispatch = useDispatch();
 	const apiError = useSelector((state) => state.apiError);
@@ -31,6 +32,14 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 		setFormValues({
 			...formValues,
 			when_dv_occured: date
+		});
+	};
+
+	const handlePregnancyDateChage = (date) => {
+		setPregnancyDate(date);
+		setFormValues({
+			...formValues,
+			pregnancy_due_date: date
 		});
 	};
 
@@ -64,7 +73,7 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 								id="time-picker"
 								label="mm/dd/yyyy"
 								value={formValues.pregnancy_due_date}
-								onChange={handleDateChange}
+								onChange={handlePregnancyDateChage}
 								KeyboardButtonProps={{
 									'aria-label': 'change time'
 								}}
