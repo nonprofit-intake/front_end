@@ -19,9 +19,9 @@ const FamilyMemberForm = () => {
 	const [ activeStep, setActiveStep ] = useState(0);
 
 	const handleSubmit = () => {
-		console.log(formValues);
+		
 		axiosWithAuth()
-			.post(`/api/guests/family/${params.fam_id}`, formValues)
+			.post(`/api/families/members/${params.fam_id}`, formValues)
 			.then((res) => {
 				history.push(`/guests/family/${params.fam_id}`);
 			})

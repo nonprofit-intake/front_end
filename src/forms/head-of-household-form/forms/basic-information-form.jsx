@@ -34,13 +34,6 @@ const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 						required
 					/>
 					<TextField
-						value={formValues.middle_name}
-						onChange={handleChange}
-						type="text"
-						label="Middle Name"
-						name="middle_name"
-					/>
-					<TextField
 						value={formValues.last_name}
 						onChange={handleChange}
 						type="text"

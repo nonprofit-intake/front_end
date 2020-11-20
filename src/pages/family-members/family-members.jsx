@@ -47,7 +47,7 @@ export default function MaterialTableDemo() {
 
     useEffect(() => {
         setLoading(true)
-        axiosWithAuth().get(`/api/guests/family/${params.fam_id}`).then(res => {
+        axiosWithAuth().get(`/api/v1/families/${params.id}/members`).then(res => {
             const { members } = res.data.payload
             setState({
                 ...state,
@@ -57,6 +57,7 @@ export default function MaterialTableDemo() {
 
 
         }).catch(err => {
+            alert('error')
             console.log(err)
             setLoading(false)
         })
@@ -74,70 +75,87 @@ export default function MaterialTableDemo() {
     }
 
     return (
-        <div className='container'>
-            <MaterialTable
-                icons={tableIcons}
-                title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
-                columns={state.columns}
-                data={state.data}
-                actions={[
-                    {
-                        icon: InfoIcon,
-                        tooltip: 'More Info',
-                        onClick: (event, rowData) => {
-                            // Do save operation
-                            history.push(`/guests/${rowData.guest_id}`)
-                        }
-                    },
-                ]}
-                components={
-                    {
-                        Toolbar: props => (
-                            <div>
-                                <MTableToolbar {...props} />
-                                <div style={{ padding: '0px 10px' }} className='chip'>
-                                    <Chip onClick={handleRedirect} label="Add New Member" color="primary" style={{ marginRight: 5 , cursor: 'pointer'}} />
-                                </div>
-                            </div>
-                        )
-                    }
-                }
+        <div className='outer-container'>
+            <div className='table-container'>
+                <MaterialTable
+                    icons={tableIcons}
+                    title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
+                    columns={state.columns}
+                    data={state.data}
+                    actions={[
+                        {
+                            icon: InfoIcon,
+                            tooltip: 'More Info',
+                            onClick: (event, rowData) => {
+                                // Do save operation
+                                history.push(`/guests/${rowData.guest_id}`)
+                            }
+                        },
+                    ]}
+                    // components={
+                    //     {
+                    //         Toolbar: props => (
+                    //             <div>
+                    //                 <MTableToolbar {...props} />
+                    //                 <div style={{ padding: '0px 10px' }} className='chip'>
+                    //                     <Chip onClick={handleRedirect} label="Add New Member" color="primary" style={{ marginRight: 5 , cursor: 'pointer'}} />
+                    //                 </div>
+                    //             </div>
+                    //         )
+                    //     }
+                    // }
 
-                editable={{
-            
-                    onRowUpdate: (newMemberData, oldData) =>
+                    editable={{
+                        onRowAdd: (member) =>
                         new Promise((resolve) => {
-                            axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.guest_id}`, newMemberData).then(res => {
+                            axiosWithAuth().post(`/api/v1/families/${params.id}/members`, member).then(res => {
                                 resolve()
                                 setState((prevState) => {
-                                    const data = [...prevState.data];
-                                    data[data.indexOf(oldData)] = newMemberData;
-                                    return { ...prevState, data };
+                                    const newState = {...prevState}
+                                    newState.data.push(res.data.payload.member)
+                                    console.log(newState)
+                                    return newState
                                 });
                             }).catch(err => {
-                                resolve()
-                                alert("Unable to update user, please try again")
-                            })
-                        }),
-                    onRowDelete: (member) =>
-                        new Promise((resolve) => {
-                            axiosWithAuth().delete(`/api/guests/family/${member.fam_id}/${member.guest_id}`).then(res => {
-                                resolve()
-                                setState((prevState) => {
-                                    const data = [...prevState.data];
-                                    data.splice(data.indexOf(member), 1);
-                                    return { ...prevState, data };
-                                });
-                            }).catch(err => {
-                                resolve()
                                 console.log(err)
-                                alert("Unable to delete user, please try again")
+                                resolve()
+                                alert("Unable to add member, please try again")
                             })
                         }),
+                        onRowUpdate: (newMemberData, oldData) =>
+                            new Promise((resolve) => {
+                                axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.guest_id}`, newMemberData).then(res => {
+                                    resolve()
+                                    setState((prevState) => {
+                                        const data = [...prevState.data];
+                                        data[data.indexOf(oldData)] = newMemberData;
+                                        return { ...prevState, data };
+                                    });
+                                }).catch(err => {
+                                    resolve()
+                                    alert("Unable to update user, please try again")
+                                })
+                            }),
+                        onRowDelete: (member) =>
+                            new Promise((resolve) => {
+                                axiosWithAuth().delete(`/api/guests/family/${member.fam_id}/${member.guest_id}`).then(res => {
+                                    resolve()
+                                    setState((prevState) => {
+                                        const data = [...prevState.data];
+                                        data.splice(data.indexOf(member), 1);
+                                        return { ...prevState, data };
+                                    });
+                                }).catch(err => {
+                                    resolve()
+                                    console.log(err)
+                                    alert("Unable to delete user, please try again")
+                                })
+                            }),
 
-                }}
-            />
-            {loading && <ProgressBar />}
+                    }}
+                />
+                {loading && <ProgressBar />}
+            </div>
         </div>
 
     );

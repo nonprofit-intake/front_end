@@ -31,6 +31,8 @@ import { Badge, Button } from '@material-ui/core';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import BarChartIcon from '@material-ui/icons/BarChart';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -142,7 +144,7 @@ export default function MiniDrawer() {
 	};
 
 	const redirectToApps = () => {
-		history.push('/apps');
+		history.push('/');
 	};
 
 	const redirectToPending = () => {
@@ -158,7 +160,7 @@ export default function MiniDrawer() {
 	};
 
 	const redirectToGuests = () => {
-		history.push('/guests');
+		history.push('/data-table');
 	};
 
 	const handleDrawerOpen = () => {
@@ -202,12 +204,17 @@ export default function MiniDrawer() {
 
 					{isLoggedIn ? (
 						<div className="guest-actions">
-						{currentUser.isAuthorized &&
-							<div onClick={clockIn}>
-								<Button className={classes.btn}>Clock {checked ? 'out' : 'in'}</Button>
-								<Switch checked={checked} onChange={handleChange} name="checked" color="secondary" />
-							</div>
-						}
+							{currentUser.isAuthorized && (
+								<div onClick={clockIn}>
+									<Button className={classes.btn}>Clock {checked ? 'out' : 'in'}</Button>
+									<Switch
+										checked={checked}
+										onChange={handleChange}
+										name="checked"
+										color="secondary"
+									/>
+								</div>
+							)}
 						</div>
 					) : (
 						<div className="guest-actions">
@@ -249,12 +256,7 @@ export default function MiniDrawer() {
                                     <ListItemText primary={text} />
                                 </ListItem>
                             ))} */}
-						<ListItem button>
-							<ListItemIcon>
-								<AccountCircleIcon />
-							</ListItemIcon>
-							<ListItemText primary={'View Profile'} />
-						</ListItem>
+
 						<ListItem button onClick={handleLogout}>
 							<ListItemIcon>
 								<ExitToAppIcon />
@@ -264,13 +266,22 @@ export default function MiniDrawer() {
 					</List>
 					<Divider />
 
-					{[ 'staff', 'admin' ].includes(currentUser.role) && currentUser.isAuthorized ? (
+					{[ 'admin' ].includes(currentUser.role) && (
+						<ListItem button onClick={() => history.push('/admin')}>
+							<ListItemIcon>
+								<BarChartIcon />
+							</ListItemIcon>
+							<ListItemText primary={'Analytics'} />
+						</ListItem>
+					)}
+
+					{[ 'staff', 'admin' ].includes(currentUser.role) ? (
 						<List>
-							<ListItem button onClick={redirectToApps}>
+							<ListItem button onClick={() => history.push('/register-family')}>
 								<ListItemIcon>
-									<AppsIcon />
+									<ImportContactsIcon />
 								</ListItemIcon>
-								<ListItemText primary={'Guests'} />
+								<ListItemText primary={'Register Family'} />
 							</ListItem>
 							<ListItem button onClick={redirectToGuests}>
 								<ListItemIcon>
@@ -282,19 +293,22 @@ export default function MiniDrawer() {
 					) : (
 						''
 					)}
+
 					{[ 'admin' ].includes(currentUser.role) && (
-						<ListItem button onClick={redirectToPending}>
-							<ListItemIcon>
-								{unAuthorizedUsers.length > 0 ? (
-									<Badge badgeContent={unAuthorizedUsers.length} color="secondary">
-										<MailIcon color="primary" />
-									</Badge>
-								) : (
-									<MailIcon color={unAuthorizedUsers.length > 0 ? 'primary' : ''} />
-								)}
-							</ListItemIcon>
-							<ListItemText primary={'Pending'} />
-						</ListItem>
+						<div>
+							<ListItem button onClick={redirectToPending}>
+								<ListItemIcon>
+									{unAuthorizedUsers.length > 0 ? (
+										<Badge badgeContent={unAuthorizedUsers.length} color="secondary">
+											<MailIcon color="primary" />
+										</Badge>
+									) : (
+										<MailIcon color={unAuthorizedUsers.length > 0 ? 'primary' : ''} />
+									)}
+								</ListItemIcon>
+								<ListItemText primary={'Pending'} />
+							</ListItem>
+						</div>
 					)}
 				</Drawer>
 			) : (

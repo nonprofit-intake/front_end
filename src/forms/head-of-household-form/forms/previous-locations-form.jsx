@@ -132,7 +132,7 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 						required
 					/>
 				</div>
-	
+
 				<div className="third-form-questions">
 					<FormLabel component="legend">How long did you stay at this location?</FormLabel>
 					<TextField
@@ -182,23 +182,6 @@ const PreviousLocationsForm = ({ setFormValues, formValues, handleChange }) => {
 						name="total_months_homeless"
 						required
 					/>
-				</div>
-				<div className="third-form-questions">
-					<FormLabel component="legend">Have you used our shelter before? If yes, when</FormLabel>
-					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<KeyboardDatePicker
-							name="date_of_first_stay"
-							format="MM/dd/yyyy"
-							margin="normal"
-							id="time-picker"
-							label="mm/dd/yyyy"
-							value={formValues.date_of_first_stay}
-							onChange={handleDateOfFirstStayChange}
-							KeyboardButtonProps={{
-								'aria-label': 'change time'
-							}}
-						/>
-					</MuiPickersUtilsProvider>
 				</div>
 
 				<FormControl component="fieldset">

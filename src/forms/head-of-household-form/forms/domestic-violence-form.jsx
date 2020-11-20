@@ -46,42 +46,42 @@ const DomesticViolenceForm = ({ incrementStep, setFormValues, formValues, handle
 	return (
 		<form className="multi-form-container">
 			<div className="text-fields-container-multiform">
-				<div>
-					<FormLabel component="legend">
-						Are you <strong>Pregnant</strong>?
-					</FormLabel>
-					<RadioGroup
-						aria-label="gender"
-						name="is_pregnant"
-						value={formValues.is_pregnant}
-						onChange={handleChange}
-					>
-						<FormControlLabel value="yes" control={<Radio />} label="Yes" />
-						<FormControlLabel value="no" control={<Radio />} label="No" />
-						<FormControlLabel value="unsure" control={<Radio />} label="Unsure" />
-						<FormControlLabel value="client Refused" control={<Radio />} label="Client Refused" />
-					</RadioGroup>
-				</div>
-				{formValues.is_pregnant == 'yes' && (
-					<div className="third-form-question">
-						<FormLabel component="legend">Pregnancy Due Date</FormLabel>
-						<MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<KeyboardDatePicker
-								name="pregnancy_due_date"
-								format="MM/dd/yyyy"
-								margin="normal"
-								id="time-picker"
-								label="mm/dd/yyyy"
-								value={formValues.pregnancy_due_date}
-								onChange={handlePregnancyDateChage}
-								KeyboardButtonProps={{
-									'aria-label': 'change time'
-								}}
-							/>
-						</MuiPickersUtilsProvider>
-					</div>
-				)}
-				<hr />
+				<TextField
+					value={formValues.personal_phone}
+					onChange={handleChange}
+					type="text"
+					label="Personal phone number"
+					name="preferred_language"
+					required
+				/>
+
+				<TextField
+					value={formValues.work_phone}
+					onChange={handleChange}
+					type="text"
+					label="Work phone number"
+					name="preferred_language"
+					required
+				/>
+
+				<TextField
+					value={formValues.emergency_contact_name}
+					onChange={handleChange}
+					type="text"
+					label="Emergency Contact Name"
+					name="preferred_language"
+					required
+				/>
+
+				<TextField
+					value={formValues.emergency_contact_number}
+					onChange={handleChange}
+					type="text"
+					label="Emergency Contact Number"
+					name="preferred_language"
+					required
+				/>
+
 				<div>
 					<FormLabel component="legend">
 						Are you <strong>Currently</strong> fleeing a DV situation?

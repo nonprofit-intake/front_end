@@ -20,7 +20,7 @@ var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
 var randomCard = faker.helpers.createCard(); // random contact card containing many properties
 
 const FamilyAccountForm = ({
-	setFamId,
+	setUserId,
 	setRegisteredAccount,
 	incrementStep,
 	setFormValues,
@@ -62,17 +62,16 @@ const FamilyAccountForm = ({
 			first_name: formValues.first_name,
 			last_name: formValues.last_name,
 			email: formValues.email,
-			pin: formValues.last_4_digits_of_ssn,
-			role: 'guest'
+			pin: formValues.pin
 		};
 
 		user.password = generatePassword(user);
 
 		axiosWithAuth()
-			.post('/api/auth/staff/register', user)
+			.post('/api/v1/auth/staff/register', user)
 			.then((res) => {
-				console.log(res.data.payload.user);
-				setFamId(res.data.payload.user.unique_id);
+				
+				setUserId(res.data.payload.user.id);
 				setRegisteredAccount(true);
 			})
 			.catch((err) => {
@@ -141,12 +140,12 @@ const FamilyAccountForm = ({
 						required
 					/>
 					<TextField
-						value={formValues.last_4_digits_of_ssn}
+						value={formValues.pin}
 						onChange={handleChange}
 						color="primary"
 						type="text"
 						label="Last 4 digits of SSN or PIN"
-						name="last_4_digits_of_ssn"
+						name="pin"
 						required
 					/>
 					<div className="submit-btn">

@@ -2,36 +2,14 @@ import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import { fetchCurrentUser } from '../../api/fetchCurrentUser'
 
 export const setDashboardData = () => async (dispatch) => {
-    let total_guests = 0
-    let total_clocked_in = 0
-    let total_staying_the_night = 0
-    let staff = []
 
-        axiosWithAuth().get('/api/guests').then(res => {
-            total_guests = res.data.results
-            return axiosWithAuth().get('/api/users',{params: {role: ['staff', 'admin']}})
-        }).then(res => {
-            staff = res.data.payload.users
-            
-            return axiosWithAuth().get('/api/users', {params: {role: ['staff', 'admin'], clocked_in: true}})
-
-        }).then(res => {
-            total_clocked_in = res.data.results
-
-            return axiosWithAuth().get('/api/users', {params: {role: 'guest', clocked_in:true}})
-        }).then(res => {
-            total_staying_the_night = res.data.results
-            dispatch({type: 'SET_DASHBOARD_DATA', payload: {total_guests,total_clocked_in,staff,total_staying_the_night}})
-        }).catch(err => {
-            alert('unable to retrieve data for the dashboard')
-        })
 }
 
 
 export const login = (user, history) => async (dispatch) => {
     dispatch({ type: "IS_LOADING" })
     try {
-        const res = await axiosWithAuth().post('/api/auth/login', user)
+        const res = await axiosWithAuth().post('/api/v1/auth/login', user)
 
         const { token } = res.data
         const { user: currentUser } = res.data.payload
