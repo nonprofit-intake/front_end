@@ -41,7 +41,7 @@ export const register = (user, history) => async (dispatch) => {
     dispatch({ type: "IS_LOADING" })
 
     try {
-        let res = await axiosWithAuth().post('/api/auth/register', user)
+        let res = await axiosWithAuth().post('/api/v1/auth/register', user)
         let token = res.data.token
 
         localStorage.setItem('token', token)

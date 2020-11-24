@@ -30,7 +30,11 @@ const CrossRoad = () => {
 		case 'staff':
 			return <Redirect to="/data-table" />;
 		default:
-			return <h1>Contact an admin to become authorized</h1>
+			return (
+				<div style={{width: '100%', textAlign: 'center', marginTop: '8rem'}}>
+					<h1>Please contact an admin to become authorized</h1>
+				</div>
+			);
 	}
 };
 

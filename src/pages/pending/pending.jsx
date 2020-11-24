@@ -58,7 +58,7 @@ const Pending = () => {
 
 	if (unAuthorizedUsers.length === 0) {
 		return (
-			<div className="container">
+			<div className="list-container" style={{textAlign: 'center'}}>
 				<h1>You do not have any pending staff members</h1>
 			</div>
 		);

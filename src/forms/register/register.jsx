@@ -94,7 +94,6 @@ const Register = () => {
 
 		formSchema.isValid(formValues).then((valid) => {
 			if (valid) {
-				console.log(user);
 				dispatch(register(user, history));
 			} else if (!valid) {
 				console.log('Not valid');
@@ -107,7 +106,7 @@ const Register = () => {
 		<div>
 			<form className="form-container" onSubmit={registerUser}>
 				<div className="text-field-containers">
-					<div className="name-container">
+					<div className="name-container" style={{display: 'flex', gridGap: '1rem'}}>
 						<TextField
 							value={formValues.first_name}
 							onChange={handleChange}

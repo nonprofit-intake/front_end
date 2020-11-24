@@ -9,6 +9,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip'
 import InfoIcon from '@material-ui/icons/Info';
 import './family-members.scss'
+import { Button } from '@material-ui/core';
 
 export default function MaterialTableDemo() {
     const history = useHistory()
@@ -16,27 +17,27 @@ export default function MaterialTableDemo() {
     const [loading, setLoading] = useState(true)
     const [state, setState] = React.useState({
         columns: [
-            { title: 'Relationship', field: 'relationship_to_HoH' },
-            { title: 'First Name', field: 'first_name', type: "hidden" },
-            { title: 'Last Name', field: 'last_name' },
-            { title: 'Birth Date', field: 'dob', type: 'date' },
-            { title: 'Email', field: 'email' },
-            { title: 'SSN', field: 'ssn' },
-            { title: 'Exit Destination', field: 'exit_destination' },
+            { title: 'Relationship', field: 'relationship_to_HoH'},
+            { title: 'First', field: 'first_name', type: "hidden" },
+            { title: 'Last ', field: 'last_name' },
+            { title: 'DOB', field: 'dob', type: 'date' },
+            { title: '4-SSN', field: 'last_4_digits_of_ssn' },
             { title: 'Race', field: 'race' },
             { title: 'Ethnicity', field: 'ethnicity' },
             { title: 'Gender', field: 'gender' },
-            { title: 'Project Name', field: 'project_name' },
-            { title: 'Enroll Date', field: 'enroll_date', type: "date" },
-            { title: 'Exit Date', field: 'exit_date', type: 'date' },
+            { title: 'in school', field: 'in_school' },
+            { title: 'connected to MVento', field: 'connected_to_MVento' },
+            { title: 'last grade completed', field: 'last_grade_completed' },
+            { title: 'School Status', field: 'school_status' },
+            { title: 'alcohol abuse', field: 'alcohol_abuse' },
+            { title: 'chronic health', field: 'chronic_health_condition' },
+            { title: 'developmental disability', field: 'developmental_disability' },
+            { title: 'substance abuse', field: 'substance_abuse' },
+            { title: 'HIV/AIDS', field: 'HIV_AIDS' },
+            { title: 'mental illness', field: 'mental_health_problem' },
+            { title: 'Physical Disability', field: 'physical_disability' },
+            { title: 'is pregnant', field: 'is_pregnant' },
             { title: 'Pregnancy Due Date', field: 'pregnancy_due_date', type: 'date' },
-            { title: 'When DV Occured', field: 'when_dv_occured', type: 'date' },
-            { title: 'Income at entry', field: 'income_at_entry', type: "currency" },
-            { title: 'Income at exit', field: 'income_at_exit', type: "currency" },
-            { title: 'Domestic Violence', field: 'domestic_violence', type: "boolean" },
-            { title: 'Currently Fleeing', field: 'currently_fleeing', type: "boolean" },
-            { title: 'in school', field: 'is_school', type: "boolean" },
-            { title: 'Connected to MVento', field: 'connected_to_MVento', type: "boolean" }
         ],
         data: [],
     });
@@ -45,22 +46,26 @@ export default function MaterialTableDemo() {
         history.push(`/guests/family/add/${params.fam_id}`)
     }
 
-    useEffect(() => {
+
+    const fetchFamilyMembers = async () => {
         setLoading(true)
-        axiosWithAuth().get(`/api/v1/families/${params.id}/members`).then(res => {
+        try {            
+            let res = await axiosWithAuth().get(`/api/v1/families/${params.id}/members`)
             const { members } = res.data.payload
-            setState({
+  
+             setState({
                 ...state,
                 data: members
             })
-            setLoading(false)
-
-
-        }).catch(err => {
+        } catch (error) {
             alert('error')
-            console.log(err)
+        } finally {
             setLoading(false)
-        })
+        }
+    }
+
+    useEffect(() => {
+       fetchFamilyMembers()
     }, [])
 
     if (loading) {
@@ -77,84 +82,76 @@ export default function MaterialTableDemo() {
     return (
         <div className='outer-container'>
             <div className='table-container'>
-                <MaterialTable
-                    icons={tableIcons}
-                    title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
-                    columns={state.columns}
-                    data={state.data}
-                    actions={[
-                        {
-                            icon: InfoIcon,
-                            tooltip: 'More Info',
-                            onClick: (event, rowData) => {
-                                // Do save operation
-                                history.push(`/guests/${rowData.guest_id}`)
-                            }
-                        },
-                    ]}
-                    // components={
-                    //     {
-                    //         Toolbar: props => (
-                    //             <div>
-                    //                 <MTableToolbar {...props} />
-                    //                 <div style={{ padding: '0px 10px' }} className='chip'>
-                    //                     <Chip onClick={handleRedirect} label="Add New Member" color="primary" style={{ marginRight: 5 , cursor: 'pointer'}} />
-                    //                 </div>
-                    //             </div>
-                    //         )
-                    //     }
-                    // }
+                
+                    <MaterialTable
+                        icons={tableIcons}
+                        title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
+                        columns={state.columns}
+                        data={state.data}
+                
+                        // components={
+                        //     {
+                        //         Toolbar: props => (
+                        //             <div>
+                        //                 <MTableToolbar {...props} />
+                        //                 <div style={{ padding: '0px 10px' }} className='chip'>
+                        //                     <Chip onClick={handleRedirect} label="Add New Member" color="primary" style={{ marginRight: 5 , cursor: 'pointer'}} />
+                        //                 </div>
+                        //             </div>
+                        //         )
+                        //     }
+                        // }
 
-                    editable={{
-                        onRowAdd: (member) =>
-                        new Promise((resolve) => {
-                            axiosWithAuth().post(`/api/v1/families/${params.id}/members`, member).then(res => {
-                                resolve()
-                                setState((prevState) => {
-                                    const newState = {...prevState}
-                                    newState.data.push(res.data.payload.member)
-                                    console.log(newState)
-                                    return newState
-                                });
-                            }).catch(err => {
-                                console.log(err)
-                                resolve()
-                                alert("Unable to add member, please try again")
-                            })
-                        }),
-                        onRowUpdate: (newMemberData, oldData) =>
+                        editable={{
+                            onRowAdd: (member) =>
                             new Promise((resolve) => {
-                                axiosWithAuth().patch(`/api/guests/family/${oldData.fam_id}/${oldData.guest_id}`, newMemberData).then(res => {
-                                    resolve()
-                                    setState((prevState) => {
-                                        const data = [...prevState.data];
-                                        data[data.indexOf(oldData)] = newMemberData;
-                                        return { ...prevState, data };
-                                    });
-                                }).catch(err => {
-                                    resolve()
-                                    alert("Unable to update user, please try again")
-                                })
-                            }),
-                        onRowDelete: (member) =>
-                            new Promise((resolve) => {
-                                axiosWithAuth().delete(`/api/guests/family/${member.fam_id}/${member.guest_id}`).then(res => {
-                                    resolve()
-                                    setState((prevState) => {
-                                        const data = [...prevState.data];
-                                        data.splice(data.indexOf(member), 1);
-                                        return { ...prevState, data };
-                                    });
-                                }).catch(err => {
-                                    resolve()
-                                    console.log(err)
-                                    alert("Unable to delete user, please try again")
-                                })
+                                    axiosWithAuth()
+                                        .post(`/api/v1/families/${params.id}/members`, member).then(res => {
+                                        setState((prevState) => {
+                                            const data = [...prevState.data];
+                                            member.id = res.data.payload.member.id
+                                            data.push(member);
+                                            return { ...prevState, data };
+                                        });
+
+                                    }).catch(err => {
+                                        alert("Unable to add member, please try again")
+                                    }).finally(() => {
+                                        resolve()
+                                    })
                             }),
 
-                    }}
-                />
-                {loading && <ProgressBar />}
+                            onRowUpdate: (newMemberData, oldData) =>
+                                new Promise((resolve) => {
+                                    axiosWithAuth().patch(`/api/v1/guests/${oldData.id}`, newMemberData).then(res => {
+                                        resolve()
+                                        setState((prevState) => {
+                                            const data = [...prevState.data];
+                                            data[data.indexOf(oldData)] = newMemberData;
+                                            return { ...prevState, data };
+                                        });
+                                    }).catch(err => {
+                                        resolve()
+                                        alert("Unable to update user, please try again")
+                                    })
+                                }),
+                            onRowDelete: (member) =>
+                                new Promise((resolve) => {
+                                    axiosWithAuth().delete(`/api/v1/guests/${member.id}`).then(res => {
+                                        resolve()
+                                        setState((prevState) => {
+                                            const data = [...prevState.data];
+                                            data.splice(data.indexOf(member), 1);
+                                            return { ...prevState, data };
+                                        });
+                                    }).catch(err => {
+                                        resolve()
+                                        alert("Unable to delete user, please try again")
+                                    })
+                                }),
+
+                        }}
+                    />
             </div>
         </div>
 
