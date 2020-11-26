@@ -10,11 +10,17 @@ import PeopleIcon from '@material-ui/icons/People';
 import InfoIcon from '@material-ui/icons/Info';
 import { tableIcons } from '../../utils/material-table-icons';
 import './guests.scss';
+import { styled } from '@material-ui/core';
+import { motion } from 'framer-motion'
+import GuestNotes from '../../components/GuestNotes';
+
 
 export default function MaterialTableDemo() {
+	const [isOpen, setIsOpen] = useState(false)
 	const [ loading, setLoading ] = useState(true);
 	const history = useHistory();
-
+	const [notes, setNotes] = useState([])
+	const [guest, setGuest] = useState({}) 
 	const [state, setState] = React.useState({
         columns: [
             { title: 'Relationship', field: 'relationship_to_HoH'},
@@ -75,6 +81,10 @@ export default function MaterialTableDemo() {
 	return (
 		<div className="outer-container">
 			<div className="table-container">
+				{
+					isOpen && <GuestNotes guest={guest} setIsOpen={setIsOpen}></GuestNotes>
+				}
+
 				<MaterialTable
 					icons={tableIcons}
 					title="Guests"
@@ -94,9 +104,13 @@ export default function MaterialTableDemo() {
 							tooltip: 'Notes',
 							onClick: (event, rowData) => {
 								// Do save operation
+								setIsOpen(true)
+								setGuest(rowData)
 							}
 						}
 					]}
+
+					
 					editable={{
 						// onRowRedirect: (newData) =>
 						//     new Promise((resolve) => {
@@ -144,3 +158,14 @@ export default function MaterialTableDemo() {
 		</div>
 	);
 }
+
+
+const CardShadow = styled(motion.div)`
+	width: 100%;
+	min-height: 100vh;
+	overflow-y: scroll;
+	background: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+`
