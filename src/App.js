@@ -28,8 +28,6 @@ import UserDashboard from './pages/dashboards/user-dashboard/user-dashboard'
 const HeadOfHouseholdForm = React.lazy(() => import('./forms/head-of-household-form/head-of-household-form'))
 // import HeadOfHouseholdForm from './forms/head-of-household-form/head-of-household-form';
 
-const FamilyMemberForm = React.lazy(() => import('./forms/family-member-form/family-member-form'))
-
 const FamilyMembers = React.lazy(() => import('./pages/family-members/family-members'))
 
 

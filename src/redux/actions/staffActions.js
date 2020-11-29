@@ -38,7 +38,7 @@ export const registerUser = (user, history, incrementStep) => async dispatch => 
 
 export const setUnauthorizedUsers = (history) => async dispatch => {
     try {
-        let res = await axiosWithAuth().get('/api/users', { params: { isAuthorized: false, role: 'staff' } }).then(res => res.data)
+        let res = await axiosWithAuth().get('/api/v1/users', { params: { role: 'pending' } }).then(res => res.data)
         const { users } = res.payload
         dispatch({ type: "SET_UNAUTHORIZED_USERS", payload: users })
 
@@ -61,14 +61,10 @@ export const setUnauthorizedUsers = (history) => async dispatch => {
 
 export const declineUser = (id, history) => async dispatch => {
     dispatch({ type: "IS_LOADING" })
-    alert('from action id')
     try {
-        console.log('declined from action')
-        await axiosWithAuth().delete(`/api/users/${id}`)
+        await axiosWithAuth().delete(`/api/v1/users/${id}`)
         dispatch({ type: "DECLINE_USER", payload: { id } })
-
     } catch (error) {
-        alert('from action failure')
         let message
         if (error.message && error.message == 'Network Error') {
             history.push('/error-page')
@@ -87,10 +83,9 @@ export const declineUser = (id, history) => async dispatch => {
 
 export const acceptUser = (id, history) => async dispatch => {
 
-
     dispatch({ type: "IS_LOADING" })
     try {
-        await axiosWithAuth().patch(`/api/users/${id}`, { isAuthorized: true })
+        await axiosWithAuth().patch(`/api/v1/users/${id}`, { role: 'staff' })
         dispatch({ type: "ACCEPT_USER", payload: { id } })
     } catch (error) {
         alert('error accepting user')

@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 const Pending = () => {
 	const history = useHistory();
 	const unAuthorizedUsers = useSelector((state) => state.unAuthorizedUsers);
-
 	const isLoading = useSelector((state) => state.isLoading);
 	const classes = useStyles();
 	const [ users, setUsers ] = useState([]);
@@ -52,7 +51,6 @@ const Pending = () => {
 	};
 
 	const declineStaffMember = (id, history) => {
-        alert(id)
 		dispatch(declineUser(id, history));
 	};
 

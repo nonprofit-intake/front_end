@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import ProgressBar from '../../components/progress-bar/progress-bar';
 import { registerUser } from '../../redux/actions/staffActions';
 import MultiStepForm from './forms/index';
-import Stepper from '../family-member-form/stepper/stepper';
+import Stepper from './stepper';
 import Loading from '../../components/loading/loading';
 import faker from 'faker';
 import './register-user.scss';

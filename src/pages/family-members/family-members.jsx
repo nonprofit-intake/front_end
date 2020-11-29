@@ -10,8 +10,11 @@ import Chip from '@material-ui/core/Chip'
 import InfoIcon from '@material-ui/icons/Info';
 import './family-members.scss'
 import { Button } from '@material-ui/core';
+import FamilyInfo from '../../components/family-info-modal/family-info';
 
 export default function MaterialTableDemo() {
+    const [familyInfo, setFamilyInfo] = useState({})
+    const [infoOpen, setInfo0pen] = useState(false)
     const history = useHistory()
     const params = useParams()
     const [loading, setLoading] = useState(true)
@@ -52,21 +55,31 @@ export default function MaterialTableDemo() {
         try {            
             let res = await axiosWithAuth().get(`/api/v1/families/${params.id}/members`)
             const { members } = res.data.payload
-  
+            res = await axiosWithAuth().get(`/api/v1/families/${params.id}`)
+
+            setFamilyInfo(res.data.payload.family)
+
              setState({
                 ...state,
                 data: members
             })
         } catch (error) {
             alert('error')
+            alert('error')
         } finally {
             setLoading(false)
         }
     }
 
+
     useEffect(() => {
        fetchFamilyMembers()
     }, [])
+
+
+    useEffect(() => {
+        console.log(familyInfo)
+    }, [familyInfo])
 
     if (loading) {
         return (
@@ -82,25 +95,24 @@ export default function MaterialTableDemo() {
     return (
         <div className='outer-container'>
             <div className='table-container'>
-                
+                    {infoOpen && <FamilyInfo family={familyInfo} setInfoOpen={setInfo0pen}></FamilyInfo>}
                     <MaterialTable
                         icons={tableIcons}
                         title={`Dependents of ${state.data[0]?.first_name || ''} ${state.data[0]?.last_name || ''}`}
                         columns={state.columns}
                         data={state.data}
-                
-                        // components={
-                        //     {
-                        //         Toolbar: props => (
-                        //             <div>
-                        //                 <MTableToolbar {...props} />
-                        //                 <div style={{ padding: '0px 10px' }} className='chip'>
-                        //                     <Chip onClick={handleRedirect} label="Add New Member" color="primary" style={{ marginRight: 5 , cursor: 'pointer'}} />
-                        //                 </div>
-                        //             </div>
-                        //         )
-                        //     }
-                        // }
+                        components={
+                            {
+                                Toolbar: props => (
+                                    <div>
+                                        <MTableToolbar {...props} />
+                                        <div style={{ padding: '0px 10px' }} className='chip'>
+                                            <Button onClick={() => setInfo0pen(true)}>Family Info</Button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        }
 
                         editable={{
                             onRowAdd: (member) =>
