@@ -1,0 +1,21 @@
+#family-modal-navbar{
+    li {
+        list-style: none;
+        cursor: pointer;
+        color: rgb(0, 153, 255);
+    }
+    padding: 1.5rem;
+    width: 60%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.content-container{
+    overflow: scroll;
+    height: 50vh;
+}
+
+.content{
+    margin-left: 2rem;
+}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import './login.styles.scss';
 import { login as loginUser, clearErrors } from '../../redux/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';

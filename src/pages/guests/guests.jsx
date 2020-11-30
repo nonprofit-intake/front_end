@@ -9,7 +9,6 @@ import NoteIcon from '@material-ui/icons/Note';
 import PeopleIcon from '@material-ui/icons/People';
 import InfoIcon from '@material-ui/icons/Info';
 import { tableIcons } from '../../utils/material-table-icons';
-import './guests.scss';
 import { styled } from '@material-ui/core';
 import { motion } from 'framer-motion'
 import GuestNotes from '../../components/GuestNotes';

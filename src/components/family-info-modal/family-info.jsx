@@ -8,7 +8,6 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
 import { Skeleton } from "@material-ui/lab";
-import "../guest-notes.scss";
 import Button from "@material-ui/core/Button";
 
 const FamilyInfo = ({ family, setInfoOpen }) => {

@@ -4,6 +4,9 @@ import { Route, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 // Navigation
 
+import './styles/app.scss'
+
+
 import Drawer from './components/drawer/drawer'
 
 // Auth
@@ -25,7 +28,7 @@ import Pending from './pages/pending/pending' // Renders a list of pending staff
 import AdminDashboard from './pages/dashboards/admin-dashboard/admin-dashboard'
 import UserDashboard from './pages/dashboards/user-dashboard/user-dashboard'
 
-const HeadOfHouseholdForm = React.lazy(() => import('./forms/head-of-household-form/head-of-household-form'))
+const IntakePacket = React.lazy(() => import('./forms/intake-packet/intake-packet'))
 // import HeadOfHouseholdForm from './forms/head-of-household-form/head-of-household-form';
 
 const FamilyMembers = React.lazy(() => import('./pages/family-members/family-members'))
@@ -50,10 +53,9 @@ function App() {
       <PrivateRoute path="/guest" component={UserDashboard}></PrivateRoute>
       <PrivateRoute exact path="/admin" component={AdminDashboard}></PrivateRoute>
       <PrivateRoute exact path="/pending" component={Pending}></PrivateRoute>
-      <PrivateRoute path="/register-family" component={HeadOfHouseholdForm}></PrivateRoute>
+      <PrivateRoute path="/register-family" component={IntakePacket}></PrivateRoute>
       <PrivateRoute path="/data-table" component={Guests}></PrivateRoute>
       <PrivateRoute path="/family/:id/members" component={FamilyMembers}></PrivateRoute>
-
       <Route path='/login' component={Login}></Route>
       <Route path='/register' component={Register}></Route>
       <Route path='/error-page' component={ErrorPage}></Route>

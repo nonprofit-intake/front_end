@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import {motion} from 'framer-motion'
 import TextField from '@material-ui/core/TextField'
-import './guest-notes.scss'
 import { axiosWithAuth } from '../utils/auth/axiosWithAuth'
 import TransitEnterexitIcon from '@material-ui/icons/TransitEnterexit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';

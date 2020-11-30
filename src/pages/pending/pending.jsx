@@ -12,10 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
 import { declineUser, acceptUser } from '../../redux/actions/staffActions';
 import ProgressBar from '../../components/progress-bar/progress-bar';
-import './pending.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 

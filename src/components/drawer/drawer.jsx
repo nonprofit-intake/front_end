@@ -26,7 +26,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import HouseIcon from '@material-ui/icons/House';
 import AppsIcon from '@material-ui/icons/Apps';
-import './drawer.scss';
 import { Badge, Button } from '@material-ui/core';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

@@ -8,7 +8,6 @@ import { axiosWithAuth } from '../../utils/auth/axiosWithAuth'
 import { useHistory, useParams } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip'
 import InfoIcon from '@material-ui/icons/Info';
-import './family-members.scss'
 import { Button } from '@material-ui/core';
 import FamilyInfo from '../../components/family-info-modal/family-info';
 

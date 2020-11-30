@@ -9,7 +9,6 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
-import './forms.scss';
 const BasicInformationForm = ({ setFormValues, formValues, handleChange }) => {
 	const [ selectedDate, setSelectedDate ] = React.useState(new Date());
 

@@ -9,7 +9,6 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import { clearErrors } from '../../../redux/actions/actions';
 import Loading from '../../../components/loading/loading';
-import './forms.scss';
 import { axiosWithAuth } from '../../../utils/auth/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';

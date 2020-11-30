@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { TextField, Button } from '@material-ui/core';
-import './register.styles.scss';
 import * as Yup from 'yup';
-import './register.styles.scss';
 import { register } from '../../redux/actions/actions';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

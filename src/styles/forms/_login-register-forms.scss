@@ -7,8 +7,8 @@
 
 .text-field-containers{
     display: grid;
-    grid-gap: 4rem;
-    width: 70%;
+    grid-gap: 2.5rem;
+    width: 30%;
 }
 
 #submit-btn{
@@ -26,4 +26,25 @@
 
 .error-msg{
     color: purple;
+}
+
+.form-container {
+    margin-top: 9rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#submit-btn {
+	border: 1px solid #472d5b;
+	color: #472d5b;
+	&:hover {
+		background-color: #472d5b36;
+	}
+}
+
+.register-btn {
+	display: grid;
+	grid-gap: 0.7rem;
+	color: purple;
 }

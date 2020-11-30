@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './admin-dashboard.scss';
 import {setUnauthorizedUsers} from '../../../redux/actions/staffActions'
 import {useDispatch} from 'react-redux'
 

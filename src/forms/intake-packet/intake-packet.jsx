@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import './register-user.scss';
 import { clearErrors } from '../../redux/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -10,7 +9,6 @@ import MultiStepForm from './forms/index';
 import Stepper from './stepper';
 import Loading from '../../components/loading/loading';
 import faker from 'faker';
-import './register-user.scss';
 import { axiosWithAuth } from '../../utils/auth/axiosWithAuth';
 import FamilyAccountForm from './forms/family-account-form';
 import { returnFamilyValues, returnGuestValues } from '../../utils/helpers/parseFormValues';
@@ -116,7 +114,7 @@ const steps = [
 	'Sign and Submit'
 ];
 
-const HeadOfHouseholdForm = () => {
+const IntakePacket = () => {
 	const dispatch = useDispatch();
 	const [ userId, setUserId ] = useState(null);
 	const history = useHistory();
@@ -225,7 +223,7 @@ const HeadOfHouseholdForm = () => {
 	);
 };
 
-export default HeadOfHouseholdForm;
+export default IntakePacket;
 
 // const handleChange = (e) => {
 //     const { name, value } = e.target
